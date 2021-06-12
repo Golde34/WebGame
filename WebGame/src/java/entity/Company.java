@@ -5,10 +5,102 @@
  */
 package entity;
 
+import java.sql.Date;
+
 /**
  *
- * @author Admin
+ * @author Duong
  */
 public class Company {
+    private int coId;
+    private String coName;
+    private Date foundDate;
+    private String coAddress;
+    private String coPhone;
+    private String coMail;
+    private int status;
+
+    public Company() {
+    }
+
+    public Company(int coId, String coName, Date foundDate, String coAddress, String coPhone, String coMail, int status) {
+        this.coId = coId;
+        this.coName = coName;
+        this.foundDate = foundDate;
+        this.coAddress = coAddress;
+        this.coPhone = coPhone;
+        this.coMail = coMail;
+        this.status = status;
+    }
+
+    public Company(int coId, String coName, Date foundDate, String coAddress, String coPhone, String coMail) {
+        this.coId = coId;
+        this.coName = coName;
+        this.foundDate = foundDate;
+        this.coAddress = coAddress;
+        this.coPhone = coPhone;
+        this.coMail = coMail;
+    }
+
+    public int getCoId() {
+        return coId;
+    }
+
+    public void setCoId(int coId) {
+        this.coId = coId;
+    }
+
+    public String getCoName() {
+        return coName;
+    }
+
+    public void setCoName(String coName) {
+        this.coName = coName;
+    }
+
+    public Date getFoundDate() {
+        return foundDate;
+    }
+
+    public void setFoundDate(Date foundDate) {
+        this.foundDate = foundDate;
+    }
+
+    public String getCoAddress() {
+        return coAddress;
+    }
+
+    public void setCoAddress(String coAddress) {
+        this.coAddress = coAddress;
+    }
+
+    public String getCoPhone() {
+        return coPhone;
+    }
+
+    public void setCoPhone(String coPhone) {
+        this.coPhone = coPhone;
+    }
+
+    public String getCoMail() {
+        return coMail;
+    }
+
+    public void setCoMail(String coMail) {
+        this.coMail = coMail;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" + "coId=" + coId + ", coName=" + coName + ", foundDate=" + foundDate + ", coAddress=" + coAddress + ", coPhone=" + coPhone + ", coMail=" + coMail + ", status=" + status + '}';
+    }
     
 }
