@@ -62,7 +62,7 @@ public class DAOCategory {
     }
 
     public ArrayList<Category> getAllCategorys() {
-        sql = "select * from Category where status = 1";
+        sql = "select * from Category";
         ArrayList<Category> list = new ArrayList<>();
         Category x = null;
         int caId;
