@@ -142,7 +142,7 @@
                                 <p><%= game.getTitle()%></p>
                                 <div class="overlay">
                                     <div class="content">
-                                        <a href="">Read More</a>
+                                        <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">Read More</a>
                                     </div>
                                 </div>
                             </div>   
