@@ -2,6 +2,7 @@
     Document   : menu
     Created on : Jun 16, 2021, 8:38:24 AM
     Author     : dumyd
+    WebGame nay duoc xay dung va len y tuong boi Viet Nguyen Dong Duc
 --%>
 
 <%@page import="entity.Galery"%>
