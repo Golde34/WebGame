@@ -4,6 +4,7 @@
     Author     : dumyd
 --%>
 
+<%@page import="entity.User"%>
 <%@page import="entity.Galery"%>
 <%@page import="model.DAOGalery"%>
 <%@page import="model.DBConnection"%>
@@ -29,6 +30,10 @@
         <script src="js/Jquery.js"></script>
         <link rel="stylesheet" href="details.css">
         <link rel="stylesheet" href="css/slick.css">
+        <style>.neondu{
+                color: #fff;
+                text-shadow: 0 0 20px #ff005b;
+            }</style>
     </head>
     <body>
         <jsp:include page="header.jsp"/>     
@@ -67,6 +72,7 @@
                                     <p>Version <%= game.getVersion()%></p>
                                     <p> Release Date <%= game.getReleaseDate()%></p>
                                     <p>Game from:<a href="<%= com.getCoMail()%>"> <%= com.getCoName()%></a></p>
+                                    <p>Same company's game: </p>
                                     <% ArrayList<Game> listGaCo = (ArrayList<Game>) request.getAttribute("listGaCo");
                                         if (listGaCo.isEmpty()) {%> 
                                     <p> </p>
@@ -74,7 +80,7 @@
                                         for (Game games : listGaCo) {
                                             if (games.getGid() != game.getGid()) {
                                     %>
-                                    <p><%= games.getGid()%> <a href="GameControllerMap?service=getGame&gameID=<%=games.getGid()%>"> <%= games.getTitle()%> </a></p>
+                                    <p>+ <a href="GameControllerMap?service=getGame&gameID=<%=games.getGid()%>"> <%= games.getTitle()%> </a></p>
                                     <%   }
                                             }
                                         }%>
@@ -101,7 +107,14 @@
                                     <div class="title">
                                         <p>Price:  <%= game.getPrice()%>$</p>
                                         <p>Status: Available</p>
-                                        <button type="button" class="btn btn-success">Add to Cart</button>
+                                        <% User user = (User) session.getAttribute("currUser"); 
+                                            if(user != null){
+                                        %>
+                                        <a href="#"><button type="button" class="btn btn-success">Add to Cart</button></a>
+                                        <%}else{%>
+                                        
+                                        <a onclick="alert('You have to login to buy this product');"><button type="button" class="btn btn-success">Add to Cart</button></a>
+                                        <%}%>
                                     </div>
                                 </div>
 
