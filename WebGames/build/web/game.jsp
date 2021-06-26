@@ -30,7 +30,7 @@
         <script src="js/Jquery.js"></script>
         <link rel="stylesheet" href="details.css">
         <link rel="stylesheet" href="css/slick.css">
-        <style>.neondu{
+        <style>.neon{
                 color: #fff;
                 text-shadow: 0 0 20px #ff005b;
             }</style>
