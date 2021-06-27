@@ -12,13 +12,15 @@
     DBConnection dbCon = new DBConnection();
     DAOGame gameDAO = new DAOGame(dbCon);
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin Page</title>
-        <link href="admin.css" rel="stylesheet">
-        <script src="admin.js"></script>
+        <link href="${contextPath}/admin/admin.css" rel="stylesheet">
+        <script src="${contextPath}/admin/admin.js"></script>
     </head>
     <body>
         <div class="header">
