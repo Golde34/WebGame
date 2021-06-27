@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.DAOUser;
 import model.DBConnection;
 
@@ -105,30 +106,32 @@ public class UserController extends HttpServlet {
             }
 
             if (service.equalsIgnoreCase("changepass")) {
-                String userName = request.getParameter("username");
-                User log = daoUser.getUserByUsername(userName);
-                if (log == null) {
-                    out.println("Wrong user name or password!");
-                    return;
+                String mess;
+
+                String oldPassword = request.getParameter("oldPassword");
+                String newPassword = request.getParameter("newPassword");
+
+                HttpSession session = request.getSession();
+                User user = (User) session.getAttribute("currUser");
+                String username = user.getUsername();
+                String password = user.getPass();
+
+                if (!password.equals(oldPassword)) {
+                    mess = "Old Password is not correct";
+                    request.setAttribute("mess", mess);
+                    sendDispatcher(request, response, "jsp/changepass.jsp");
+                } else if (newPassword.length() < 6) {
+                    mess = "New Password is too week";
+                    request.setAttribute("mess", mess);
+                    sendDispatcher(request, response, "jsp/changepass.jsp");
+                } else {
+                    daoUser.changePassword(username, newPassword);
+                    mess = "Change password successfully !!";
+                    user = daoUser.getUserByUsername(username);
+                    session.setAttribute("currUser", user);
+                    request.setAttribute("mess", mess);
+                    sendDispatcher(request, response, "jsp/login.jsp");
                 }
-                String newPass = request.getParameter("newuserpassword");
-                String renewPass = request.getParameter("renewuserpassword");
-                if (newPass.trim().length() == 0) {
-                    out.println("New password can't be emty!");
-                    sendDispatcher(request, response, "jsp/changepass.jsp");
-                    return;
-                } else if (renewPass.trim().length() == 0) {
-                    out.println("Please re-enter your new password");
-                    sendDispatcher(request, response, "jsp/changepass.jsp");
-                    return;
-                } else if (!newPass.equals(renewPass)) {
-                    out.println("New password don't match the re-enterd new password!");
-                    sendDispatcher(request, response, "jsp/changepass.jsp");
-                    return;
-                }
-                daoUser.changePassword(log.getUsername(), newPass);
-                out.println("Change password sucessfull!");
-                sendDispatcher(request, response, "jsp/login.jsp");
             }
         }
     }
@@ -150,6 +153,7 @@ public class UserController extends HttpServlet {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

@@ -198,7 +198,7 @@
                     %>
                     <div class="col-md-4 box">
                         <a href="GameControllerMap?service=getGame&gameID=<%=listFreeGame.get(i).getGid()%>">
-                            <img style="width: 20vw; height: 30vh; " 
+                            <img style="width: 95%; height: 30vh; " 
                                  src="<%= gList5.get(0).getLink().trim()%>" alt="<%= gList5.get(0).getLink().trim()%>">
                         </a>
 
@@ -206,7 +206,7 @@
                     </div>
                     <div class="col-md-4 box">
                         <a href="GameControllerMap?service=getGame&gameID=<%=listFreeGame.get(i+1).getGid()%>">
-                            <img style="width: 20vw; height: 30vh; " 
+                            <img style="width: 95%; height: 30vh; " 
                                  src="<%= gList5_2.get(0).getLink().trim()%>" alt="<%= gList5_2.get(0).getLink().trim()%>">
                         </a>
 
@@ -214,7 +214,7 @@
                     </div>
                     <div class="col-md-4 box">
                         <a href="GameControllerMap?service=getGame&gameID=<%=listFreeGame.get(i+2).getGid()%>">
-                            <img style="width: 20vw; height: 30vh; " 
+                            <img style="width: 95%; height: 30vh; " 
                                  src="<%= gList5_3.get(0).getLink().trim()%>" alt="<%= gList5_3.get(0).getLink().trim()%>">
                         </a>
 
@@ -222,7 +222,7 @@
                     </div>
                     <div class="col-md-8 box">
                         <a href="GameControllerMap?service=getGame&gameID=<%=listFreeGame.get(i+3).getGid()%>">
-                            <img style="width: 45vw; height: 70vh; " 
+                            <img style="width: 98%; height: 70vh; " 
                                  src="<%= gList5_4.get(0).getLink().trim()%>" alt="<%= gList5_4.get(0).getLink().trim()%>">
                         </a>
 
@@ -230,7 +230,7 @@
                     </div>
                     <div class="col-md-4 box">
                         <a href="GameControllerMap?service=getGame&gameID=<%=listFreeGame.get(i+4).getGid()%>">
-                            <img style="width: 20vw; height: 30vh; " 
+                            <img style="width: 95%; height: 30vh; " 
                                  src="<%= gList5_5.get(0).getLink().trim()%>" alt="<%= gList5_5.get(0).getLink().trim()%>">
                         </a>
 
@@ -238,7 +238,7 @@
                     </div>
                     <div class="col-md-4 box">
                         <a href="GameControllerMap?service=getGame&gameID=<%=listFreeGame.get(i=5).getGid()%>">
-                            <img style="width: 20vw; height: 30vh; " 
+                            <img style="width: 95%; height: 30vh; " 
                                  src="<%= gList5_6.get(0).getLink().trim()%>" alt="<%= gList5_6.get(0).getLink().trim()%>">
                         </a>
 

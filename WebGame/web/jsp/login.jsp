@@ -44,9 +44,9 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <a href="changepass.jsp"><p class="text-left">Forgot Password</p></a>
-                                <p><%= mess.toString()%></p>
+                                <a href="changepass.jsp"><p class="text-left">Forgot Password</p></a> 
                             </div>
+                            <div class="col-md-6"><p class="text-right"><%= mess.toString()%></p></div>
                         </div>
                         <div class="input-group">
                             <button type="submit" class="btn btn-default">SIGN IN</button>
