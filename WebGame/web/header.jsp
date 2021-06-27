@@ -111,12 +111,17 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="<%=urlLogin%>"><span class="glyphicon glyphicon-log-in"></span><%=loginOrChangePassword%></a></li>
-                        <li><a href="<%=urlRegister%>"><span class="glyphicon glyphicon-log-in"></span><%=registerOrCheckout%></a></li>
-<!--                    If role is admin or owner-->
-                        <%if (user != null && (user.getSystem_role().equalsIgnoreCase("owner")||user.getSystem_role().equalsIgnoreCase("admin"))) {%>
-                        <li><a href="admin/admin_Index.jsp"><span class="glyphicon glyphicon-log-in"></span>   Admin Page</a></li>
-                        <%}%>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
+                                                         data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-th-list"></span> Profile</a>
+                            <div class="dropdown-menu">
+                                <a href="<%=urlLogin%>"><span class="glyphicon glyphicon-log-in"></span><%=loginOrChangePassword%></a>
+        <!--                    If role is admin or owner-->
+                                <%if (user != null && (user.getSystem_role().equalsIgnoreCase("owner")||user.getSystem_role().equalsIgnoreCase("admin"))) {%>
+                                <a href="admin/adminIndex.jsp"><span class="glyphicon glyphicon-log-in"></span>   Admin Page</a>
+                                <%}%>
+                                <a href="<%=urlRegister%>"><span class="glyphicon glyphicon-log-in"></span><%=registerOrCheckout%></a>  
+                        </li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->

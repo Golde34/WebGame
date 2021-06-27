@@ -57,7 +57,7 @@ public class DAOGame {
 
     public int updateInfoGame(Game game) {
         int n = 0;
-        String sql = "update Game set Title=?, coId=?, description=?, version=?, rating=?, releaseDate=?, price=?, state=?, status=? where gId=?";
+        String sql = "update Game set Title=?, coId=?, description=?, version=?, rating=?, releaseDate=?, price=?, state=?, status=? where gId=? ";
         
         try {
             PreparedStatement ps = conn.prepareStatement(sql);

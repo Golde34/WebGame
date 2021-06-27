@@ -5,12 +5,24 @@
  */
 package controller;
 
+import entity.Category;
+import entity.Game;
+import entity.Platform;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.DAOCategory;
+import model.DAOGame;
+import model.DAOGame_Category;
+import model.DAOPlatform;
+import model.DBConnection;
 
 /**
  *
@@ -27,21 +39,61 @@ public class AdminController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    DBConnection dbCon = new DBConnection();
+    DAOGame     daoGame = new DAOGame(dbCon);
+    DAOCategory daoCate = new DAOCategory(dbCon);
+    DAOPlatform daoPlat = new DAOPlatform(dbCon);
+    DAOGame_Category daoGaCa = new DAOGame_Category(dbCon);
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AdminController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AdminController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String service = request.getParameter("service");
+            
+            if (service == null) {
+                service = "HomePage";
+            }
+            //Home.jsp
+            if (service.equalsIgnoreCase("HomePage")) {
+                ArrayList<Game> listGame = daoGame.getAllGame();
+                request.setAttribute("listGame", listGame);
+                ArrayList<Game> listHotGame = daoGame.getGameByRating();
+                request.setAttribute("listHotGame", listHotGame);
+                ArrayList<Game> listNewGame = daoGame.getGamesSort("releaseDate", true);
+                request.setAttribute("listNewGame", listNewGame);
+                ArrayList<Category> listCategory = daoCate.getAllCategorys();
+                request.setAttribute("listCategory", listCategory);
+                ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
+                request.setAttribute("listPlatform", listPlatform);
+                sendDispatcher(request, response, "index.jsp");
+            }
+            
+            if (service.equalsIgnoreCase("logout")){
+                request.getSession().invalidate();
+                sendDispatcher(request, response, "/login.jsp");
+            }
+            
+        }   
+    }
+
+    public void sendDispatcher(HttpServletRequest request, HttpServletResponse response, String path) {
+        try {
+            RequestDispatcher rd = request.getRequestDispatcher(path);
+            rd.forward(request, response);
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public String getPictureName(String path) {
+        for (int i = path.length() - 1; i > 0; i--) {
+            if (path.charAt(i) == '\\') {
+                return path.substring(i + 1);
+            }
+        }
+        return path;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
