@@ -53,6 +53,7 @@
         <%
             User user = (User) session.getAttribute("currUser");
             ArrayList<Game> ShoppingCart = (ArrayList<Game>) session.getAttribute("ShoppingCart");
+            
             int size = 0;
             if(ShoppingCart != null){
                 size = ShoppingCart.size();
@@ -134,11 +135,17 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
+                            <%if(user != null){ %>
                             <a style="text-align: center;" class="glyphicon" href="Cart.jsp">
                                 <i  class="fa fa-shopping-cart"></i>
                                 <div id="qty"> <%=size %> </div>
                             </a>
-
+                            <%} else {%>
+                            <a style="text-align: center;" class="glyphicon" onclick="alert('You have to login first');">
+                                <i  class="fa fa-shopping-cart"></i>
+                                <div id="qty"> <%=size %> </div>
+                            </a>
+                            <%}%>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
