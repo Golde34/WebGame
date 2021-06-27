@@ -6,6 +6,7 @@
 package controller;
 
 import entity.Game;
+import entity.Order;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,6 +19,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.DAOGame;
+import model.DAOLibrary;
+import model.DAOOrder;
 import model.DAOUser;
 import model.DBConnection;
 
@@ -36,6 +40,13 @@ public class UserController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    DBConnection dbCon = new DBConnection();
+    DAOUser daoUser = new DAOUser(dbCon);
+    DAOLibrary daoLib = new DAOLibrary(dbCon);
+    DAOOrder daoOrder = new DAOOrder(dbCon);
+    DAOGame daoGame = new DAOGame(dbCon);
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -132,6 +143,49 @@ public class UserController extends HttpServlet {
                     request.setAttribute("mess", mess);
                     sendDispatcher(request, response, "jsp/login.jsp");
                 }
+            }
+            
+            if (service.equalsIgnoreCase("info")) {
+                User x = (User) request.getSession().getAttribute("currUser");
+                request.setAttribute("currUser", x);
+                
+                ArrayList<Game> listGame = daoGame.getGameByUIdFromLibrary(x.getuId());
+                request.setAttribute("listGame", listGame);
+                ArrayList<Order> listOrder = daoOrder.getOrders(x.getuId());
+                request.setAttribute("listOrder", listOrder);              
+                
+                sendDispatcher(request, response, "profile.jsp");
+            }
+            
+            if (service.equalsIgnoreCase("topup")) {
+                User x = (User) request.getSession().getAttribute("currUser");
+                request.setAttribute("currUser", x);
+                
+                sendDispatcher(request, response, "topup.jsp");
+            }
+            
+            if (service.equalsIgnoreCase("checkwallet")) {
+                User x = (User) request.getSession().getAttribute("currUser");
+                request.setAttribute("currUser", x);
+                
+                String phone = request.getParameter("phone");
+                String pass = request.getParameter("pass");
+                double amount = Double.parseDouble(request.getParameter("amount"));
+                
+                if (phone.trim().length() == 0) {
+                    out.println("Phone number can't be emty!");
+                    sendDispatcher1(request, response, "topup.jsp");
+                } else if (pass.trim().length() == 0) {
+                    out.println("Please re-enter your password");
+                    sendDispatcher1(request, response, "topup.jsp");                   
+                }else if (phone.equals(x.getuPhone()) && pass.equals(x.getPass())) {
+                    daoUser.updateWalletUser(x,amount);
+                    
+                    request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
+                    
+                    sendDispatcher(request, response, "UserControllerMap?service=info");
+                }
+                
             }
         }
     }

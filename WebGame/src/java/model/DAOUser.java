@@ -246,4 +246,25 @@ public class DAOUser {
         }
         return list;
     }
+    
+    public void updateWalletUser(User obj, double amount) {
+        
+        String sql = "UPDATE [User] SET wallet=? where uId=?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setDouble(1,obj.getWallet()+amount);
+            pre.setInt(2, obj.getuId());
+            pre.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+//    
+//            public static void main(String[] args) {
+//        DBConnection dbcon = new DBConnection();
+//        DAOUser daoCa = new DAOUser(dbcon);
+//        
+//        daoCa.updateWalletUser(daoCa.getUserById(6), 1000);
+//        
+//     }
 }

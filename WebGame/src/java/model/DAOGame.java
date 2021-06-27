@@ -418,4 +418,19 @@ public class DAOGame {
         return list;
     }
     
+    public ArrayList<Game> getGameByUIdFromLibrary(int uId) {
+        ArrayList<Game> list = new ArrayList<>();
+
+        String sql = "select gId from Library where uId = " + uId;
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            while (rs.next()) {
+                Game g = getGameById(rs.getInt("gId"));
+                list.add(g);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 }

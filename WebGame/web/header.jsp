@@ -149,6 +149,8 @@
                                 <!--                    If role is admin or owner-->
                                 <%if (user != null && (user.getSystem_role().equalsIgnoreCase("owner") || user.getSystem_role().equalsIgnoreCase("admin"))) {%>
                                 <a href="AdminControllerMap"><span class="glyphicon glyphicon-log-in"></span>   Admin Page</a>
+                                <%} if (user != null && user.getSystem_role().equalsIgnoreCase("user")) {%>
+                                <a href="UserControllerMap?service=info"><span class="glyphicon glyphicon-log-in"></span>   About Me</a>
                                 <%}%>
                                 <a href="<%=urlRegister%>"><span class="glyphicon glyphicon-log-in"></span><%=registerOrCheckout%></a>  
                         </li>
