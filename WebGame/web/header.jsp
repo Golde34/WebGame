@@ -37,11 +37,13 @@
         <!--Menu starts here-->
         <%
             User user = (User) session.getAttribute("currUser");
+            String logHead = "  Sign in";
             String loginOrChangePassword = "  Login";
             String registerOrCheckout = "  Register";
             String urlLogin = "jsp/login.jsp";
             String urlRegister = "jsp/register.jsp";
             if (user != null) {
+                logHead = "  Profile";
                 loginOrChangePassword = "  Change Password";
                 registerOrCheckout = "  Check out";
                 urlLogin = "jsp/changepass.jsp";
@@ -106,18 +108,18 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#"><span class="fas fa-info-circle"></span> About us</a>
                                 <a class="dropdown-item" href="#"><span class="fas fa-envelope"></span> Contact</a>
-                               
+
                             </div>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
-                                                         data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-th-list"></span> Profile</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-th-list"></span><%= logHead %></a>
                             <div class="dropdown-menu">
                                 <a href="<%=urlLogin%>"><span class="glyphicon glyphicon-log-in"></span><%=loginOrChangePassword%></a>
-        <!--                    If role is admin or owner-->
-                                <%if (user != null && (user.getSystem_role().equalsIgnoreCase("owner")||user.getSystem_role().equalsIgnoreCase("admin"))) {%>
+                                <!--                    If role is admin or owner-->
+                                <%if (user != null && (user.getSystem_role().equalsIgnoreCase("owner") || user.getSystem_role().equalsIgnoreCase("admin"))) {%>
                                 <a href="admin/adminIndex.jsp"><span class="glyphicon glyphicon-log-in"></span>   Admin Page</a>
                                 <%}%>
                                 <a href="<%=urlRegister%>"><span class="glyphicon glyphicon-log-in"></span><%=registerOrCheckout%></a>  
