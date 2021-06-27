@@ -35,7 +35,7 @@
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-user"></span></span>
-                            <input type="text" class="form-control" name="user" 
+                            <input style="background: #FFF;color:black;"type="text" class="form-control" name="user" 
                                    placeholder="Your Name" readonly value="<%=user.getUsername()%>">
                         </div>
 

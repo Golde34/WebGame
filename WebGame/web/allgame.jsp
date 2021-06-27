@@ -40,16 +40,22 @@
             .row #getde1 p{
                 color: #fff;
                 font-size: 2vh;
+            }.col-md-3{
+                text-align: center;
             }
-            .row #getde2 p{
-                color: #fff;
+            .col-md-2{
+                text-align: center;
             }
-            .accordion{
-                background-color: #232930;
-                color: #fff;
-                cursor: pointer;
-                padding: 18px;
-                width: 100%;
+            .col-md-1{
+                text-align: center;
+            }
+            h4{
+                color: black;
+                font-style: oblique;
+            }
+            .head{
+                border: solid black;
+                background-image: linear-gradient(to right, red,orange,violet); 
             }
         </style>
     </head>
@@ -79,9 +85,9 @@
                             <h1 class="neon1" data-text="BUY ZONE">Game Storage</h1>
                         </div>
                         <div class="col-md-1"></div>
-                        <div style=""class="col-sm-12 col-md-3">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="col-sm-12 col-md-3">
+                            <div class="btn-group" style="float:right">
+                                <button type="button" class="btn btn-danger dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Search By Category
                                 </button>
                                 <div class="dropdown-menu" style="background-color: #fff">
@@ -91,18 +97,26 @@
                                 </div>
                             </div>
                         </div>
-
+                                <div class="head col-md-12">
+                            <div class = "col-sm-12 col-md-3"><h4>Poster</h4></div>
+                            <div class="col-sm-12 col-md-2"><h4>Title</h4></div>
+                            <div class="col-sm-12 col-md-1"><h4>Price</h4></div>
+                            <div class="col-sm-12 col-md-2"><h4>Version</h4></div>
+                            <div class="col-sm-12 col-md-2"><h4>Release Date</h4></div>
+                            <div class="col-sm-12 col-md-2"><h4>Details</h4></div></div>
                         <%
                             for (Game game : listGame) { %>
                         <%  ArrayList<Galery> gList2 = daoGalery.getGaleryByTypeId(game.getGid(), "img-bg");%>
-                        <div class="col-sm-12 col-md-8" style="background-color: #232930">
+                        <div class="col-sm-12 col-md-12" style="background-color: #232930; border: solid #000;">
                             <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
-                                <div class = "col-sm-12 col-md-4">             
+                                <div class = "col-sm-12 col-md-3">             
                                     <img style="height: 115px;width: 220px"src="<%= gList2.get(0).getLink().trim()%>" alt=""></div></a>
-                            <div class="col-sm-12 col-md-3" id="getde1"><p style=" align-items: center;margin-top: 10%"><%= game.getTitle()%></p></div>
-                            <div class="col-sm-12 col-md-3" id="getde2"><p style=" text-align: center;margin-top: 30%"><%= game.getPrice()%>$</p></div>
+                            <div class="col-sm-12 col-md-2" id="getde1"><p ><%= game.getTitle()%></p></div>
+                            <div class="col-sm-12 col-md-1" id="getde"><p ><%= game.getPrice()%>$</p></div>
+                            <div class="col-sm-12 col-md-2" id="getde"><p ><%= game.getVersion()%></p></div>
+                            <div class="col-sm-12 col-md-2" id="getde"><p ><%= game.getReleaseDate()%></p></div>
                             <div class="col-sm-12 col-md-2" id="getde"><a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
-                                    <button style=" align-items: center;margin-top: 50%" type="button" class="btn btn-success">Details</button></a></div>
+                                    <button " type="button" class="btn btn-success">Details</button></a></div>
 
                         </div><%}%>
 
