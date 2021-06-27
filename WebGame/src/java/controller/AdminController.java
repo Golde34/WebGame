@@ -53,21 +53,17 @@ public class AdminController extends HttpServlet {
             String service = request.getParameter("service");
             
             if (service == null) {
-                service = "HomePage";
+                service = "HomeAdmin";
             }
             //Home.jsp
-            if (service.equalsIgnoreCase("HomePage")) {
+            if (service.equalsIgnoreCase("HomeAdmin")) {
                 ArrayList<Game> listGame = daoGame.getAllGame();
                 request.setAttribute("listGame", listGame);
-                ArrayList<Game> listHotGame = daoGame.getGameByRating();
-                request.setAttribute("listHotGame", listHotGame);
-                ArrayList<Game> listNewGame = daoGame.getGamesSort("releaseDate", true);
-                request.setAttribute("listNewGame", listNewGame);
                 ArrayList<Category> listCategory = daoCate.getAllCategorys();
                 request.setAttribute("listCategory", listCategory);
                 ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
                 request.setAttribute("listPlatform", listPlatform);
-                sendDispatcher(request, response, "index.jsp");
+                sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
             
             if (service.equalsIgnoreCase("logout")){

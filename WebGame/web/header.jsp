@@ -120,7 +120,7 @@
                                 <a href="<%=urlLogin%>"><span class="glyphicon glyphicon-log-in"></span><%=loginOrChangePassword%></a>
                                 <!--                    If role is admin or owner-->
                                 <%if (user != null && (user.getSystem_role().equalsIgnoreCase("owner") || user.getSystem_role().equalsIgnoreCase("admin"))) {%>
-                                <a href="admin/adminIndex.jsp"><span class="glyphicon glyphicon-log-in"></span>   Admin Page</a>
+                                <a href="AdminControllerMap"><span class="glyphicon glyphicon-log-in"></span>   Admin Page</a>
                                 <%}%>
                                 <a href="<%=urlRegister%>"><span class="glyphicon glyphicon-log-in"></span><%=registerOrCheckout%></a>  
                         </li>

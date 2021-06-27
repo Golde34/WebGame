@@ -43,7 +43,7 @@ public class UserController extends HttpServlet {
             String service = request.getParameter("service");
 //            out.println(service);
             if (service == null) {
-                service = "HomePage";
+                service = "";
             }
 
 //            if(service.equalsIgnoreCase("HomePage")){
