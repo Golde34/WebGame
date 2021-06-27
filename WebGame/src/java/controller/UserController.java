@@ -5,9 +5,11 @@
  */
 package controller;
 
+import entity.Game;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -57,6 +59,8 @@ public class UserController extends HttpServlet {
                 if (log != null) {
                     request.getSession().setAttribute("currUser", log);
                     request.getSession().setAttribute("role", log.getSystem_role());
+                    ArrayList<Game> ShoppingCart = new ArrayList<>();
+                    request.getSession().setAttribute("ShoppingCart", ShoppingCart);
                     sendDispatcher(request, response, "index.jsp");
                 } else {
                     mess = "Login failed, check your username or your password.";
