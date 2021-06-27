@@ -103,6 +103,10 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="<%=urlLogin%>"><span class="glyphicon glyphicon-log-in"></span><%=loginOrChangePassword%></a></li>
                         <li><a href="<%=urlRegister%>"><span class="glyphicon glyphicon-log-in"></span><%=registerOrCheckout%></a></li>
+<!--                    If role is admin or owner-->
+                        <%if (user != null && (user.getSystem_role().equalsIgnoreCase("owner")||user.getSystem_role().equalsIgnoreCase("admin"))) {%>
+                        <li><a href="admin/admin_Index.jsp"><span class="glyphicon glyphicon-log-in"></span>   Admin Page</a></li>
+                        <%}%>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
