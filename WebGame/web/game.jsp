@@ -80,7 +80,7 @@
                                         for (Game games : listGaCo) {
                                             if (games.getGid() != game.getGid()) {
                                     %>
-                                    
+
 
                                     <p>+ <a href="GameControllerMap?service=getGame&gameID=<%=games.getGid()%>"> <%= games.getTitle()%> </a></p>
                                     <%   }
@@ -110,14 +110,23 @@
                                     <div class="title">
                                         <p>Price:  <%= game.getPrice()%>$</p>
                                         <p>Status: Available</p>
-                                        <% User user = (User) session.getAttribute("currUser"); 
-                                            if(user != null){
+                                        <% User user = (User) session.getAttribute("currUser");
+                                            if (user != null) {
+                                                if (game.getPrice() == 0) {%>
+                                        <a href="#"><button type="button" class="btn btn-success">Add to library</button></a>
+                                        <a href="#" ><button type="button" class="btn btn-success">Topup</button></a>
+                                        <%      } else {%>
+                                        <a href="CartControllerMap?service=AddToCart&gameId=<%=game.getGid()%>"><button type="button" class="btn btn-success">Add to cart</button></a>
+                                        <%}
+                                        } else {
+                                            if (game.getPrice() == 0) {
                                         %>
-                                        <a href="#"><button type="button" class="btn btn-success">Add to Cart</button></a>
-                                        <%}else{%>
-                                        
-                                        <a onclick="alert('You have to login to buy this product');"><button type="button" class="btn btn-success">Add to Cart</button></a>
-                                        <%}%>
+                                        <a onclick="alert('You have to login to buy this product');"><button type="button" class="btn btn-success">Add to library</button></a>
+                                        <a onclick="alert('You have to login to topup this product');"><button type="button" class="btn btn-success">Topup</button></a>
+                                        <%      } else {%>
+                                        <a onclick="alert('You have to login to buy this product');"><button type="button" class="btn btn-success">Add to cart</button></a>                                        
+                                        <%      }
+                                            }%>
                                     </div>
                                 </div>
 
@@ -130,54 +139,37 @@
                     <div class="container-fluid">
                         <!--Slide starts here-->
                         <h1 class="neondu" data-text="Gameplay Trailer">Gameplay Trailer</h1>
-                        <div class="row">
-                            <div class="col-md-12 nopadding">
-                                <!--Bắt đầu slider-->
-                                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                                    <!-- Indicators -->
-                                    <ol class="carousel-indicators">
-                                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                                    </ol>
+                        <div class="row youtube">
+                            <div class="row">
+                                <div class="col-md-12 nopadding">
+                                    <div id="carousel-example-generic1" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner" role="listbox">
+                                            <div class="item active">
+                                                <%  ArrayList<Galery> listGameGalerys = (ArrayList<Galery>) request.getAttribute("listGameGalery");%>
+                                                <iframe width="1120" height="630" src="<%= listGameGalerys.get(0).getLink().trim()%>" title="YouTube video player"
+                                                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>   
+                                                </iframe>
+                                                <br>
+                                            </div>
+                                            <%for (int i = 1; i < listGameGalerys.size(); i++) {%>
+                                            <div class="item">
+                                                <%if (listGameGalerys.get(i).getType().equalsIgnoreCase("vid-trailer") || listGameGalerys.get(i).getType().equalsIgnoreCase("vid-gp")) {%>
+                                                <iframe width="1120" height="630" src="<%= listGameGalerys.get(i).getLink().trim()%>" title="YouTube video player"
+                                                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>   
+                                                </iframe>
+                                                <%} else {%>
+                                                <a href="#"><img style="width: 1500px; height: 600px; object-fit:cover" src="<%= listGameGalerys.get(i).getLink().trim()%>" alt="<%= listGameGalerys.get(i).getLink().trim()%>"></a>
+                                                    <%}%>
+                                            </div>
+                                            <%    }%>
+                                        </div>
 
-                                    <!-- Wrapper for slides -->
-                                    <div class="carousel-inner" role="listbox">
-                                        <div class="item active">
-                                            <iframe width="1120" height="630"
-                                                    src="https://www.youtube.com/embed/nzJhovQ4M_s" title="YouTube video player"
-                                                    frameborder="0"
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowfullscreen></iframe>
+                                        <div class="control">
+                                            <a class="right carousel-control" href="#carousel-example-generic1" role="button" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
                                         </div>
-                                        <div class="item">
-                                            <iframe width="1120" height="630"
-                                                    src="https://www.youtube.com/embed/sG9RGCngsCM" title="YouTube video player"
-                                                    frameborder="0"
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowfullscreen></iframe>
-                                        </div>
-                                        <div class="item">
-                                            <iframe width="1120" height="630"
-                                                    src="https://www.youtube.com/embed/0ZB4prfOOS4" title="YouTube video player"
-                                                    frameborder="0"
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-
-                                    <!-- Controls -->
-                                    <div class="control">
-                                        <a class="left carousel-control" href="#carousel-example-generic" role="button"
-                                           data-slide="prev">
-                                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="right carousel-control" href="#carousel-example-generic" role="button"
-                                           data-slide="next">
-                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -197,20 +189,20 @@
         <script src="js/jquery.appear.min.js"></script>
         <script src="js/jquery.easypiechart.min.js"></script>
         <script>
-            $(function () {
-                $('.chart').easyPieChart({
-                    easing: 'easeOutElastic',
-                    delay: 3000,
-                    barColor: '#369670',
-                    trackColor: '#fff',
-                    scaleColor: false,
-                    lineWidth: 10,
-                    trackWidth: 21,
-                    size: 110,
-                    lineCap: 'round',
+                                            $(function () {
+                                                $('.chart').easyPieChart({
+                                                    easing: 'easeOutElastic',
+                                                    delay: 3000,
+                                                    barColor: '#369670',
+                                                    trackColor: '#fff',
+                                                    scaleColor: false,
+                                                    lineWidth: 10,
+                                                    trackWidth: 21,
+                                                    size: 110,
+                                                    lineCap: 'round',
 
-                });
-            });
+                                                });
+                                            });
 
         </script>
     </body>

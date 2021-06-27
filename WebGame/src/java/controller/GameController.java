@@ -7,6 +7,7 @@ package controller;
 
 import entity.Category;
 import entity.Company;
+import entity.Galery;
 import entity.Game;
 import entity.Game_Category;
 import entity.Game_Platform;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.DAOCategory;
 import model.DAOCompany;
+import model.DAOGalery;
 import model.DAOGame;
 import model.DAOGame_Category;
 import model.DAOGame_Platform;
@@ -52,6 +54,7 @@ public class GameController extends HttpServlet {
     DAOGame_Category daoGaCa = new DAOGame_Category(dbCon);
     DAOGame_Platform daoGaPl = new DAOGame_Platform(dbCon);
     DAOCompany daoCom = new DAOCompany(dbCon);
+    DAOGalery daoGalery = new DAOGalery(dbCon);
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -79,6 +82,8 @@ public class GameController extends HttpServlet {
                 request.setAttribute("listGaPl", listGaPl);
                 ArrayList<Game> listGaCo= daoGame.getGame_SameCom(gameID);
                 request.setAttribute("listGaCo", listGaCo);
+                ArrayList<Galery> listGameGalery = daoGalery.getFullGameGalery(gameID);
+                request.setAttribute("listGameGalery", listGameGalery);
                 sendDispatcher(request, response, "game.jsp");
             }
         }

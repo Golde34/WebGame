@@ -4,6 +4,7 @@
     Author     : dumyd
 --%>
 
+<%@page import="entity.Game"%>
 <%@page import="entity.User"%>
 <%@page import="sun.net.www.content.text.plain"%>
 <%@page import="model.DAOPlatform"%>
@@ -30,12 +31,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>WEB GAME</title>
         <!--Css-->
-        
+        <style>
+            #qty {
+                position: absolute;
+                right: 0px;
+                top: -10px;
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                text-align: center;
+                border-radius: 50%;
+                font-size: 10px;
+                color: #FFF;
+                background-color: #D10024;
+            }
+
+        </style>
     </head>
     <body>
         <!--Menu starts here-->
         <%
             User user = (User) session.getAttribute("currUser");
+            ArrayList<Game> ShoppingCart = (ArrayList<Game>) session.getAttribute("ShoppingCart");
+            int size = 0;
+            if(ShoppingCart != null){
+                size = ShoppingCart.size();
+            }
             String logHead = "  Sign in";
             String loginOrChangePassword = "  Login";
             String registerOrCheckout = "  Register";
@@ -112,10 +133,18 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a style="text-align: center;" class="glyphicon" href="Cart.jsp">
+                                <i  class="fa fa-shopping-cart"></i>
+                                <div id="qty"> <%=size %> </div>
+                            </a>
+
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-th-list"></span><%= logHead %></a>
                             <div class="dropdown-menu">
+                                
                                 <a href="<%=urlLogin%>"><span class="glyphicon glyphicon-log-in"></span><%=loginOrChangePassword%></a>
                                 <!--                    If role is admin or owner-->
                                 <%if (user != null && (user.getSystem_role().equalsIgnoreCase("owner") || user.getSystem_role().equalsIgnoreCase("admin"))) {%>

@@ -211,4 +211,32 @@ public class DAOGalery {
         }
         return false;
     }
+    
+    public ArrayList<Galery> getFullGameGalery(int gid ){
+        String sql = "SELECT * FROM Galery WHERE gid = ? and not (type = 'img-po') order by type desc";
+        PreparedStatement ps;
+        ArrayList<Galery> list = new ArrayList<>();
+        Galery x = null;
+        int gId;
+        String link;
+        String type;
+        boolean status;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, gid);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                gId = rs.getInt("gId");
+                link = rs.getString("link");
+                type = rs.getString("type");
+                status = rs.getBoolean("status");
+                x = new Galery(gId, link, type, status);
+                list.add(x);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGalery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+        
+    }
 }
