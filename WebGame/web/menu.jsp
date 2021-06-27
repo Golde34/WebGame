@@ -31,7 +31,9 @@
     <body>
         <%  ArrayList<Game> listGame = (ArrayList<Game>) request.getAttribute("listGame");
             ArrayList<Game> listHotGame = (ArrayList<Game>) request.getAttribute("listHotGame");
-            ArrayList<Game> listNewGame = (ArrayList<Game>) request.getAttribute("listNewGame");%>
+            ArrayList<Game> listNewGame = (ArrayList<Game>) request.getAttribute("listNewGame");
+            ArrayList<Game> listFreeGame = (ArrayList<Game>) request.getAttribute("listFreeGame");
+        %>
         <div class="container">
             <% if (listGame.isEmpty()) { %>
             <p> No game found </p>
@@ -40,9 +42,10 @@
             <!--Popular Game-->
             <div class="container-fluid">
                 <!--Slide starts here-->
-                <h1 class="neon" data-text="HOT GAMES">HOT GAMES</h1>
+                <h1 class="neon" data-text="HOT GAMES">THE MOST FAVOURITE</h1>
                 <div class="row">
                     <div class="col-md-12 nopadding">
+
                         <!--Bắt đầu slider-->
                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                             <!-- Indicators -->    
@@ -91,82 +94,169 @@
                 </div>
 
                 <!--Slick New game-->
-                <div class="roll1">
-                <h1 class="neon1" data-text="BUY ZONE">NEW GAME</h1>
-                <div class="row slick">
-                    <%
-                    for (Game game : listNewGame) { %>
-                    <%  ArrayList<Galery> gList3 = daoGalery.getGaleryByTypeId(game.getGid(), "img-po");
-                    %>
-                    <div class="col-md-12">
-                        <!--1-->
-                        <div class="slick-item">
+                <div class="roll1" id="new">
+                    <h1 class="neon1" data-text="BUY ZONE">NEW RELEASED</h1>
+                    <div class="row slick">
+                        <%
+                            for (Game game : listNewGame) { %>
+                        <%  ArrayList<Galery> gList3 = daoGalery.getGaleryByTypeId(game.getGid(), "img-po");
+                        %>
+                        <div class="col-md-12">
+                            <!--1-->
+                            <div class="slick-item">
 
-                            <div class="box">
-                                <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
-                                    <img src="<%= gList3.get(0).getLink().trim()%>" alt=""></a>
-                                <p><%= game.getTitle()%></p>
-                                <div class="overlay">
-                                    <div class="content">
-                                        <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">Read More</a>
+                                <div class="box">
+                                    <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
+                                        <img src="<%= gList3.get(0).getLink().trim()%>" alt=""></a>
+                                    <p><%= game.getTitle()%></p>
+                                    <div class="overlay">
+                                        <div class="content">
+                                            <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">Read More
+                                                <br>
+                                                <p style="font-size: 25px; color: red;"><%= game.getTitle()%></p>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>   
+                                </div>   
+                            </div>
+                        </div>
+                        <%}%>
+                    </div>
+                    <div class="arrow-prev">
+                        <i class="fas fa-arrow-circle-left"></i>
+                    </div>
+                    <div class="arrow-next">
+                        <i class="fas fa-arrow-circle-right"></i>
+                    </div>
+                </div>
+
+                <!--ListPlatForm-->
+                <div class="row" id="listplat">
+                    <div class="row vertical-gap ">
+                        <div class="col-lg-4 box">
+                            <div class="button-platform" style="background-color: #232930; border-radius: 15px; height: 80px;">
+                                <h3 style="position: relative; top: 50%; transform: translateY(-50%); margin: 0; padding: 0;"  class="nk-feature-title neon1">
+                                    <a href="ProductControllerMap?service=searchByPlat&platID=3&id=listplat"><span class="fa fa-fas fa-desktop"></span>   PC</a></h3>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 box">
+                            <div class="button-platform" style="background-color: #232930; border-radius: 15px; height: 80px;">
+                                <h3 style="position: relative; top: 50%; transform: translateY(-50%); margin: 0; padding: 0;" class="nk-feature-title neon1">
+                                    <a href="ProductControllerMap?service=searchByPlat&platID=1&id=listplat"><span class="fa fa-gamepad"></span>   PS4</a></h3>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 box">
+                            <div class="button-platform" style="background-color: #232930; border-radius: 15px; height: 80px;">
+                                <h3 style="position: relative; top: 50%; transform: translateY(-50%); margin: 0; padding: 0;" class="nk-feature-title neon1">
+                                    <a href="ProductControllerMap?service=searchByPlat&platID=2&id=listplat"><span class="fab fa-xbox"></span>   Xbox</a></h3>
+                            </div>
                         </div>
                     </div>
-                    <%}%>
-                </div>
-                <div class="arrow-prev2">
-                    <i class="fas fa-arrow-circle-left"></i>
-                </div>
-                <div class="arrow-next2">
-                    <i class="fas fa-arrow-circle-right"></i>
-                </div>
-                </div>
-                
-                <!--Slick all game-->
+                    <br>
+                </div> 
                 <div class="roll2">
-                <h1 class="neon1" data-text="BUY ZONE">ALL GAME</h1>
-                <div class="row slick2">
-                    <%
-                        for (Game game : listGame) { %>
-                    <%  ArrayList<Galery> gList2 = daoGalery.getGaleryByTypeId(game.getGid(), "img-po");
-                    %>
-                    <div class="col-md-12">
-                        <!--1-->
-                        <div class="slick-item">
-
-                            <div class="box">
-                                <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
-                                    <img src="<%= gList2.get(0).getLink().trim()%>" alt=""></a>
-                                <p><%= game.getTitle()%></p>
-                                <div class="overlay">
-                                    <div class="content">
-                                        <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">Read More</a>
+                    <h1 class="neon1" data-text="BUY ZONE">GAME BY PLATFORM</h1>
+                    <div class="row slick2">
+                        <%
+                            for (Game game : listGame) { %>
+                        <%  ArrayList<Galery> gList2 = daoGalery.getGaleryByTypeId(game.getGid(), "img-po");
+                        %>
+                        <div class="col-md-12">
+                            <div class="slick-item">
+                                <div class="box">
+                                    <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
+                                        <img src="<%= gList2.get(0).getLink().trim()%>" alt=""></a>
+                                    <p><%= game.getTitle()%></p>
+                                    <div class="overlay">
+                                        <div class="content">
+                                            <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">Read More</a>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>   
+                                </div>   
+                            </div>
                         </div>
+                        <%}%>
                     </div>
-                    <%}%>
+                    <div class="arrow-prev2">
+                        <i class="fas fa-arrow-circle-left"></i>
+                    </div>
+                    <div class="arrow-next2">
+                        <i class="fas fa-arrow-circle-right"></i>
+                    </div>
                 </div>
-                <div class="arrow-prev">
-                    <i class="fas fa-arrow-circle-left"></i>
+
+                <!--Free Game-->
+                <div class="roll">
+                    <h1 class="neon1" data-text="BUY ZONE">FREE GAMES</h1>
+                    <%   for (int i = 0; i < listFreeGame.size(); i+=6) { %> 
+                    <%  ArrayList<Galery> gList5 = daoGalery.getGaleryByTypeId(listFreeGame.get(i).getGid(), "img-bg");
+                        ArrayList<Galery> gList5_2 = daoGalery.getGaleryByTypeId(listFreeGame.get(i+1).getGid(), "img-bg");
+                        ArrayList<Galery> gList5_3 = daoGalery.getGaleryByTypeId(listFreeGame.get(i+2).getGid(), "img-bg");
+                        ArrayList<Galery> gList5_4 = daoGalery.getGaleryByTypeId(listFreeGame.get(i+3).getGid(), "img-bg");
+                        ArrayList<Galery> gList5_5 = daoGalery.getGaleryByTypeId(listFreeGame.get(i+4).getGid(), "img-bg");
+                        ArrayList<Galery> gList5_6 = daoGalery.getGaleryByTypeId(listFreeGame.get(i+5).getGid(), "img-bg");
+                    %>
+                    <div class="col-md-4 box">
+                        <a href="GameControllerMap?service=getGame&gameID=<%=listFreeGame.get(i).getGid()%>">
+                            <img style="width: 20vw; height: 30vh; " 
+                                 src="<%= gList5.get(0).getLink().trim()%>" alt="<%= gList5.get(0).getLink().trim()%>">
+                        </a>
+
+                        <p><%= listFreeGame.get(i).getTitle()%></p>
+                    </div>
+                    <div class="col-md-4 box">
+                        <a href="GameControllerMap?service=getGame&gameID=<%=listFreeGame.get(i+1).getGid()%>">
+                            <img style="width: 20vw; height: 30vh; " 
+                                 src="<%= gList5_2.get(0).getLink().trim()%>" alt="<%= gList5_2.get(0).getLink().trim()%>">
+                        </a>
+
+                        <p><%= listFreeGame.get(i+1).getTitle()%></p>
+                    </div>
+                    <div class="col-md-4 box">
+                        <a href="GameControllerMap?service=getGame&gameID=<%=listFreeGame.get(i+2).getGid()%>">
+                            <img style="width: 20vw; height: 30vh; " 
+                                 src="<%= gList5_3.get(0).getLink().trim()%>" alt="<%= gList5_3.get(0).getLink().trim()%>">
+                        </a>
+
+                        <p><%= listFreeGame.get(i+2).getTitle()%></p>
+                    </div>
+                    <div class="col-md-8 box">
+                        <a href="GameControllerMap?service=getGame&gameID=<%=listFreeGame.get(i+3).getGid()%>">
+                            <img style="width: 45vw; height: 70vh; " 
+                                 src="<%= gList5_4.get(0).getLink().trim()%>" alt="<%= gList5_4.get(0).getLink().trim()%>">
+                        </a>
+
+                        <p><%= listFreeGame.get(i+3).getTitle()%></p>
+                    </div>
+                    <div class="col-md-4 box">
+                        <a href="GameControllerMap?service=getGame&gameID=<%=listFreeGame.get(i+4).getGid()%>">
+                            <img style="width: 20vw; height: 30vh; " 
+                                 src="<%= gList5_5.get(0).getLink().trim()%>" alt="<%= gList5_5.get(0).getLink().trim()%>">
+                        </a>
+
+                        <p><%= listFreeGame.get(i).getTitle()%></p>
+                    </div>
+                    <div class="col-md-4 box">
+                        <a href="GameControllerMap?service=getGame&gameID=<%=listFreeGame.get(i=5).getGid()%>">
+                            <img style="width: 20vw; height: 30vh; " 
+                                 src="<%= gList5_6.get(0).getLink().trim()%>" alt="<%= gList5_6.get(0).getLink().trim()%>">
+                        </a>
+
+                        <p><%= listFreeGame.get(i=5).getTitle()%></p>
+                    </div>
+                    <% } %>
+                    <br>
                 </div>
-                <div class="arrow-next">
-                    <i class="fas fa-arrow-circle-right"></i>
-                </div>
-                <%}%>
             </div>
-            </div>
+            <%}%>
         </div>
 
         <div class="container">
             <div class="container-fluid">
                 <!--VIDEOs-->
                 <!--Welcome content starts here-->
-                <h1 class="neon2" data-text="POPULAR VIDEOS">TRAILERS</h1>
-                <div class="row youtube">
+                <h1 class="neon2" data-text="POPULAR VIDEOS">TRAILER GAMES</h1>
+                <div class="row youtube" id="trailer">
                     <div class="row">
                         <div class="col-md-12 nopadding">
                             <div id="carousel-example-generic1" class="carousel slide" data-ride="carousel">

@@ -30,7 +30,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>WEB GAME</title>
         <!--Css-->
-        
+
 
     </head>
     <body>
@@ -68,10 +68,10 @@
                                                          data-toggle="dropdown">
                                 <span class="fa fa-gamepad"></span> GAMES</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#"><span class="far fa-eye"></span> Reviews</a>
-                                <a class="dropdown-item" href="#"><span class="fas fa-shipping-fast"></span> New
+                                <a class="dropdown-item" href="#new"><span class="fas fa-shipping-fast"></span> New
                                     Released</a>
-                                <a class="dropdown-item" href="#"><span class="fas fa-chart-line"></span> Top Game</a>
+                                <a class="dropdown-item" href="#listplat"><span class="fas fa-chart-line"></span> Platform Game</a>
+                                <a class="dropdown-item" href="#trailer"><span class="far fa-eye"></span> Trailer Game</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle"
@@ -84,7 +84,7 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle"
-                                                         data-toggle="dropdown"><span class="fas fa-hands-helping"></span> PLATFORM</a>
+                                                         data-toggle="dropdown"><span class="fas fa-dice-d20"></span> PLATFORM</a>
                             <div class="dropdown-menu">
                                 <% for (Platform p : platList) {%>
                                 <a class="dropdown-item" href="ProductControllerMap?service=searchByPlat&platID=<%=p.getPlId()%>"> <%= p.getPlname()%></a>
@@ -99,7 +99,17 @@
                             <input type="hidden" name="service" value="searchByName">
                         </div>
                     </form>
-
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
+                                                         data-toggle="dropdown">
+                                <span class="fas fa-hands-helping"></span> HELP</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#"><span class="fas fa-info-circle"></span> About us</a>
+                                <a class="dropdown-item" href="#"><span class="fas fa-envelope"></span> Contact</a>
+                               
+                            </div>
+                        </li>
+                    </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="<%=urlLogin%>"><span class="glyphicon glyphicon-log-in"></span><%=loginOrChangePassword%></a></li>
                         <li><a href="<%=urlRegister%>"><span class="glyphicon glyphicon-log-in"></span><%=registerOrCheckout%></a></li>
