@@ -82,7 +82,7 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("listCategory", listCategory);
                 ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
                 request.setAttribute("listPlatform", listPlatform);
-                sendDispatcher(request, response, "/index.jsp");
+                sendDispatcher(request, response, "allgame.jsp");
             }
             
             //menu.jsp
@@ -120,6 +120,22 @@ public class ProductController extends HttpServlet {
                 ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
                 request.setAttribute("listPlatform", listPlatform);
                 sendDispatcher(request, response, "/index.jsp");
+            }
+            if (service.equalsIgnoreCase("searchByCate1")) {
+                int cateID = Integer.parseInt(request.getParameter("cateID"));
+                ArrayList<Game> listGame = daoGame.getGameByCategoryId(cateID);
+                request.setAttribute("listGame", listGame);
+                ArrayList<Game> listHotGame = daoGame.getGameByRating();
+                request.setAttribute("listHotGame", listHotGame);
+                ArrayList<Game> listNewGame = daoGame.getGamesSort("releaseDate", true);
+                request.setAttribute("listNewGame", listNewGame);
+                ArrayList<Game> listFreeGame = daoGame.getGamesSort("price", false);
+                request.setAttribute("listFreeGame", listFreeGame);
+                ArrayList<Category> listCategory = daoCate.getAllCategorys();
+                request.setAttribute("listCategory", listCategory);
+                ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
+                request.setAttribute("listPlatform", listPlatform);
+                sendDispatcher(request, response, "allgame.jsp");
             }
             
             if (service.equalsIgnoreCase("searchByPlat")) {

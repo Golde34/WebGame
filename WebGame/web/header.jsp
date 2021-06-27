@@ -30,8 +30,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>WEB GAME</title>
         <!--Css-->
-
-
+        
     </head>
     <body>
         <!--Menu starts here-->
@@ -52,7 +51,7 @@
 
         %>
 
-        <nav class="nav navbar" role="navigation">
+        <nav class="nav navbar navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -130,6 +129,7 @@
 
             </div>
         </nav>
+                    <br><br><br><br><br><br>
         <!--Jquery, JS-->
 
         <script src="https://kit.fontawesome.com/9650a62e47.js" crossorigin="anonymous"></script>
@@ -137,7 +137,7 @@
         <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         <script src="js/slick.min.js"></script>
-
+        
     </body>
 </html>
 
