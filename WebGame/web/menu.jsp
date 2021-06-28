@@ -33,6 +33,10 @@
             ArrayList<Game> listHotGame = (ArrayList<Game>) request.getAttribute("listHotGame");
             ArrayList<Game> listNewGame = (ArrayList<Game>) request.getAttribute("listNewGame");
             ArrayList<Game> listFreeGame = (ArrayList<Game>) request.getAttribute("listFreeGame");
+            String title = (String) request.getAttribute("title");
+            if (title == null) {
+                title = "GAME BY PLATFORM";
+            }
         %>
         <div class="container">
             <% if (listGame.isEmpty()) { %>
@@ -155,7 +159,7 @@
                     <br>
                 </div> 
                 <div class="roll2">
-                    <h1 class="neon1" data-text="BUY ZONE">GAME BY PLATFORM</h1>
+                    <h1 class="neon1" data-text="BUY ZONE"><%= title %></h1>
                     <div class="row slick2">
                         <%
                             for (Game game : listGame) { %>

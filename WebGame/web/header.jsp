@@ -102,7 +102,7 @@
                                 CATEGORY</a>
                             <div class="dropdown-menu">
                                 <% for (Category x : cateList) {%>
-                                <a class="dropdown-item" href="ProductControllerMap?service=searchByCate&cateID=<%=x.getCaId()%>"> <%= x.getCaName()%></a>
+                                <a class="dropdown-item" href="ProductControllerMap?service=searchByCate1&cateID=<%=x.getCaId()%>"> <%= x.getCaName()%></a>
                                 <% } %>
                             </div>
                         </li>

@@ -139,6 +139,7 @@ public class ProductController extends HttpServlet {
             }
             
             if (service.equalsIgnoreCase("searchByPlat")) {
+                String title;
                 int platID = Integer.parseInt(request.getParameter("platID"));
                 ArrayList<Game> listGame = daoGame.getGameByPlatformId(platID);
                 request.setAttribute("listGame", listGame);
@@ -152,6 +153,12 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("listCategory", listCategory);
                 ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
                 request.setAttribute("listPlatform", listPlatform);
+                if (platID == 1) {
+                    title = "PS4 GAME";
+                } else if (platID == 2) {
+                    title = "XOBX GAME";
+                } else title = "PC GAME";
+                request.setAttribute("title", title);
                 sendDispatcher(request, response, "/index.jsp");
             }
             
