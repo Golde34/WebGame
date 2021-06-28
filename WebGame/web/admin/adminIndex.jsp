@@ -4,6 +4,7 @@
     Author     : dumyd
 --%>
 
+<%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="entity.*"%>
 <%@page import="model.*"%>
@@ -14,6 +15,8 @@
     ArrayList<Platform> platList = (ArrayList<Platform>) request.getAttribute("listPlatform");
     ArrayList<Company> comList = (ArrayList<Company>) request.getAttribute("listCompany");
     ArrayList<User> userList = (ArrayList<User>) request.getAttribute("listUser");
+    HashMap<Game, ArrayList<Galery>> listGameGalery = (HashMap<Game, ArrayList<Galery>>) request.getAttribute("listGameGalery");
+
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -62,9 +65,8 @@
                 <div class="dropdown">
                     <button class="dropbtn" style="width: 250px; background-color: #04AA6D;color: white; padding: 16px; font-size: 16px; margin: 5px; border: 2px solid;">Galery Management</button>
                     <div class="dropdown-content">
-                        <button class="tablinks" onclick="openForm(event, 'galeryAdd')">Galery</button>
-                        <button class="tablinks" onclick="openForm(event, 'galeryUpdate')">Galery</button>
-                        <button class="tablinks" onclick="openForm(event, 'galeryDel')">Galery</button>
+                        <button class="tablinks" onclick="openForm(event, 'galeryAdd')">Add</button>
+                        <button class="tablinks" onclick="openForm(event, 'galeryUpdate')">Update</button>
                     </div>
                 </div>
             </div>
@@ -75,7 +77,7 @@
                     <table border="1" style="width: 95%;">
                         <tr>
                             <td>Title</td>
-                            <td><input type="text" name="title" placeholder="Game Title"></td>
+                            <td><input type="text" name="title" placeholder="Game Title" style="width:100%" required></td>
                         </tr>
                         <tr>
                             <td>Company</td>
@@ -90,24 +92,24 @@
                         <tr>
                             <td>Description</td>
                             <td>
-                                <textarea name="desciption" style="height: 120px; width: 100%; border: 1px; overflow-x: hidden; overflow-y: scroll;"> </textarea>
+                                <textarea name="desciption" style="height: 120px; width: 100%; border: 1px; overflow-x: hidden; overflow-y: scroll;" required> </textarea>
                             </td>
                         </tr>
                         <tr>
                             <td>Version</td>
-                            <td><input type="text" name="version" placeholder="Game Version"></td>
+                            <td><input type="text" name="version" placeholder="Game Version" style="width:100%" required></td>
                         </tr>
                         <tr>
                             <td>Release Date</td>
-                            <td><input type="date" name="releaseDate" ></td>
+                            <td><input type="date" name="releaseDate" required></td>
                         </tr>
                         <tr>
                             <td>Rating</td>
-                            <td><input type="number" name="rating" min="0" max="100"></td>
+                            <td><input type="number" name="rating" min="0" max="100" style="width:100%" required></td>
                         </tr>
                         <tr>
                             <td>Price</td>
-                            <td><input type="number" name="rating" min="0" step="0.01"></td>
+                            <td><input type="number" name="rating" min="0" step="0.01" style="width:100%" required></td>
                         </tr>
                         <tr>
                             <td>State</td>
@@ -135,7 +137,7 @@
                     <table border="1" style="width: 95%;">
                         <tr>
                             <td>Game ID</td>
-                            <td><select name="gId" id="ids">
+                            <td><select name="gId">
                                     <% for (Game game : gameList) {%>
                                     <option value="<%=game.getGid()%>"> <%=game.getGid()%> : <%=game.getTitle()%> </option>
                                     <% }%>
@@ -144,7 +146,7 @@
                         </tr>
                         <tr>
                             <td>Title</td>
-                            <td><input type="text" name="title"></td>
+                            <td><input type="text" name="title" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td>Company</td>
@@ -164,7 +166,7 @@
                         </tr>
                         <tr>
                             <td>Version</td>
-                            <td><input type="text" name="version" placeholder="Game Version"></td>
+                            <td><input type="text" name="version" placeholder="Game Version" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td>Release Date</td>
@@ -172,11 +174,11 @@
                         </tr>
                         <tr>
                             <td>Rating</td>
-                            <td><input type="number" name="rating" min="0" max="100"></td>
+                            <td><input type="number" name="rating" min="0" max="100" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td>Price</td>
-                            <td><input type="number" name="price" min="0" step="0.01"></td>
+                            <td><input type="number" name="price" min="0" step="0.01" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td>State</td>
@@ -204,7 +206,7 @@
                     <table border="1" style="width: 95%;">
                         <tr>
                             <td>Game ID</td>
-                            <td><select name="gId" id="ids">
+                            <td><select name="gId">
                                     <% for (Game game : gameList) {%>
                                     <option value="<%=game.getGid()%>"> <%=game.getGid()%> : <%=game.getTitle()%> </option>
                                     <% }%>
@@ -233,25 +235,25 @@
                     <table border="1" style="width: 95%;">
                         <tr>
                             <td>Username</td>
-                            <td><input type="text" name="username" placeholder="Username"></td>
+                            <td><input type="text" name="username" placeholder="Username" style="width:100%" required></td>
                         </tr>
                         <tr>
                             <td>Display name</td>
-                            <td><input type="text" name="uname" placeholder="Display name"></td>
+                            <td><input type="text" name="uname" placeholder="Display name" style="width:100%" required></td>
                         </tr>
                         <tr>
                             <td>User Mail</td>
-                            <td><input type="text" name="mail" ></td>
+                            <td><input type="text" name="mail" style="width:100%" required></td>
                         </tr>
                         <tr>
                             <td>Phone </td>
                             <td><select name="country" ><option value="0"> +84 </option></select>
-                                <input type="number" name="phone" min="100000000" max="999999999">
+                                <input type="number" name="phone" min="100000000" max="999999999" style="width:200px" required>
                             </td>
                         </tr>
                         <tr>
                             <td>Address</td>
-                            <td><input type="text" name="address" ></td>
+                            <td><input type="text" name="address" style="width:100%" required></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -278,33 +280,33 @@
                         </tr>
                         <tr>
                             <td>Username</td>
-                            <td><input type="text" name="username" placeholder="Username"></td>
+                            <td><input type="text" name="username" placeholder="Username" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td>Display Name</td>
-                            <td><input type="text" name="uname" placeholder="Display name"></td>
+                            <td><input type="text" name="uname" placeholder="Display name" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td>Experience</td>
-                            <td><input type="number" name="exp" min="0"></td>
+                            <td><input type="number" name="exp" min="0" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td>Mail</td>
-                            <td><input type="text" name="version" placeholder="User Mail"></td>
+                            <td><input type="text" name="version" placeholder="User Mail" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td>Phone </td>
                             <td><select name="country" ><option value="0"> +84 </option></select>
-                                <input type="number" name="phone" min="100000000" max="999999999">
+                                <input type="number" name="phone" min="100000000" max="999999999" style="width:200px">
                             </td>
                         </tr>
                         <tr>
                             <td>Address</td>
-                            <td><input type="text" name="address" placeholder="Address"></td>
+                            <td><input type="text" name="address" placeholder="Address" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td>Wallet</td>
-                            <td><input type="number" name="wallet" min="0" step="0.01"></td>
+                            <td><input type="number" name="wallet" min="0" step="0.01" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td>System Role</td>
@@ -333,7 +335,7 @@
                             <td><select name="gId" id="ids">
                                     <% for (User user : userList) {%>
                                     <option value="<%=user.getuId() %>"> <%=user.getuId()%> : <%=user.getUsername() %> </option>
-                                    <% }%>
+                                    <% } %>
                                 </select>
                             </td>
                         </tr>
@@ -359,7 +361,7 @@
                     <table border="1" style="width: 95%;">
                         <tr>
                             <td>Company Name</td>
-                            <td><input type="text" name="coName" placeholder="Company Name"></td>
+                            <td><input type="text" name="coName" placeholder="Company Name" style="width:100%" required></td>
                         </tr>
                         <tr>
                             <td>Found Date</td>
@@ -368,26 +370,26 @@
                         <tr>
                             <td>Description</td>
                             <td>
-                                <textarea name="desciption" style="height: 120px; width: 100%; border: 1px; overflow-x: hidden; overflow-y: scroll;"> </textarea>
+                                <textarea name="desciption" style="height: 120px; width: 100%; border: 1px; overflow-x: hidden; overflow-y: scroll;" required> </textarea>
                             </td>
                         </tr>
                         <tr>
                             <td>Logo</td>
-                            <td><input type="text" name="logo" ></td>
+                            <td><input type="text" name="logo" style="width:100%" required></td>
                         </tr>
                         <tr>
                             <td>Company Address</td>
-                            <td><input type="text" name="address" ></td>
+                            <td><input type="text" name="address" style="width:100%" required></td>
                         </tr>
                         <tr>
                             <td>Company Phone </td>
                             <td><select name="country" ><option value="0"> 0</option></select>
-                                <input type="number" name="phone" min="100000000" max="999999999">
+                                <input type="number" name="phone" min="100000000" max="999999999"style="width:200px" required>
                             </td>
                         </tr>
                         <tr>
                             <td>Company Mail</td>
-                            <td><input type="text" name="mail" ></td>
+                            <td><input type="text" name="mail" style="width:100%" required></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -414,7 +416,7 @@
                         </tr>
                         <tr>
                             <td>Name</td>
-                            <td><input type="text" name="name"></td>
+                            <td><input type="text" name="name" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td>Found Date</td>
@@ -428,21 +430,21 @@
                         </tr>
                         <tr>
                             <td>Logo</td>
-                            <td><input type="text" name="logo" ></td>
+                            <td><input type="text" name="logo" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td>Company Address</td>
-                            <td><input type="text" name="address" ></td>
+                            <td><input type="text" name="address" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td>Company Phone </td>
                             <td><select name="country" ><option value="0"> 0</option></select>
-                                <input type="number" name="phone" min="100000000" max="999999999">
+                                <input type="number" name="phone" min="100000000" max="999999999" style="width:200px">
                             </td>
                         </tr>
                         <tr>
                             <td>Company Mail</td>
-                            <td><input type="text" name="mail" ></td>
+                            <td><input type="text" name="mail" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -484,21 +486,71 @@
             <%-- Add Galery --%>
             <div id="galeryAdd" class="tabcontent">
                 <h3>Galery - Add</h3>
-                <p>Paris is the capital of France.</p> 
+                <form action="AdminControllerMap" method="POST">
+                    <table border="1" style="width: 95%;">
+                        <tr>
+                            <td>Game Select</td>
+                            <td><select name="gId">
+                                    <% for (Game game : gameList) {%>
+                                    <option value="<%=game.getGid()%>"> <%=game.getGid()%> : <%=game.getTitle()%> </option>
+                                    <% }%>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>File name</td>
+                            <td><input type="text" name="link" style="width:100%" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Add" name="submit">
+                                <input type="hidden" value="addGalery" name="service"></td>
+                        </tr>
+                    </table>
+                </form>
             </div>
             <%-- Add Galery --%>
             <%-- Update Galery --%>
             <div id="galeryUpdate" class="tabcontent">
                 <h3>Galery - Update</h3>
-                <p>Paris is the capital of France.</p> 
+                <form action="AdminControllerMap" method="POST">
+                    <table border="1" style="width: 95%;">
+                        <tr>
+                            <td>Galery Select</td>
+                            <td><select name="galery">
+                                    <% for (HashMap.Entry<Game, ArrayList<Galery>> en : listGameGalery.entrySet()) {
+                                            Game key = en.getKey();
+                                            ArrayList<Galery> val = en.getValue(); %>
+                                            <optgroup label="<%=key.getGid()%> : <%=key.getTitle()%>">
+                                                <% for (Galery gal : val) { %>
+                                                        <option value="<%=gal.getLink()%>"><%=gal.getType()+"|"+gal.getLink()%></option>
+                                                <%}%>
+                                            </optgroup>
+                                        <% } %>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>File link</td>
+                            <td><input type="text" name="link" style="width:100%" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td><input type="radio" name="status" value="1" checked><label>Keep</label><br>
+                                <input type="radio" name="status" value="0"><label>Delete</label><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Add" name="submit">
+                                <input type="hidden" value="updateGalery" name="service"></td>
+                        </tr>
+                    </table>
+                </form>
             </div>
             <%-- Update Galery --%>
-            <%-- Delete Galery --%>
-            <div id="galeryDel" class="tabcontent">
-                <h3>Galery - Delete/Restore</h3>
-                <p>Paris is the capital of France.</p> 
-            </div>
-            <%-- Delete Galery --%>
             <script>document.getElementById("defaultOpen").click();</script>
         </div>
 

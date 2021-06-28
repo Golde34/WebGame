@@ -7,12 +7,14 @@ package controller;
 
 import entity.Category;
 import entity.Company;
+import entity.Galery;
 import entity.Game;
 import entity.Platform;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.DAOCategory;
 import model.DAOCompany;
+import model.DAOGalery;
 import model.DAOGame;
 import model.DAOGame_Category;
 import model.DAOPlatform;
@@ -50,6 +53,7 @@ public class AdminController extends HttpServlet {
     DAOGame_Category daoGaCa = new DAOGame_Category(dbCon);
     DAOCompany daoCom = new DAOCompany(dbCon);
     DAOUser daoUser = new DAOUser(dbCon);
+    DAOGalery daoGalery = new DAOGalery(dbCon);
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -73,6 +77,12 @@ public class AdminController extends HttpServlet {
                 request.setAttribute("listCompany", listCompany);
                 ArrayList<User> listUser = daoUser.getAllUser();
                 request.setAttribute("listUser", listUser);
+                HashMap<Game, ArrayList<Galery>> listGameGalery = new HashMap<Game,ArrayList<Galery>>();
+                for (Game game : listGame) {
+                    ArrayList<Galery> gameGalery = daoGalery.getFullGameGalery(game.getGid());
+                    listGameGalery.put(game, gameGalery);                
+                }
+                request.setAttribute("listGameGalery", listGameGalery);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
             
