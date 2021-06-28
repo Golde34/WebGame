@@ -57,6 +57,16 @@
                 border: solid black;
                 background-image: linear-gradient(to right, red,orange,violet); 
             }
+            .cg{
+                margin-top: 48px;
+            }
+            .cc{
+                margin-top:20px;
+            }
+            .dropdown-item:hover{
+                background-color:#f0f2f5;
+                
+            }
         </style>
     </head>
     <body>
@@ -65,8 +75,7 @@
         <%  ArrayList<Game> listGame = (ArrayList<Game>) request.getAttribute("listGame");  %>
         <div class="container">
             <% if (listGame.isEmpty()) { %>
-            <p> No game found </p>
-            <h2> Games </h2>
+            <h1 class="neon"> No Game Found</h1>          
             <% } else {  %>
             <!--Popular Game-->
             <div class="container-fluid">
@@ -90,9 +99,9 @@
                                 <button type="button" class="btn btn-danger dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Search By Category
                                 </button>
-                                <div class="dropdown-menu" style="background-color: #fff">
+                                <div class="dropdown-menu" style="background-color: #fff; text-align: center">
                                     <% for (Category x : cateList) {%>
-                                <a class="dropdown-item" href="ProductControllerMap?service=searchByCate1&cateID=<%=x.getCaId()%>"> <%= x.getCaName()%></a>
+                                <a class="dropdown-item"  href="ProductControllerMap?service=searchByCate1&cateID=<%=x.getCaId()%>"> <%= x.getCaName()%></a>
                                 <% } %>
                                 </div>
                             </div>
@@ -111,11 +120,12 @@
                             <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
                                 <div class = "col-sm-12 col-md-3">             
                                     <img style="height: 115px;width: 220px"src="<%= gList2.get(0).getLink().trim()%>" alt=""></div></a>
-                            <div class="col-sm-12 col-md-2" id="getde1"><p ><%= game.getTitle()%></p></div>
-                            <div class="col-sm-12 col-md-1" id="getde"><p ><%= game.getPrice()%>$</p></div>
-                            <div class="col-sm-12 col-md-2" id="getde"><p ><%= game.getVersion()%></p></div>
-                            <div class="col-sm-12 col-md-2" id="getde"><p ><%= game.getReleaseDate()%></p></div>
-                            <div class="col-sm-12 col-md-2" id="getde"><a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
+                                    
+                            <div class="col-sm-12 col-md-2 cc" id="getde1"><p ><%= game.getTitle()%></p></div>
+                            <div class="col-sm-12 col-md-1 cg" id="getde"><p ><%= game.getPrice()%>$</p></div>
+                            <div class="col-sm-12 col-md-2 cg" id="getde"><p ><%= game.getVersion()%></p></div>
+                            <div class="col-sm-12 col-md-2 cg" id="getde"><p ><%= game.getReleaseDate()%></p></div>
+                            <div class="col-sm-12 col-md-2 cg" id="getde"><a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
                                     <button " type="button" class="btn btn-success">Details</button></a></div>
 
                         </div><%}%>
@@ -127,7 +137,7 @@
         </div>
 
         <!--Jquery, JS-->
-        <jsp:include page="footer.jsp"/> 
+       
         <script src="${contextPath}/js/bootstrap.min.js"></script>
         <script src="https://kit.fontawesome.com/9650a62e47.js" crossorigin="anonymous"></script>
         <script src="js/slick.min.js"></script>

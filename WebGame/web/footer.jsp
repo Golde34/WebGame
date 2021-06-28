@@ -42,6 +42,7 @@
                 flex-wrap: wrap;
                 font-family: Roboto;
                 color: #fff;
+                
             }
             footer .container{
                 display: flex;
