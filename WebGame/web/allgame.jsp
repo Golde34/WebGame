@@ -65,15 +65,29 @@
             }
             .dropdown-item:hover{
                 background-color:#f0f2f5;
-                
+            }
+            html,body{
+                height: 100%;margin:0;
+            }
+            .page-content{
+                min-height: 100%;
+                margin-bottom: -120px;
+            }
+            .page-content::after{
+                content: "";
+                display: block;
+            }
+            footer, .page-content::after{
+                height: 120px;
             }
         </style>
     </head>
     <body>
 
         <jsp:include page="header.jsp"/>   
+        
         <%  ArrayList<Game> listGame = (ArrayList<Game>) request.getAttribute("listGame");  %>
-        <div class="container">
+        <div class="container page-content">
             <% if (listGame.isEmpty()) { %>
             <h1 class="neon"> No Game Found</h1>          
             <% } else {  %>
@@ -135,7 +149,8 @@
                 </div>
             </div><%}%>
         </div>
-
+        
+        <jsp:include page="footer.jsp"/>   
         <!--Jquery, JS-->
        
         <script src="${contextPath}/js/bootstrap.min.js"></script>

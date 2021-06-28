@@ -190,7 +190,7 @@
                 </div>
 
                 <!--Free Game-->
-                <div class="roll">
+                <div class="roll" id="free">
                     <h1 class="neon1" data-text="BUY ZONE">FREE GAMES</h1>
                     <%   for (int i = 0; i < listFreeGame.size(); i+=6) { %> 
                     <%  ArrayList<Galery> gList5 = daoGalery.getGaleryByTypeId(listFreeGame.get(i).getGid(), "img-bg");
