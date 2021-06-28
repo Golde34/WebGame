@@ -40,13 +40,12 @@ public class UserController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     DBConnection dbCon = new DBConnection();
     DAOUser daoUser = new DAOUser(dbCon);
     DAOLibrary daoLib = new DAOLibrary(dbCon);
     DAOOrder daoOrder = new DAOOrder(dbCon);
     DAOGame daoGame = new DAOGame(dbCon);
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -118,15 +117,12 @@ public class UserController extends HttpServlet {
 
             if (service.equalsIgnoreCase("changepass")) {
                 String mess;
-
                 String oldPassword = request.getParameter("oldPassword");
                 String newPassword = request.getParameter("newPassword");
-
                 HttpSession session = request.getSession();
                 User user = (User) session.getAttribute("currUser");
                 String username = user.getUsername();
                 String password = user.getPass();
-
                 if (!password.equals(oldPassword)) {
                     mess = "Old Password is not correct";
                     request.setAttribute("mess", mess);
@@ -144,48 +140,78 @@ public class UserController extends HttpServlet {
                     sendDispatcher(request, response, "jsp/login.jsp");
                 }
             }
-            
+
+            if (service.equalsIgnoreCase("forgotPass")) {
+                String mess;
+                String username = request.getParameter("username");
+                String newPassword = request.getParameter("confirm-password");
+                String checkMail = request.getParameter("mail");
+                String checkPhone = request.getParameter("phone");
+                User user = daoUser.getUserByUsername(username);
+                String mail = user.getuMail();
+                String phone = user.getuPhone();
+                if (!mail.equalsIgnoreCase(checkMail)) {
+                    mess = "Your mail is not correct!";
+                    request.setAttribute("mess", mess);
+                    sendDispatcher(request, response, "jsp/forgot.jsp");
+                } else if (!phone.equalsIgnoreCase(checkPhone)) {
+                    mess = "Your phone is not correct!";
+                    request.setAttribute("mess", mess);
+                    sendDispatcher(request, response, "jsp/forgot.jsp");
+                } else if (!mail.equalsIgnoreCase(checkMail) && !phone.equalsIgnoreCase(checkPhone)) {
+                    mess = "Your mail or your phone is not correct. Please re-enter.";
+                    request.setAttribute("mess", mess);
+                    sendDispatcher(request, response, "jsp/forgot.jsp");
+                } else {
+                    daoUser.changePassword(username, newPassword);
+                    mess = "Change password successfully !!";
+                    HttpSession session = request.getSession();
+                    session.setAttribute("currUser", user);
+                    request.setAttribute("mess", mess);
+                    sendDispatcher(request, response, "jsp/login.jsp");
+                }
+            }
+
             if (service.equalsIgnoreCase("info")) {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
-                
+
                 ArrayList<Game> listGame = daoGame.getGameByUIdFromLibrary(x.getuId());
                 request.setAttribute("listGame", listGame);
                 ArrayList<Order> listOrder = daoOrder.getOrders(x.getuId());
-                request.setAttribute("listOrder", listOrder);              
-                
+                request.setAttribute("listOrder", listOrder);
+
                 sendDispatcher(request, response, "profile.jsp");
             }
-            
+
             if (service.equalsIgnoreCase("topup")) {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
-                
+
                 sendDispatcher(request, response, "topup.jsp");
             }
-            
+
             if (service.equalsIgnoreCase("checkwallet")) {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
-                
+
                 String phone = request.getParameter("phone");
                 String pass = request.getParameter("pass");
                 double amount = Double.parseDouble(request.getParameter("amount"));
-                
+
                 if (phone.trim().length() == 0) {
                     out.println("Phone number can't be emty!");
                     sendDispatcher1(request, response, "topup.jsp");
                 } else if (pass.trim().length() == 0) {
                     out.println("Please re-enter your password");
-                    sendDispatcher1(request, response, "topup.jsp");                   
-                }else if (phone.equals(x.getuPhone()) && pass.equals(x.getPass())) {
-                    daoUser.updateWalletUser(x,amount);
-                    
+                    sendDispatcher1(request, response, "topup.jsp");
+                } else if (phone.equals(x.getuPhone()) && pass.equals(x.getPass())) {
+                    daoUser.updateWalletUser(x, amount);
+
                     request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
-                    
+
                     sendDispatcher(request, response, "UserControllerMap?service=info");
                 }
-                
             }
         }
     }
@@ -194,8 +220,10 @@ public class UserController extends HttpServlet {
         try {
             RequestDispatcher rd = request.getRequestDispatcher(path);
             rd.forward(request, response);
+
         } catch (ServletException | IOException ex) {
-            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -203,8 +231,10 @@ public class UserController extends HttpServlet {
         try {
             RequestDispatcher rd = request.getRequestDispatcher(path);
             rd.include(request, response);
+
         } catch (ServletException | IOException ex) {
-            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
