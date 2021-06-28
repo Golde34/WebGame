@@ -83,21 +83,38 @@
         </style>
     </head>
     <body>
-
+        <%  DBConnection dbCon = new DBConnection();
+            DAOGalery daoGalery = new DAOGalery(dbCon);
+            DAOCategory daoCate = new DAOCategory(dbCon);
+            ArrayList<Category> cateList = daoCate.getAllCategorys();
+        %>
         <jsp:include page="header.jsp"/>   
-        
+
         <%  ArrayList<Game> listGame = (ArrayList<Game>) request.getAttribute("listGame");  %>
         <div class="container page-content">
             <% if (listGame.isEmpty()) { %>
-            <h1 class="neon"> No Game Found</h1>          
+            <div class="col-md-8">
+                <h1 class="neon1" data-text="BUY ZONE">Game Storage</h1>
+                <h2 class="neon"> No Game Found</h2>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-sm-12 col-md-3">
+                <div class="btn-group" style="float:right">
+                    <button type="button" class="btn btn-danger dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Search By Category
+                    </button>
+                    <div class="dropdown-menu" style="background-color: #fff; text-align: center">
+                        <% for (Category x : cateList) {%>
+                        <a class="dropdown-item"  href="ProductControllerMap?service=searchByCate1&cateID=<%=x.getCaId()%>"> <%= x.getCaName()%></a>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
             <% } else {  %>
             <!--Popular Game-->
             <div class="container-fluid">
                 <!--Slide starts here-->
-                <%  DBConnection dbCon = new DBConnection();
-                    DAOGalery daoGalery = new DAOGalery(dbCon);
-                    DAOCategory daoCate = new DAOCategory(dbCon);
-                    ArrayList<Category> cateList = daoCate.getAllCategorys();%>
+
 
                 <!--Slick all game-->
                 <div class="all-game-list" >
@@ -115,26 +132,26 @@
                                 </button>
                                 <div class="dropdown-menu" style="background-color: #fff; text-align: center">
                                     <% for (Category x : cateList) {%>
-                                <a class="dropdown-item"  href="ProductControllerMap?service=searchByCate1&cateID=<%=x.getCaId()%>"> <%= x.getCaName()%></a>
-                                <% } %>
+                                    <a class="dropdown-item"  href="ProductControllerMap?service=searchByCate1&cateID=<%=x.getCaId()%>"> <%= x.getCaName()%></a>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
-                                <div class="head col-md-12">
+                        <div class="head col-md-12">
                             <div class = "col-sm-12 col-md-3"><h4>Poster</h4></div>
                             <div class="col-sm-12 col-md-2"><h4>Title</h4></div>
                             <div class="col-sm-12 col-md-1"><h4>Price</h4></div>
                             <div class="col-sm-12 col-md-2"><h4>Version</h4></div>
                             <div class="col-sm-12 col-md-2"><h4>Release Date</h4></div>
                             <div class="col-sm-12 col-md-2"><h4>Details</h4></div></div>
-                        <%
-                            for (Game game : listGame) { %>
-                        <%  ArrayList<Galery> gList2 = daoGalery.getGaleryByTypeId(game.getGid(), "img-bg");%>
+                            <%
+                                for (Game game : listGame) { %>
+                            <%  ArrayList<Galery> gList2 = daoGalery.getGaleryByTypeId(game.getGid(), "img-bg");%>
                         <div class="col-sm-12 col-md-12" style="background-color: #232930; border: solid #000;">
                             <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
                                 <div class = "col-sm-12 col-md-3">             
                                     <img style="height: 115px;width: 220px"src="<%= gList2.get(0).getLink().trim()%>" alt=""></div></a>
-                                    
+
                             <div class="col-sm-12 col-md-2 cc" id="getde1"><p ><%= game.getTitle()%></p></div>
                             <div class="col-sm-12 col-md-1 cg" id="getde"><p ><%= game.getPrice()%>$</p></div>
                             <div class="col-sm-12 col-md-2 cg" id="getde"><p ><%= game.getVersion()%></p></div>
@@ -149,10 +166,10 @@
                 </div>
             </div><%}%>
         </div>
-        
+
         <jsp:include page="footer.jsp"/>   
         <!--Jquery, JS-->
-       
+
         <script src="${contextPath}/js/bootstrap.min.js"></script>
         <script src="https://kit.fontawesome.com/9650a62e47.js" crossorigin="anonymous"></script>
         <script src="js/slick.min.js"></script>

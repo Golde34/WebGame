@@ -53,9 +53,9 @@
         <%
             User user = (User) session.getAttribute("currUser");
             ArrayList<Game> ShoppingCart = (ArrayList<Game>) session.getAttribute("ShoppingCart");
-            
+
             int size = 0;
-            if(ShoppingCart != null){
+            if (ShoppingCart != null) {
                 size = ShoppingCart.size();
             }
             String logHead = "  Sign in";
@@ -94,24 +94,26 @@
                                 <a class="dropdown-item" href="#new"><span class="fas fa-shipping-fast"></span> New
                                     Released</a>
                                 <a class="dropdown-item" href="#listplat"><span class="fas fa-chart-line"></span> Platform Game</a>
-                                   <a class="dropdown-item" href="#free"><span class="far fa-eye"></span> Free Game</a>
-                                <a class="dropdown-item" href="#trailer"><span class="far fa-eye"></span> Trailer Game</a>
+                                <a class="dropdown-item" href="#free"><span class="far fa-eye"></span> Free Game</a>
+                                <a class="dropdown-item" href="#trailer"><span class="fas fa-play"></span> Trailer Game</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle"
                                                          data-toggle="dropdown"><span class="fas fa-server"></span>
                                 CATEGORY</a>
-                            <div class="dropdown-menu">
+                            <div class="dropdown-menu" style="text-align: center;">
                                 <% for (Category x : cateList) {%>
-                                <a class="dropdown-item" href="ProductControllerMap?service=searchByCate1&cateID=<%=x.getCaId()%>"> <%= x.getCaName()%></a>
+                                <a class="dropdown-item" href="ProductControllerMap?service=searchByCate1&cateID=<%=x.getCaId()%>">
+                                    <i style="float:left;" class="fas fa-caret-right"></i> <%=x.getCaName()%><i style="float:right;" class="fas fa-caret-left"></i></a>
                                 <% } %>
                             </div>
                         </li>
                         <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle"
                                                          data-toggle="dropdown"><span class="fas fa-dice-d20"></span> PLATFORM</a>
-                            <div class="dropdown-menu">
+                            <div class="dropdown-menu" style="text-align: center;">
                                 <% for (Platform p : platList) {%>
-                                <a class="dropdown-item" href="ProductControllerMap?service=searchByPlat&platID=<%=p.getPlId()%>"> <%= p.getPlname()%></a>
+                                <a class="dropdown-item" href="ProductControllerMap?service=searchByPlat&platID=<%=p.getPlId()%>">
+                                    <i style="float:left;" class="fas fa-caret-right"></i><%=p.getPlname()%><i style="float:right;" class="fas fa-caret-left"></i></a>
                                 <% }%>
                             </div>
                         </li>
@@ -135,29 +137,37 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <%if (user != null) {%>
+                        <li style="background-color: #76cc11; border-radius: 3px; ">
+                            <a style="color: white;">
+                                <span class="glyphicon "></span> Hello, <%=user.getUsername()%> 
+                            </a>
+                        </li>
+                        <%}%>
                         <li>
-                            <%if(user != null){ %>
+                            <%if (user != null) {%>
                             <a style="text-align: center;" class="glyphicon" href="Cart.jsp">
                                 <i  class="fa fa-shopping-cart"></i>
-                                <div id="qty"> <%=size %> </div>
+                                <div id="qty"> <%=size%> </div>
                             </a>
                             <%} else {%>
                             <a style="text-align: center;" class="glyphicon" onclick="alert('You have to login first');">
                                 <i  class="fa fa-shopping-cart"></i>
-                                <div id="qty"> <%=size %> </div>
+                                <div id="qty"> <%=size%> </div>
                             </a>
                             <%}%>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-th-list"></span><%= logHead %></a>
+                                <span class="glyphicon glyphicon-th-list"></span><%= logHead%></a>
                             <div class="dropdown-menu">
-                                
+
                                 <a href="<%=urlLogin%>"><span class="glyphicon glyphicon-log-in"></span><%=loginOrChangePassword%></a>
                                 <!--                    If role is admin or owner-->
                                 <%if (user != null && (user.getSystem_role().equalsIgnoreCase("owner") || user.getSystem_role().equalsIgnoreCase("admin"))) {%>
                                 <a href="AdminControllerMap"><span class="glyphicon glyphicon-log-in"></span>   Admin Page</a>
-                                <%} if (user != null && user.getSystem_role().equalsIgnoreCase("user")) {%>
+                                <%}
+                                    if (user != null && user.getSystem_role().equalsIgnoreCase("user")) {%>
                                 <a href="UserControllerMap?service=info"><span class="glyphicon glyphicon-log-in"></span>   About Me</a>
                                 <%}%>
                                 <a href="<%=urlRegister%>"><span class="glyphicon glyphicon-log-in"></span><%=registerOrCheckout%></a>  
@@ -168,7 +178,7 @@
 
             </div>
         </nav>
-                    <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
         <!--Jquery, JS-->
 
         <script src="https://kit.fontawesome.com/9650a62e47.js" crossorigin="anonymous"></script>
@@ -176,7 +186,7 @@
         <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         <script src="js/slick.min.js"></script>
-        
+
     </body>
 </html>
 
