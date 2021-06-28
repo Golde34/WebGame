@@ -62,7 +62,9 @@
                 <div class="dropdown">
                     <button class="dropbtn" style="width: 250px; background-color: #04AA6D;color: white; padding: 16px; font-size: 16px; margin: 5px; border: 2px solid;">Galery Management</button>
                     <div class="dropdown-content">
-                        <button class="tablinks" onclick="openForm(event, 'galery')" id="defaultOpen">Galery</button>
+                        <button class="tablinks" onclick="openForm(event, 'galeryAdd')">Galery</button>
+                        <button class="tablinks" onclick="openForm(event, 'galeryUpdate')">Galery</button>
+                        <button class="tablinks" onclick="openForm(event, 'galeryDel')">Galery</button>
                     </div>
                 </div>
             </div>
@@ -350,26 +352,153 @@
                 </form>
             </div>
             <%-- Delete User --%>
+            <%-- Add Company --%>
             <div id="comAdd" class="tabcontent">
                 <h3>Company - Add</h3>
-                <p>Tokyo is the capital of Japan.</p>
+                <form action="AdminControllerMap" method="POST">
+                    <table border="1" style="width: 95%;">
+                        <tr>
+                            <td>Company Name</td>
+                            <td><input type="text" name="coName" placeholder="Company Name"></td>
+                        </tr>
+                        <tr>
+                            <td>Found Date</td>
+                            <td><input type="date" name="foundDate" ></td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>
+                                <textarea name="desciption" style="height: 120px; width: 100%; border: 1px; overflow-x: hidden; overflow-y: scroll;"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Logo</td>
+                            <td><input type="text" name="logo" ></td>
+                        </tr>
+                        <tr>
+                            <td>Company Address</td>
+                            <td><input type="text" name="address" ></td>
+                        </tr>
+                        <tr>
+                            <td>Company Phone </td>
+                            <td><select name="country" ><option value="0"> 0</option></select>
+                                <input type="number" name="phone" min="100000000" max="999999999">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Company Mail</td>
+                            <td><input type="text" name="mail" ></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Add" name="submit">
+                                <input type="hidden" value="addCom" name="service"></td>
+                        </tr>
+                    </table>
+                </form>
             </div>
-
+            <%-- Add Company --%>
+            <%-- Update Company --%>
             <div id="comUpdate" class="tabcontent">
                 <h3>Company - Update</h3>
-                <p>Tokyo is the capital of Japan.</p>
+                <form action="AdminControllerMap" method="POST">
+                    <table border="1" style="width: 95%;">
+                        <tr>
+                            <td>Company ID</td>
+                            <td><select name="coId" >
+                                    <% for (Company com : comList) {%>
+                                    <option value="<%=com.getCoId() %>"> <%=com.getCoId() %> : <%=com.getCoName() %> </option>
+                                    <% }%>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td><input type="text" name="name"></td>
+                        </tr>
+                        <tr>
+                            <td>Found Date</td>
+                            <td><input type="date" name="foundDate" ></td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>
+                                <textarea name="desciption" style="height: 120px; width: 100%; border: 1px; overflow-x: hidden; overflow-y: scroll;"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Logo</td>
+                            <td><input type="text" name="logo" ></td>
+                        </tr>
+                        <tr>
+                            <td>Company Address</td>
+                            <td><input type="text" name="address" ></td>
+                        </tr>
+                        <tr>
+                            <td>Company Phone </td>
+                            <td><select name="country" ><option value="0"> 0</option></select>
+                                <input type="number" name="phone" min="100000000" max="999999999">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Company Mail</td>
+                            <td><input type="text" name="mail" ></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Update" name="submit">
+                                <input type="hidden" value="updateCom" name="service"></td>
+                        </tr>
+                    </table>
+                </form>
             </div>
-
+            <%-- Update Company --%>
+            <%-- Delete Company --%>
             <div id="comDel" class="tabcontent">
                 <h3>Company - Delete/Restore</h3>
-                <p>Tokyo is the capital of Japan.</p>
+                <form action="AdminControllerMap" method="POST">
+                    <table border="1" style="width: 95%;">
+                        <tr>
+                            <td>Company ID</td>
+                            <td><select name="coId" >
+                                    <% for (Company com : comList) {%>
+                                    <option value="<%=com.getCoId() %>"> <%=com.getCoId() %> : <%=com.getCoName() %> </option>
+                                    <% }%>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="radio" name="status" value="1" checked><label>Keep</label><br>
+                                <input type="radio" name="status" value="0"><label>Delete</label><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Update" name="submit">
+                                <input type="hidden" value="delUser" name="service"></td>
+                        </tr>
+                    </table>
             </div>
-
-            <div id="galery" class="tabcontent">
-                <h3>Galery</h3>
+            <%-- Delete Company --%>
+            <%-- Add Galery --%>
+            <div id="galeryAdd" class="tabcontent">
+                <h3>Galery - Add</h3>
                 <p>Paris is the capital of France.</p> 
             </div>
-
+            <%-- Add Galery --%>
+            <%-- Update Galery --%>
+            <div id="galeryUpdate" class="tabcontent">
+                <h3>Galery - Update</h3>
+                <p>Paris is the capital of France.</p> 
+            </div>
+            <%-- Update Galery --%>
+            <%-- Delete Galery --%>
+            <div id="galeryDel" class="tabcontent">
+                <h3>Galery - Delete/Restore</h3>
+                <p>Paris is the capital of France.</p> 
+            </div>
+            <%-- Delete Galery --%>
             <script>document.getElementById("defaultOpen").click();</script>
         </div>
 
