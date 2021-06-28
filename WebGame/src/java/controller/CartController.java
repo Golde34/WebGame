@@ -57,9 +57,21 @@ public class CartController extends HttpServlet {
                 Game addGame = daoGame.getGameById(gameId);
                 ArrayList<Game> ShoppingCart = (ArrayList<Game>) request.getSession().getAttribute("ShoppingCart");
                 ShoppingCart.add(addGame);
-                request.setAttribute("ShoppingCart", ShoppingCart);
+                request.getSession().setAttribute("ShoppingCart", ShoppingCart);
                 sendDispatcher(request, response, "index.jsp");
-                
+            }
+            
+            if(service.equalsIgnoreCase("RemoveFromCart")){
+                int gameId = Integer.parseInt(request.getParameter("gameId"));
+                ArrayList<Game> ShoppingCart = (ArrayList<Game>) request.getSession().getAttribute("ShoppingCart");
+                for (int i = 0; i < ShoppingCart.size(); i++) {
+                    if(ShoppingCart.get(i).getGid() == gameId){
+                        ShoppingCart.remove(i);
+                        break;
+                    }
+                }
+                request.getSession().setAttribute("ShoppingCart", ShoppingCart);
+                sendDispatcher(request, response, "Cart.jsp");
             }
         }
     }
