@@ -6,8 +6,10 @@
 package controller;
 
 import entity.Category;
+import entity.Company;
 import entity.Game;
 import entity.Platform;
+import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -19,9 +21,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.DAOCategory;
+import model.DAOCompany;
 import model.DAOGame;
 import model.DAOGame_Category;
 import model.DAOPlatform;
+import model.DAOUser;
 import model.DBConnection;
 
 /**
@@ -44,6 +48,8 @@ public class AdminController extends HttpServlet {
     DAOCategory daoCate = new DAOCategory(dbCon);
     DAOPlatform daoPlat = new DAOPlatform(dbCon);
     DAOGame_Category daoGaCa = new DAOGame_Category(dbCon);
+    DAOCompany daoCom = new DAOCompany(dbCon);
+    DAOUser daoUser = new DAOUser(dbCon);
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -63,6 +69,10 @@ public class AdminController extends HttpServlet {
                 request.setAttribute("listCategory", listCategory);
                 ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
                 request.setAttribute("listPlatform", listPlatform);
+                ArrayList<Company> listCompany = daoCom.getAllCompany();
+                request.setAttribute("listCompany", listCompany);
+                ArrayList<User> listUser = daoUser.getAllUser();
+                request.setAttribute("listUser", listUser);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
             
