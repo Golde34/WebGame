@@ -94,6 +94,7 @@
                                 <a class="dropdown-item" href="#new"><span class="fas fa-shipping-fast"></span> New
                                     Released</a>
                                 <a class="dropdown-item" href="#listplat"><span class="fas fa-chart-line"></span> Platform Game</a>
+                                   <a class="dropdown-item" href="#free"><span class="far fa-eye"></span> Free Game</a>
                                 <a class="dropdown-item" href="#trailer"><span class="far fa-eye"></span> Trailer Game</a>
                             </div>
                         </li>
@@ -127,8 +128,8 @@
                                                          data-toggle="dropdown">
                                 <span class="fas fa-hands-helping"></span> HELP</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#"><span class="fas fa-info-circle"></span> About us</a>
-                                <a class="dropdown-item" href="#"><span class="fas fa-envelope"></span> Contact</a>
+                                <a class="dropdown-item" href="#aboutus.html"><span class="fas fa-info-circle"></span> About us</a>
+                                <a class="dropdown-item" href="#contact"><span class="fas fa-envelope"></span> Contact</a>
 
                             </div>
                         </li>

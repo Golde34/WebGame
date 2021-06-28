@@ -42,6 +42,7 @@
                 flex-wrap: wrap;
                 font-family: Roboto;
                 color: #fff;
+                margin-top: auto;
             }
             footer .container{
                 display: flex;
@@ -52,7 +53,7 @@
         </style>
     </head>
     <body>
-        <footer>
+        <footer id="contact">
 
             <!--Bắt Đầu Nội Dung Giới Thiệu-->
             <div class="about">
