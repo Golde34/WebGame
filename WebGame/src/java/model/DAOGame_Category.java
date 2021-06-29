@@ -30,12 +30,11 @@ public class DAOGame_Category {
     }
 
     public void insertGame_Category(Game_Category gameCategory) {
-        sql = "insert into Game_Category(caId,gId,status) values(?,?,?)";
+        sql = "insert into Game_Category(caId,gId,status) values(?,?,1)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, gameCategory.getCaId());
             ps.setInt(2, gameCategory.getgId());
-            ps.setInt(3, gameCategory.getStatus());
             ps.executeUpdate();
 
         } catch (SQLException ex) {
@@ -43,7 +42,29 @@ public class DAOGame_Category {
         }
     }
 
-    public ArrayList<Game_Category> getAllGame_Categorys() {
+    public ArrayList<Game_Category> getAllGame_Categories() {
+        sql = "select * from Game_Category where status=1";
+        ArrayList<Game_Category> list = new ArrayList<>();
+        Game_Category x = null;
+        int caId;
+        int gId;
+        int status;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                caId = rs.getInt("caId");
+                gId = rs.getInt("gId");
+                status = rs.getInt("status");
+                x = new Game_Category(caId, gId, status);
+                list.add(x);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGame_Category.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    public ArrayList<Game_Category> getTrueGame_Categories() {
         sql = "select * from Game_Category";
         ArrayList<Game_Category> list = new ArrayList<>();
         Game_Category x = null;
@@ -65,5 +86,4 @@ public class DAOGame_Category {
         }
         return list;
     }
-    
 }

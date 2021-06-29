@@ -30,14 +30,13 @@ public class DAOPlatform {
     }
 
     public void insertPlatform(Platform plat) {
-        sql = "Insert into Platform(plName,description,status) values (?,?,?,?)";
+        sql = "Insert into Platform(plName,description,status) values (?,?,?,1)";
         PreparedStatement ps;
 
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, plat.getPlname());
             ps.setString(2, plat.getDescription());
-            ps.setInt(3, plat.getStatus());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOPlatform.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,6 +59,31 @@ public class DAOPlatform {
     }
 
     public ArrayList<Platform> getAllPlatforms() {
+        sql = "select * from Platform where status=1";
+        ArrayList<Platform> list = new ArrayList<>();
+        Platform x = null;
+        int caId;
+        String caName;
+        String descript;
+        int status;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                caId = rs.getInt("plId");
+                caName = rs.getString("plName");
+                descript = rs.getString("description");
+                status = rs.getInt("status");
+                x = new Platform(caId, caName, descript, status);
+                list.add(x);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPlatform.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    public ArrayList<Platform> getTruePlatforms() {
         sql = "select * from Platform";
         ArrayList<Platform> list = new ArrayList<>();
         Platform x = null;
@@ -109,7 +133,7 @@ public class DAOPlatform {
     
     public int changeStatus(int id, int status) {
         int n = 0;
-        String sql = "update Platform set status = " + (status == 1 ? 0 : 1) + " where plId = '" + id + "'";
+        String sql = "update Platform set status = " + (status == 1 ? 1 : 0) + " where plId = '" + id + "'";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             n = pre.executeUpdate();
@@ -125,7 +149,7 @@ public class DAOPlatform {
         ResultSet rs = dbConn.getData(sql);
         try {
             if (rs.next()) {
-                changeStatus(rs.getInt("plId"), 1);
+                changeStatus(rs.getInt("plId"), 0);
             } else {
                 String sqlDelete = "delete from Platform where plId = '" + id + "'";
                 Statement state = conn.createStatement();
@@ -137,7 +161,7 @@ public class DAOPlatform {
         return n;
     }
     
-    public boolean checkDupPlatformName(String name) {
+    public boolean checkExistPlatformName(String name) {
         String sql = "SELECT * FROM Platform WHERE plName = '" + name + "'";
         ResultSet rs = dbConn.getData(sql);
         try {
@@ -151,7 +175,7 @@ public class DAOPlatform {
     }
     
     public ArrayList<Platform> getPlatform(int gId) {
-        sql = "select plid from Game_Platform where gId ="+gId;
+        sql = "select plid from Game_Platform where status=1 and gId ="+gId;
         ArrayList<Platform> list = new ArrayList<>();
         
         try {

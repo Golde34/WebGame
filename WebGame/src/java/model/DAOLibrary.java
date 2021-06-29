@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  * @author Duong
  */
 public class DAOLibrary {
+
     DBConnection dbConn;
     Connection conn;
 
@@ -27,22 +28,21 @@ public class DAOLibrary {
         this.dbConn = dbConn;
         conn = dbConn.getConnection();
     }
-    
+
     public int insertLibrary(Library obj) {
         int n = 0;
-        String sql = "INSERT INTO Library(uId, gId, status) + values (?,?,?)";
+        String sql = "INSERT INTO Library(uId, gId, status) + values (?,?,1)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, obj.getuId());
             pre.setInt(2, obj.getgId());
-            pre.setInt(3, obj.getStatus());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOLibrary.class.getName()).log(Level.SEVERE, null, ex);
         }
         return n;
     }
-    
+
     public ArrayList<Game> getGameByUIdAndStatus(int uId, int status) {
         ArrayList<Game> list = new ArrayList<>();
         String s = " ";
@@ -62,5 +62,5 @@ public class DAOLibrary {
         }
         return list;
     }
-    
+
 }

@@ -50,7 +50,7 @@ public class DAOUser {
     public int addUser(User obj) {
         int n = 0;
         String sql = "INSERT INTO [User](uName, experience, uMail, uPhone, uAddress, wallet, system_role, username, pass, status)"
-                + " values (?,?,?,?,?,?,?,?,?,?)";
+                + " values (?,?,?,?,?,?,?,?,?,1)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, obj.getuName());
@@ -62,7 +62,6 @@ public class DAOUser {
             pre.setString(7, obj.getSystem_role());
             pre.setString(8, obj.getUsername());
             pre.setString(9, obj.getPass());
-            pre.setInt(10, 1);
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,7 +107,7 @@ public class DAOUser {
     
     public int changeStatus(String username, int status) {
         int n = 0;
-        String sql = "UPDATE [User] SET status = " + (status == 1 ? 0 : 1)
+        String sql = "UPDATE [User] SET status = " + (status == 1 ? 1 : 0)
                 + " WHERE username = '" + username + "'";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
@@ -126,7 +125,7 @@ public class DAOUser {
         ResultSet rs = dbConn.getData(sql);
         try {
             if (rs.next()) {
-                n = changeStatus(rs.getString("username"), 1);
+                n = changeStatus(rs.getString("username"), 0);
             } else {
                 String sqlDelete = "DELETE FROM User WHERE uid = " + id;
                 Statement state = conn.createStatement();
