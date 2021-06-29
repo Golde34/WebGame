@@ -35,9 +35,9 @@ public class DAOGame {
     }
 
     public void insertGame(Game game) {
-        sql = "Insert into Game(Title,coId,description,version,rating,releaseDate,price,state,status) values (?,?,?,?,?,?,?,?,?)";
+        sql = "Insert into Game(Title,coId,description,version,rating,releaseDate,price,state,status) values (?,?,?,?,?,?,?,?,1)";
         PreparedStatement ps;
-        
+
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, game.getTitle());
@@ -48,7 +48,6 @@ public class DAOGame {
             ps.setDate(6, game.getReleaseDate());
             ps.setDouble(7, game.getPrice());
             ps.setString(8, game.getState());
-            ps.setInt(9, game.getStatus());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOGame.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,7 +57,7 @@ public class DAOGame {
     public int updateInfoGame(Game game) {
         int n = 0;
         String sql = "update Game set Title=?, coId=?, description=?, version=?, rating=?, releaseDate=?, price=?, state=?, status=? where gId=? ";
-        
+
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, game.getTitle());
@@ -80,7 +79,7 @@ public class DAOGame {
 
     public int changeStatus(int id, int status) {
         int n = 0;
-        String sql = "update Game set status = " + (status == 1 ? 0 : 1) + " where gId = '" + id + "'";
+        String sql = "update Game set status = " + (status == 1 ? 1 : 0) + " where gId = '" + id + "'";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             n = pre.executeUpdate();
@@ -96,7 +95,7 @@ public class DAOGame {
         ResultSet rs = dbConn.getData(sql);
         try {
             if (rs.next()) {
-                changeStatus(rs.getInt("gId"), 1);
+                changeStatus(rs.getInt("gId"), 0);
             } else {
                 String sqlDelete = "delete from Game where gId = '" + id + "'";
                 Statement state = conn.createStatement();
@@ -108,7 +107,7 @@ public class DAOGame {
         return n;
     }
 
-    public boolean checkDupGameTitle(String gameTitle) {
+    public boolean checkExistGameTitle(String gameTitle) {
         String sql = "SELECT * FROM Game WHERE Title = '" + gameTitle + "'";
         ResultSet rs = dbConn.getData(sql);
         try {
@@ -123,7 +122,7 @@ public class DAOGame {
 
     public ArrayList<Game> getGameByCompanyId(int coId) {
         ArrayList<Game> list = new ArrayList<>();
-        String sql = "SELECT * FROM Game WHERE coId = " + coId;
+        String sql = "SELECT * FROM Game WHERE status=1 and coId = " + coId;
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {
@@ -148,7 +147,7 @@ public class DAOGame {
 
     public ArrayList<Game> getGameByName(String Title) {
         ArrayList<Game> list = new ArrayList<>();
-        String sql = "SELECT * FROM Game WHERE Title like '%" + Title + "%'";
+        String sql = "SELECT * FROM Game WHERE status=1 and Title like '%" + Title + "%'";
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {
@@ -197,7 +196,7 @@ public class DAOGame {
 
     public ArrayList<Game> getGameByRating() {
         ArrayList<Game> list = new ArrayList<>();
-        String sql = "SELECT TOP 10 * FROM GAME ORDER BY rating desc";
+        String sql = "SELECT TOP 10 * FROM GAME where status=1 ORDER BY rating desc";
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {
@@ -220,10 +219,9 @@ public class DAOGame {
         return list;
     }
 
-    
     public ArrayList<Game> getAllGame() {
         ArrayList<Game> list = new ArrayList<>();
-        String sql = "SELECT * FROM Game ";
+        String sql = "SELECT * FROM Game where status=1 ";
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {
@@ -246,9 +244,9 @@ public class DAOGame {
         return list;
     }
 
-    public ArrayList<Game> getGameByCategoryId(int caId) {
+    public ArrayList<Game> getTrueGame() {
         ArrayList<Game> list = new ArrayList<>();
-        String sql = "SELECT * FROM Game as a join Game_Category as b on a.gId = b.gId WHERE b.caId =" + caId;
+        String sql = "SELECT * FROM Game where status=1 ";
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {
@@ -271,9 +269,9 @@ public class DAOGame {
         return list;
     }
     
-    public ArrayList<Game> getGameByPlatformId(int plId) {
+    public ArrayList<Game> getGameByCategoryId(int caId) {
         ArrayList<Game> list = new ArrayList<>();
-        String sql = "SELECT * FROM Game as a join Game_Platform as b on a.gId = b.gId WHERE b.plId =" + plId;
+        String sql = "SELECT * FROM Game as a join Game_Category as b on a.gId = b.gId WHERE a.status=1 and b.caId =" + caId;
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {
@@ -295,12 +293,40 @@ public class DAOGame {
         }
         return list;
     }
+
+    public ArrayList<Game> getGameByPlatformId(int plId) {
+        ArrayList<Game> list = new ArrayList<>();
+        String sql = "SELECT * FROM Game as a join Game_Platform as b on a.gId = b.gId WHERE a.status=1 and b.plId =" + plId;
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            while (rs.next()) {
+                Game pro = new Game();
+                pro.setGid(rs.getInt("gId"));
+                pro.setTitle(rs.getString("Title"));
+                pro.setCoID(rs.getInt("coId"));
+                pro.setDescription(rs.getString("description"));
+                pro.setVersion(rs.getString("version"));
+                pro.setRating(rs.getInt("rating"));
+                pro.setReleaseDate(rs.getDate("releaseDate"));
+                pro.setPrice(rs.getDouble("price"));
+                pro.setState(rs.getString("state"));
+                pro.setStatus(rs.getInt("status"));
+                list.add(pro);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     //Day nay
     public ArrayList<Game> getGameByMultiCategoryId(String[] caIds) {
-        if (caIds.length == 0) return null;
+        if (caIds.length == 0) {
+            return null;
+        }
         ArrayList<Game> list = new ArrayList<>();
         for (String caId : caIds) {
-            String sql = "SELECT * FROM [Web_Game_DB].[dbo].[Game] WHERE gId IN (SELECT gId FROM [Web_Game_DB].[dbo].[Game_Category] WHERE caId = " + caId+")";
+            String sql = "SELECT * FROM [Web_Game_DB].[dbo].[Game] WHERE status=1 and gId IN (SELECT gId FROM [Web_Game_DB].[dbo].[Game_Category] WHERE caId = " + caId + ")";
             ResultSet rs = dbConn.getData(sql);
             try {
                 while (rs.next()) {
@@ -317,35 +343,35 @@ public class DAOGame {
                     game.setState(rs.getString("state"));
                     game.setStatus(rs.getInt("status"));
                     for (Game game1 : list) {
-                        if (game1.getGid()==game.getGid()) {
-                            game.setStatus(game.getStatus()+2);
+                        if (game1.getGid() == game.getGid()) {
+                            game.setStatus(game.getStatus() + 2);
                             check = false;
                             break;
                         }
                     }
-                    if (check) list.add(game);
+                    if (check) {
+                        list.add(game);
+                    }
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(DAOGame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        Collections.sort(list, (Game g1, Game g2) -> g1.getStatus()-g2.getStatus());
+        Collections.sort(list, (Game g1, Game g2) -> g1.getStatus() - g2.getStatus());
         return list;
     }
-    
-        
+
     public ArrayList<Game> getGame_SameCategory(int gId) {
-        sql = "select distinct gid from Game_Category where caId in (Select caid from Game_Category where gId="+gId+")";
+        sql = "select distinct gid from Game_Category where caId in (Select caid from Game_Category where status=1 and gId=" + gId + ")";
         ArrayList<Game> list = new ArrayList<>();
         Game x = null;
-        
-       
+
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int gameId = rs.getInt("gId");
-                x= getGameById(gameId);
+                x = getGameById(gameId);
                 list.add(x);
             }
         } catch (SQLException ex) {
@@ -353,9 +379,9 @@ public class DAOGame {
         }
         return list;
     }
-    
+
     public ArrayList<Game> getGame_SamePlatform(int gId) {
-        sql = "select distinct gid from Game_Platform where plId in (Select plid from Game_Platform where gId="+gId+")";
+        sql = "select distinct gid from Game_Platform where plId in (Select plid from Game_Platform where status=1 and gId=" + gId + ")";
         ArrayList<Game> list = new ArrayList<>();
         Game x = null;
 
@@ -364,7 +390,7 @@ public class DAOGame {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int gameId = rs.getInt("gId");
-                x= getGameById(gameId);
+                x = getGameById(gameId);
                 list.add(x);
             }
         } catch (SQLException ex) {
@@ -372,9 +398,9 @@ public class DAOGame {
         }
         return list;
     }
-    
+
     public ArrayList<Game> getGame_SameCom(int gId) {
-        sql = "select gid from Game where coId = (Select coid from Game where gId="+gId+")";
+        sql = "select gid from Game where coId = (Select coid from Game where status=1 and gId=" + gId + ")";
         ArrayList<Game> list = new ArrayList<>();
         Game x = null;
 
@@ -383,7 +409,7 @@ public class DAOGame {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int gameId = rs.getInt("gId");
-                x= getGameById(gameId);
+                x = getGameById(gameId);
                 list.add(x);
             }
         } catch (SQLException ex) {
@@ -391,10 +417,14 @@ public class DAOGame {
         }
         return list;
     }
-    
+
     public ArrayList<Game> getGamesSort(String crite, boolean descend) {
-        String sql = "SELECT TOP 10 * FROM Game ORDER BY "+ crite;
-        if (descend) sql += " desc"; else sql+= " asc";
+        String sql = "SELECT TOP 10 * FROM Game where status=1 ORDER BY " + crite;
+        if (descend) {
+            sql += " desc";
+        } else {
+            sql += " asc";
+        }
         ArrayList<Game> list = new ArrayList<>();
         ResultSet rs = dbConn.getData(sql);
         try {
@@ -417,7 +447,7 @@ public class DAOGame {
         }
         return list;
     }
-    
+
     public ArrayList<Game> getGameByUIdFromLibrary(int uId) {
         ArrayList<Game> list = new ArrayList<>();
 

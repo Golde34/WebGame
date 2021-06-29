@@ -31,34 +31,59 @@ public class DAOGalery {
     }
 
     public void insertGalery(Galery gal) {
-        sql = "insert into Galery(gId,link,type,status) values(?,?,?,?)";
+        sql = "insert into Galery(gId,link,type,status) values(?,?,?,1)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, gal.getgId());
             ps.setString(2, gal.getLink());
             ps.setString(3, gal.getType());
-            ps.setBoolean(4, gal.isStatus());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOGalery.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public void updateGalery(Galery gal) {
-        sql = "update Galery set link=?, type=?, status=? where gId=?";
+    public void updateGalery(Galery oldGal, Galery newGal) {
+        sql = "update Galery set link=?, type=?, status=? where gId=? and link=?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, gal.getgId());
-            ps.setString(2, gal.getLink());
-            ps.setString(3, gal.getType());
-            ps.setBoolean(4, gal.isStatus());
+            ps.setString(1, newGal.getLink());
+            ps.setString(2, newGal.getType());
+            ps.setBoolean(3, newGal.isStatus());
+            ps.setInt(4, newGal.getgId());
+            ps.setString(5, newGal.getLink());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOGalery.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public ArrayList<Galery> getAllGalerys() {
+    public ArrayList<Galery> getAllGaleries() {
+        sql = "select * from Galery where status = 1";
+        ArrayList<Galery> list = new ArrayList<>();
+        Galery x = null;
+        int gId;
+        String link;
+        String type;
+        boolean status;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                gId = rs.getInt("gId");
+                link = rs.getString("link");
+                type = rs.getString("type");
+                status = rs.getBoolean("status");
+                x = new Galery(gId, link, type, status);
+                list.add(x);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGalery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    public ArrayList<Galery> getTrueGaleries() {
         sql = "select * from Galery";
         ArrayList<Galery> list = new ArrayList<>();
         Galery x = null;
@@ -144,8 +169,33 @@ public class DAOGalery {
         return list;
     }
     
+    public ArrayList<Galery> getTrailer() {
+        sql = "select * from Galery WHERE type = 'vid-trailer' and status=1";
+        ArrayList<Galery> list = new ArrayList<>();
+        Galery x = null;
+        int gId;
+        String link;
+        String type;
+        boolean status;
+        try {
+            Statement ps = conn.createStatement();
+            ResultSet rs = ps.executeQuery(sql);
+            while(rs.next()){
+                gId = rs.getInt("gId");
+                link = rs.getString("link");
+                type = rs.getString("type");
+                status = rs.getBoolean("status");
+                x = new Galery(gId, link, type, status);
+                list.add(x);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGalery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
     public ArrayList<Galery> getVideo() {
-        sql = "select * from Galery WHERE type = 'vid-trailer'";
+        sql = "select * from Galery WHERE type like 'vid%' and status=1";
         ArrayList<Galery> list = new ArrayList<>();
         Galery x = null;
         int gId;
@@ -171,7 +221,7 @@ public class DAOGalery {
     
     public int changeStatus(int id, int status) {
         int n = 0;
-        String sql = "update Galery set status = " + (status == 1 ? 0 : 1) + " where gId = '" + id + "'";
+        String sql = "update Galery set status = " + (status == 1 ? 1 : 0) + " where gId = '" + id + "'";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             n = pre.executeUpdate();
@@ -199,7 +249,7 @@ public class DAOGalery {
         return n;
     }
     
-    public boolean checkDupGaleryInfo(int gId,String link) {
+    public boolean checkExistGaleryInfo(int gId,String link) {
         String sql = "SELECT * FROM Galery WHERE link = '" + link + "' and gId = "+ gId;
         ResultSet rs = dbConn.getData(sql);
         try {
@@ -213,7 +263,7 @@ public class DAOGalery {
     }
     
     public ArrayList<Galery> getFullGameGalery(int gid ){
-        String sql = "SELECT * FROM Galery WHERE gid = ? and not (type = 'img-po') order by type desc";
+        String sql = "SELECT * FROM Galery WHERE status=1 and gid = ? and not (type = 'img-po') order by type desc";
         PreparedStatement ps;
         ArrayList<Galery> list = new ArrayList<>();
         Galery x = null;
