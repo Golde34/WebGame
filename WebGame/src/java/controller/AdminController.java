@@ -69,7 +69,7 @@ public class AdminController extends HttpServlet {
             if (service.equalsIgnoreCase("HomeAdmin")) {
                 ArrayList<Game> listGame = daoGame.getAllGame();
                 request.setAttribute("listGame", listGame);
-                ArrayList<Category> listCategory = daoCate.getAllCategorys();
+                ArrayList<Category> listCategory = daoCate.getAllCategories();
                 request.setAttribute("listCategory", listCategory);
                 ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
                 request.setAttribute("listPlatform", listPlatform);

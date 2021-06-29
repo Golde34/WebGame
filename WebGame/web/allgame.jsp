@@ -86,7 +86,7 @@
         <%  DBConnection dbCon = new DBConnection();
             DAOGalery daoGalery = new DAOGalery(dbCon);
             DAOCategory daoCate = new DAOCategory(dbCon);
-            ArrayList<Category> cateList = daoCate.getAllCategorys();
+            ArrayList<Category> cateList = daoCate.getAllCategories();
         %>
         <jsp:include page="header.jsp"/>   
 

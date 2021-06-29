@@ -21,7 +21,7 @@
 <%
     DBConnection dbCon = new DBConnection();
     DAOCategory daoCate = new DAOCategory(dbCon);
-    ArrayList<Category> cateList = daoCate.getAllCategorys();
+    ArrayList<Category> cateList = daoCate.getAllCategories();
     DAOPlatform daoPlat = new DAOPlatform(dbCon);
     ArrayList<Platform> platList = daoPlat.getAllPlatforms();
 %>

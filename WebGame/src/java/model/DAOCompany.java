@@ -71,7 +71,7 @@ public class DAOCompany {
     public int changeStatus(String coName, int status) {
         int n = 0;
         String sql = "UPDATE Company SET status = "
-                + (status == 1 ? 0 : 1) + " WHERE coName = '" + coName + "'";
+                + (status == 1 ? 1 : 0) + " WHERE coName = '" + coName + "'";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             n = pre.executeUpdate();
@@ -99,7 +99,7 @@ public class DAOCompany {
         return n;
     }
     
-    public boolean checkDupCompanyName(String coName) {
+    public boolean checkExistCompanyName(String coName) {
         String sql = "SELECT * FROM Company WHERE coname = '" + coName + "'";
         ResultSet rs = dbConn.getData(sql);
         try {
@@ -115,6 +115,29 @@ public class DAOCompany {
     public ArrayList<Company> getAllCompany() {
         ArrayList<Company> list = new ArrayList<>();
         String sql = "SELECT * FROM Company WHERE status = 1";
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            while (rs.next()) {
+                int coId = rs.getInt("coId");
+                String scoName = rs.getString("coName");
+                Date foundDate = rs.getDate("foundDate");
+                String descripton = rs.getString("description");
+                String logo = rs.getString("logo");
+                String coAddress = rs.getString("coAddress");
+                String coPhone = rs.getString("coPhone");
+                String coMail = rs.getString("coMail");
+                Company s = new Company(coId, scoName, foundDate, descripton, logo, coAddress, coPhone, coMail);
+                list.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCompany.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    public ArrayList<Company> getTrueCompany() {
+        ArrayList<Company> list = new ArrayList<>();
+        String sql = "SELECT * FROM Company";
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {

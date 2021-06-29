@@ -60,7 +60,32 @@ public class DAOCategory {
         }
     }
 
-    public ArrayList<Category> getAllCategorys() {
+    public ArrayList<Category> getAllCategories() {
+        sql = "select * from Category WHERE status=1";
+        ArrayList<Category> list = new ArrayList<>();
+        Category x = null;
+        int caId;
+        String caName;
+        String descript;
+        int status;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                caId = rs.getInt("caId");
+                caName = rs.getString("caName");
+                descript = rs.getString("description");
+                status = rs.getInt("status");
+                x = new Category(caId, caName, descript, status);
+                list.add(x);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCategory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    public ArrayList<Category> getTrueCategories() {
         sql = "select * from Category";
         ArrayList<Category> list = new ArrayList<>();
         Category x = null;
@@ -85,7 +110,7 @@ public class DAOCategory {
         return list;
     }
     
-    public Category getCategorysById(int fcaId) {
+    public Category getCategoryById(int fcaId) {
         sql = "select * from Category where caId=" + fcaId;
         Category x = null;
         int caId;
@@ -110,7 +135,7 @@ public class DAOCategory {
     
     public int changeStatus(int id, int status) {
         int n = 0;
-        String sql = "update Category set status = " + (status == 1 ? 0 : 1) + " where caId = '" + id + "'";
+        String sql = "update Category set status = " + (status == 1 ? 1 : 0) + " where caId = '" + id + "'";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             n = pre.executeUpdate();
@@ -138,7 +163,7 @@ public class DAOCategory {
         return n;
     }
     
-    public boolean checkDupCategoryName(String caName) {
+    public boolean checkExistCategoryName(String caName) {
         String sql = "SELECT * FROM Category WHERE caName = '" + caName + "'";
         ResultSet rs = dbConn.getData(sql);
         try {
@@ -160,7 +185,7 @@ public class DAOCategory {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int caid = rs.getInt("caid");
-                Category x= getCategorysById(caid);
+                Category x= getCategoryById(caid);
                 list.add(x);
             }
         } catch (SQLException ex) {

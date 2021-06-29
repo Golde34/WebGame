@@ -61,7 +61,7 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("listNewGame", listNewGame);
                 ArrayList<Game> listFreeGame = daoGame.getGamesSort("price", false);
                 request.setAttribute("listFreeGame", listFreeGame);
-                ArrayList<Category> listCategory = daoCate.getAllCategorys();
+                ArrayList<Category> listCategory = daoCate.getAllCategories();
                 request.setAttribute("listCategory", listCategory);
                 ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
                 request.setAttribute("listPlatform", listPlatform);
@@ -78,7 +78,7 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("listNewGame", listNewGame);
                 ArrayList<Game> listFreeGame = daoGame.getGamesSort("price", false);
                 request.setAttribute("listFreeGame", listFreeGame);
-                ArrayList<Category> listCategory = daoCate.getAllCategorys();
+                ArrayList<Category> listCategory = daoCate.getAllCategories();
                 request.setAttribute("listCategory", listCategory);
                 ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
                 request.setAttribute("listPlatform", listPlatform);
@@ -98,7 +98,7 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("listFreeGame", listFreeGame);
                 ArrayList<Game> listAllGame = daoGame.getAllGame();
                 request.setAttribute("listAllGame", listAllGame);
-                ArrayList<Category> listCategory = daoCate.getAllCategorys();
+                ArrayList<Category> listCategory = daoCate.getAllCategories();
                 request.setAttribute("listCategory", listCategory);
                 ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
                 request.setAttribute("listPlatform", listPlatform);
@@ -115,7 +115,7 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("listNewGame", listNewGame);
                 ArrayList<Game> listFreeGame = daoGame.getGamesSort("price", false);
                 request.setAttribute("listFreeGame", listFreeGame);
-                ArrayList<Category> listCategory = daoCate.getAllCategorys();
+                ArrayList<Category> listCategory = daoCate.getAllCategories();
                 request.setAttribute("listCategory", listCategory);
                 ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
                 request.setAttribute("listPlatform", listPlatform);
@@ -131,7 +131,7 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("listNewGame", listNewGame);
                 ArrayList<Game> listFreeGame = daoGame.getGamesSort("price", false);
                 request.setAttribute("listFreeGame", listFreeGame);
-                ArrayList<Category> listCategory = daoCate.getAllCategorys();
+                ArrayList<Category> listCategory = daoCate.getAllCategories();
                 request.setAttribute("listCategory", listCategory);
                 ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
                 request.setAttribute("listPlatform", listPlatform);
@@ -149,7 +149,7 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("listHotGame", listHotGame);
                 ArrayList<Game> listFreeGame = daoGame.getGamesSort("price", false);
                 request.setAttribute("listFreeGame", listFreeGame);
-                ArrayList<Category> listCategory = daoCate.getAllCategorys();
+                ArrayList<Category> listCategory = daoCate.getAllCategories();
                 request.setAttribute("listCategory", listCategory);
                 ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
                 request.setAttribute("listPlatform", listPlatform);
