@@ -6,6 +6,8 @@
 package controller;
 
 import entity.Game;
+import entity.Order;
+import entity.OrderDetail;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import model.DAOCategory;
 import model.DAOGame;
 import model.DAOGame_Category;
+import model.DAOOrder;
+import model.DAOOrder_Detail;
 import model.DAOPlatform;
 import model.DBConnection;
 
@@ -38,12 +42,14 @@ public class CartController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     DBConnection dbCon = new DBConnection();
-    DAOGame     daoGame = new DAOGame(dbCon);
+    DAOGame daoGame = new DAOGame(dbCon);
     DAOCategory daoCate = new DAOCategory(dbCon);
     DAOPlatform daoPlat = new DAOPlatform(dbCon);
+    DAOOrder daoOrder = new DAOOrder(dbCon);
+    DAOOrder_Detail dAOOrder_Detail = new DAOOrder_Detail(dbCon);
     DAOGame_Category daoGaCa = new DAOGame_Category(dbCon);
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -51,21 +57,27 @@ public class CartController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String service = request.getParameter("service");
             User user = (User) request.getSession().getAttribute("currUser");
-        
-            if(service.equalsIgnoreCase("AddToCart")){
+
+            if (service.equalsIgnoreCase("AddToCart")) {
                 int gameId = Integer.parseInt(request.getParameter("gameId"));
                 Game addGame = daoGame.getGameById(gameId);
                 ArrayList<Game> ShoppingCart = (ArrayList<Game>) request.getSession().getAttribute("ShoppingCart");
+                for (int i = 0; i < ShoppingCart.size(); i++) {
+                    if (ShoppingCart.get(i).getGid() == gameId) {
+                        request.setAttribute("mess", "Game already in cart");
+                        sendDispatcher(request, response, "Cart.jsp");
+                    }
+                }
                 ShoppingCart.add(addGame);
                 request.getSession().setAttribute("ShoppingCart", ShoppingCart);
                 sendDispatcher(request, response, "index.jsp");
             }
-            
-            if(service.equalsIgnoreCase("RemoveFromCart")){
+
+            if (service.equalsIgnoreCase("RemoveFromCart")) {
                 int gameId = Integer.parseInt(request.getParameter("gameId"));
                 ArrayList<Game> ShoppingCart = (ArrayList<Game>) request.getSession().getAttribute("ShoppingCart");
                 for (int i = 0; i < ShoppingCart.size(); i++) {
-                    if(ShoppingCart.get(i).getGid() == gameId){
+                    if (ShoppingCart.get(i).getGid() == gameId) {
                         ShoppingCart.remove(i);
                         break;
                     }
@@ -73,9 +85,34 @@ public class CartController extends HttpServlet {
                 request.getSession().setAttribute("ShoppingCart", ShoppingCart);
                 sendDispatcher(request, response, "Cart.jsp");
             }
+
+            if (service.equalsIgnoreCase("CheckOut")) {
+                ArrayList<Game> ShoppingCart = (ArrayList<Game>) request.getSession().getAttribute("ShoppingCart");
+                double total = 0.0;
+                for (Game game : ShoppingCart) {
+                    total+= game.getPrice();
+                }
+                total = total*1.1;
+                total = Double.parseDouble(String.format("%.2f", total));
+                Order addOrder = new Order(-1, user.getuId(), null, total);
+                daoOrder.insertOrder(addOrder);
+                int oId = daoOrder.getLatestOrderByUseridAndTotal(user.getuId(), total);
+                OrderDetail orderDetail = new OrderDetail();
+                for (Game game : ShoppingCart) {
+                    orderDetail.setoId(oId);
+                    orderDetail.setgId(game.getGid());
+                    orderDetail.setPrice(game.getPrice());
+                    dAOOrder_Detail.insertOrderDetail(orderDetail);
+                }
+                        
+                ShoppingCart.removeAll(ShoppingCart);
+                request.getSession().setAttribute("ShoppingCart", ShoppingCart);
+                request.setAttribute("messCheckOut", "Your order had been add!");
+                sendDispatcher(request, response, "Cart.jsp");
+            }
         }
     }
-    
+
     public void sendDispatcher(HttpServletRequest request, HttpServletResponse response, String path) {
         try {
             RequestDispatcher rd = request.getRequestDispatcher(path);

@@ -28,14 +28,13 @@ public class DAOOrder_Detail {
 
     public int insertOrderDetail(OrderDetail obj) {
         int n = 0;
-        String sql = "Insert into Oder_Detail(oId, gId, price, status)"
-                + " values (?,?,?,?)";
+        String sql = "Insert into Order_Detail(oId, gId, price, status)"
+                + " values (?,?,?,1)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, obj.getoId());
             pre.setInt(2, obj.getgId());
             pre.setDouble(3, obj.getPrice());
-            pre.setDouble(4, obj.getStatus());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOOrder_Detail.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,4 +98,5 @@ public class DAOOrder_Detail {
         }
         return list;
     }
+    
 }

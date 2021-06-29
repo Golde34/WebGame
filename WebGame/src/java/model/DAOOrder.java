@@ -31,14 +31,12 @@ public class DAOOrder {
 
     public int insertOrder(Order obj) {
         int n = 0;
-        String sql = "Insert into [Order](uId, orderDate, total, status"
-                + " values (?,?,?,?)";
+        String sql = "Insert into [Order](uId, orderDate, total, status)"
+                + " values (?,GETDATE(),?,1)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, obj.getuId());
-            pre.setTimestamp(2, obj.getOrderDate());
-            pre.setDouble(3, obj.getTotal());
-            pre.setInt(4, obj.getStatus());
+            pre.setDouble(2, obj.getTotal());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOOrder.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,7 +106,7 @@ public class DAOOrder {
 
     public ArrayList<Order> getAllOrder() {
         ArrayList<Order> list = new ArrayList<>();
-        String sql = "select * from [Order] order by oId desc";
+        String sql = "select * from [Order] where status = 1  order by oId desc";
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {
@@ -152,7 +150,7 @@ public class DAOOrder {
     
     public ArrayList<Order> getOrders(int uId) {
         ArrayList<Order> list = new ArrayList<>();
-        String sql = "select * from [Order] where uId="+uId;
+        String sql = "select * from [Order] where status = 1 and uId="+uId;
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {
@@ -169,4 +167,22 @@ public class DAOOrder {
         }
         return list;
     }
+    
+    public int getLatestOrderByUseridAndTotal(int uID, double total){
+        int newestOrderId = -1;
+        String sql = "select top 1 * from [Order] where status = 1 and uId= ? and total = ? order by oid desc";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, uID);
+            ps.setDouble(2, total);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                newestOrderId = rs.getInt("oId");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return newestOrderId;
+    }    
+    
 }

@@ -117,10 +117,18 @@
         <jsp:include page="header.jsp"/>   
 
         <%  ArrayList<Game> ShoppingCart = (ArrayList<Game>) session.getAttribute("ShoppingCart");
+            String mess = (String) request.getAttribute("mess");
+            String messCheckOut = (String) request.getAttribute("messCheckOut");
         %>
         <div class="container page-content">
             <% if (ShoppingCart.isEmpty()) { %>
-            <h1 class="neon"> You haven't shop yet</h1>          
+
+            <%if (messCheckOut != null) {%>
+            <h4 class="neon" data-text="BUY ZONE"><%= messCheckOut%></h4>
+            <h4 class="neon" data-text="BUY ZONE"><a href="index.jsp" >Back to HomePage</a></h4>
+            <%} else {%> 
+            <h1 class="neon"> Your cart is empty</h1>
+            <%}%>
             <% } else {  %>
             <!--Popular Game-->
             <div class="container-fluid">
@@ -128,12 +136,12 @@
                 <%  DBConnection dbCon = new DBConnection();
                     DAOGalery daoGalery = new DAOGalery(dbCon);
                     DAOCategory daoCate = new DAOCategory(dbCon);
-                    ArrayList<Category> cateList = daoCate.getAllCategorys();
+                    ArrayList<Category> cateList = daoCate.getAllCategories();
                     Double SubTotal = 0.0;
                     for (Game elem : ShoppingCart) {
-                        SubTotal+= elem.getPrice();
+                        SubTotal += elem.getPrice();
                     }
-                    
+
                 %>
 
                 <!--Slick all game-->
@@ -143,8 +151,11 @@
                         <div class="row " style="margin-bottom: 15px">
                             <div class="col-md-12">
                                 <h1 class="neon1" data-text="BUY ZONE">Shopping Cart</h1>
+                                <%if (mess != null) {%>
+                                <h4 class="neon1" data-text="BUY ZONE"><%= mess%></h4>
+                                <%}%>
                             </div>
-                            
+
                             <div class="head col-md-12">
                                 <div class = "col-sm-12 col-md-3"><h4>Poster</h4></div>
                                 <div class="col-sm-12 col-md-2"><h4>Title</h4></div>
@@ -177,11 +188,11 @@
                     <div class="col-md-1"></div>
                     <div class="col-sm-12 col-md-3 summary-cart" style="">
                         <p class="col-sm-12 left" >Summary</p>      
-                        <p class="col-sm-8 left" >Subtotal</p>     <p class="col-sm-4 right" >$<%=String.format("%.2f", SubTotal) %></p>
-                        <p class="col-sm-8 left" >Estimated Tax</p><p class="col-sm-4 right" >$<%=String.format("%.2f", SubTotal*0.1) %></p>
+                        <p class="col-sm-8 left" >Subtotal</p>     <p class="col-sm-4 right" >$<%=String.format("%.2f", SubTotal)%></p>
+                        <p class="col-sm-8 left" >Estimated Tax</p><p class="col-sm-4 right" >$<%=String.format("%.2f", SubTotal * 0.1)%></p>
                         <p class="col-sm-12 " >____________________________</p>
-                        <p class="col-sm-8 left" >Total</p>        <p class="col-sm-4 right" >$<%=String.format("%.2f", SubTotal*1.1) %></p>
-                        <button class="col-sm-12 checkout"><a href="#">Check out</a></button>
+                        <p class="col-sm-8 left" >Total</p>        <p class="col-sm-4 right" >$<%=String.format("%.2f", SubTotal * 1.1)%></p>
+                        <button class="col-sm-12 checkout"><a href="CartControllerMap?service=CheckOut">Check out</a></button>
                     </div>
                 </div>
             </div><%}%>
