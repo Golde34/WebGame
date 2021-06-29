@@ -87,9 +87,10 @@ public class UserController extends HttpServlet {
                 String regMail = request.getParameter("regMail");
                 String regPhone = request.getParameter("regPhone");
                 String address = request.getParameter("address");
-                String regPass = request.getParameter("confirm-password");
-
-                User user = new User(displayName, regMail, regPhone, address, "User", username, regPass);
+                String cPass = request.getParameter("confirm-password");
+                String regPass = request.getParameter("regPass");
+                
+                User user = new User(displayName, regMail, regPhone, address, "User", username, cPass);
                 String mess = "";
                 boolean checkUser = true;
                 if (username.length() < 6) {
@@ -100,6 +101,24 @@ public class UserController extends HttpServlet {
                     mess = "Username has been used !!";
                     checkUser = false;
                 }
+                if (!cPass.equalsIgnoreCase(regPass)) {
+                    mess = "The confirm-password is not match with the password!";
+                    checkUser = false;
+                }
+                String regexStr = "(09|03|07|08|05)+([0-9]{8})";
+                if (!regPhone.matches(regexStr)) {
+                    mess = "The phone number is not invalid";
+                    checkUser = false;
+                }
+                if (daoUser.checkExistMail(regMail)) {
+                    mess = "The email has been used !!";
+                    checkUser = false;
+                }
+                if (daoUser.checkExistPhone(regPhone)) {
+                    mess = "The phone has been used !!";
+                    checkUser = false;
+                }
+
                 request.setAttribute("mess", mess);
                 request.setAttribute("user", user);
                 if (checkUser) {

@@ -69,8 +69,9 @@
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-phone"></span></span>
-                                <input id="mobile" type="text" class="form-control" name="regPhone" 
+                            <input id="mobile" type="text" class="form-control" name="regPhone" 
                                    placeholder="Your Phone" required value="<%=phone%>">
+                            <span id='message1'></span>
                         </div>
 
                         <label class="label control-label">Address</label>
@@ -85,7 +86,7 @@
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-user"></span></span>
-                                <input id="password" type="password" class="form-control" name="regPass" 
+                            <input id="password" type="password" class="form-control" name="regPass" 
                                    placeholder="Password" required value="<%=password%>">
                         </div>
 
@@ -93,14 +94,13 @@
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-user"></span></span>
-                                <input id="confirm_password" type="Password" class="form-control" name="confirm-password" 
+                            <input id="confirm_password" type="Password" class="form-control" name="confirm-password" 
                                    placeholder="Confirm your password" required value="<%=password%>">
                             <span id='message'></span>
-
                         </div>
 
                         <div class="input-group">
-                            <button class="btn btn-default checkmobile" type="submit">SIGN UP</button>
+                            <button class="btn btn-default" type="submit">SIGN UP</button>
                             <button class="btn btn-default" type="reset">RESET</button>
                             <input type="hidden" name="service" value="register">
                         </div>
@@ -121,17 +121,15 @@
         <!--Check phone number-->                
         <script type="text/javascript">
             $(document).ready(function () {
-                $('body').on('click', '.checkmobile', function () {
+                $('body').on('keyup', function () {
                     var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
                     var mobile = $('#mobile').val();
                     if (mobile !== '') {
                         if (vnf_regex.test(mobile) == false) {
-                            alert('Your phone number is not in the correct format!');
+                            $('#message1').html('The phone number is not valid.').css('color', 'red');
                         } else {
-                            alert('Your phone number is valid!');
+                            $('#message1').html('The phone number is valid.').css('color', 'green');
                         }
-                    } else {
-                        alert('Bạn chưa điền số điện thoại!');
                     }
                 });
             });

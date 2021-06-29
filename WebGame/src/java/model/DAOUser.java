@@ -150,6 +150,32 @@ public class DAOUser {
         return false;
     }
     
+    public boolean checkExistPhone(String phone) {
+        String sql = "SELECT * FROM [User] WHERE uPhone = '" + phone + "' and status = 1" ;
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean checkExistMail(String mail) {
+        String sql = "SELECT * FROM [User] WHERE uMail = '" + mail + "' and status = 1";
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
     public User getUserByUsername(String username) {
         String sql = "SELECT * FROM [User] WHERE username = '" + username + "'";
         ResultSet rs = dbConn.getData(sql);

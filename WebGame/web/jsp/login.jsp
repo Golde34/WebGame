@@ -51,7 +51,7 @@
                         <div class="input-group">
                             <button type="submit" class="btn btn-default">SIGN IN</button>
                             <input type="hidden" name="service" value="login">
-                            <p class="text-center">Not register yet? <a href="register.jsp">SIGN UP</a></p>
+                            <p class="text-center">Not register yet? <a href="${contextPath}/jsp/register.jsp">SIGN UP</a></p>
                         </div>
                     </div>
                     <div class="col-md-2">
