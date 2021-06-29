@@ -15,7 +15,7 @@
         <title>REGISTER</title>
         <!--CSS-->
         <link href="${contextPath}/css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="login.css"type="text/css">
+        <link rel="stylesheet" href="${contextPath}/jsp/login.css"type="text/css">
     </head>
     <body>
         <%
