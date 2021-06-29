@@ -107,7 +107,7 @@ public class CartController extends HttpServlet {
                         
                 ShoppingCart.removeAll(ShoppingCart);
                 request.getSession().setAttribute("ShoppingCart", ShoppingCart);
-                request.setAttribute("messCheckOut", "Your order had been add!");
+                request.setAttribute("messCheckOut", "Your order had been added!");
                 sendDispatcher(request, response, "Cart.jsp");
             }
         }
