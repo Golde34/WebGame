@@ -14,7 +14,7 @@ GO
 CREATE TABLE dbo.[Company](
 	coId int NOT NULL identity(1,1) PRIMARY KEY,
 	coName nvarchar(63) NOT NULL,
-	foundDate date NOT NULL CHECK(foundDate < getDate()), --(foundation date)
+	foundDate date NOT NULL CHECK(foundDate <= getDate()), --(foundation date)
 	[description] nvarchar(1027),
 	logo nvarchar(255),
 	coAddress nvarchar(511),
@@ -29,7 +29,7 @@ CREATE TABLE dbo.[Game] (
 	coId int NOT NULL,
 	[description] nvarchar(1027),
 	version nvarchar(55),
-	releaseDate date NOT NULL CHECK(releaseDate < getDate()),
+	releaseDate date NOT NULL CHECK(releaseDate <= getDate()),
 	rating int CHECK(rating >= 0 AND rating <= 100), --từ 0-100
 	price money,
 	[state] nvarchar(55) NOT NULL,--(coming soon,available,stopped)
@@ -100,7 +100,7 @@ CREATE TABLE dbo.[Library](
 CREATE TABLE dbo.[Order](
 	oId int NOT NULL identity(1,1) PRIMARY KEY,
 	[uId] int NOT NULL,
-	orderDate datetime NOT NULL CHECK(orderDate < getDate()) ,
+	orderDate datetime NOT NULL CHECK(orderDate <= getDate()) ,
 	[status] bit,
 	total money NOT NULL CHECK (total>=0),
 	FOREIGN KEY ([uId]) REFERENCES dbo.[User]([uId]),
