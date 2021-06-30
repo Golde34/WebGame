@@ -25,6 +25,7 @@ import model.DAOGame_Category;
 import model.DAOOrder;
 import model.DAOOrder_Detail;
 import model.DAOPlatform;
+import model.DAOUser;
 import model.DBConnection;
 
 /**
@@ -48,6 +49,7 @@ public class CartController extends HttpServlet {
     DAOPlatform daoPlat = new DAOPlatform(dbCon);
     DAOOrder daoOrder = new DAOOrder(dbCon);
     DAOOrder_Detail dAOOrder_Detail = new DAOOrder_Detail(dbCon);
+    DAOUser daoUser = new DAOUser(dbCon);
     DAOGame_Category daoGaCa = new DAOGame_Category(dbCon);
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -90,25 +92,33 @@ public class CartController extends HttpServlet {
                 ArrayList<Game> ShoppingCart = (ArrayList<Game>) request.getSession().getAttribute("ShoppingCart");
                 double total = 0.0;
                 for (Game game : ShoppingCart) {
-                    total+= game.getPrice();
+                    total += game.getPrice();
                 }
-                total = total*1.1;
+                total = total * 1.1;
                 total = Double.parseDouble(String.format("%.2f", total));
-                Order addOrder = new Order(-1, user.getuId(), null, total);
-                daoOrder.insertOrder(addOrder);
-                int oId = daoOrder.getLatestOrderByUseridAndTotal(user.getuId(), total);
-                OrderDetail orderDetail = new OrderDetail();
-                for (Game game : ShoppingCart) {
-                    orderDetail.setoId(oId);
-                    orderDetail.setgId(game.getGid());
-                    orderDetail.setPrice(game.getPrice());
-                    dAOOrder_Detail.insertOrderDetail(orderDetail);
+                double wallet = user.getWallet();
+                if (wallet >= total) {
+                    Order addOrder = new Order(-1, user.getuId(), null, total);
+                    daoOrder.insertOrder(addOrder);
+                    int oId = daoOrder.getLatestOrderByUseridAndTotal(user.getuId(), total);
+                    OrderDetail orderDetail = new OrderDetail();
+                    for (Game game : ShoppingCart) {
+                        orderDetail.setoId(oId);
+                        orderDetail.setgId(game.getGid());
+                        orderDetail.setPrice(game.getPrice());
+                        dAOOrder_Detail.insertOrderDetail(orderDetail);
+                    }
+                    ShoppingCart.removeAll(ShoppingCart);
+                    user.setWallet(wallet - total);
+                    daoUser.updateInfoUser(user);
+                    request.getSession().setAttribute("currUser", user);
+                    request.getSession().setAttribute("ShoppingCart", ShoppingCart);
+                    request.setAttribute("messCheckOut", "Your order had been added!");
+                    sendDispatcher(request, response, "Cart.jsp");
+                } else {
+                    request.setAttribute("mess", "Your currency is not enough");
+                    sendDispatcher(request, response, "Cart.jsp");
                 }
-                        
-                ShoppingCart.removeAll(ShoppingCart);
-                request.getSession().setAttribute("ShoppingCart", ShoppingCart);
-                request.setAttribute("messCheckOut", "Your order had been added!");
-                sendDispatcher(request, response, "Cart.jsp");
             }
         }
     }

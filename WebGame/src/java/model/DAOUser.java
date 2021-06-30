@@ -71,7 +71,7 @@ public class DAOUser {
     
     public int updateInfoUser(User obj) {
         int n = 0;
-        String sql = "UPDATE [User] SET uName=?, experience=?, uMail=?, uPhone=?, uAddress=?, wallet=?, system_role=?, username=?, pass=? , status=? where uId=?";
+        String sql = "UPDATE [User] SET uName=?, experience=?, uMail=?, uPhone=?, uAddress=?, wallet=?, system_role=?, username=?, pass=? , status=1 where uId=?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, obj.getuName());
