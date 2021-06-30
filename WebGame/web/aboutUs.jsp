@@ -17,7 +17,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="theme-color" content="#171a21">
-        <title>Steam, The Ultimate Online Game Platform</title>
+        <title>80JS, The Game Platform</title>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <!--my Bootstrap-->
 
@@ -128,7 +128,7 @@
                         </div>
                         <div id="about_header">
                             <div id="about_greeting">
-                                <div class="steam_logo"><img src="https://cdn4.vectorstock.com/i/1000x1000/40/33/penguin-logo-design-head-vector-29014033.jpg" alt="The logo for Steam"></div>
+                                <div class="steam_logo"><img style="border-radius: 15px; " src="images/80jslogo.png" alt="The logo for Steam"></div>
                                 <div class="about_subtitle">Most game, most fun, most simple.</div>
                             </div>
                         </div>                        

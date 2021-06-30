@@ -18,7 +18,9 @@
     HashMap<Game, ArrayList<Galery>> listGameGalery = (HashMap<Game, ArrayList<Galery>>) request.getAttribute("listGameGalery");
     String message = (String) request.getAttribute("message");
     String displayTab = (String) request.getAttribute("tab");
-    if (displayTab==null) displayTab="gameAdd";
+    if (displayTab == null) {
+        displayTab = "gameAdd";
+    }
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -29,15 +31,20 @@
         <title>Admin Page</title>
         <link href="${contextPath}/admin/admin.css" rel="stylesheet">
         <script src="${contextPath}/admin/admin.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     </head>
     <body>
         <div class="header">
-            <h2>This part will be the header</h2>
-            <%  if (message==null) { %>
-                <p>Test paragraph</p>
-            <%} else {%>
-            <p><%=message%></p>
-            <%}%>
+            <nav class="navbar navbar-light bg-dark">
+                <div class="container-fluid">
+                    <a style="background-color: red;padding: 4px 3px 4px 3px;color:white" class="navbar-brand" href="index.jsp">
+                        Home
+                    </a> 
+                </div>  
+            </nav>
+            <h5 style="font-family:Times New Roman; font-style: italic;">You must back to homepage to logout</h5>
         </div>
 
         <div class="forms">
@@ -556,16 +563,20 @@
                 </form>
             </div>
             <%-- Update Galery --%>
-            <%  if (displayTab==null) {%>
+            <%  if (displayTab == null) {%>
             <script>document.getElementById("gameAdd").click();</script>
             <%} else {%>
             <script>document.getElementById("<%=displayTab%>").click();</script>
-            <% } %>
+            <% }%>
         </div>
-        
+
         <div class="orders">
             <p>this is orders</p>
             <p><%=displayTab%></p>
         </div>
+
+        <%--JS--%>
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     </body>
 </html>
