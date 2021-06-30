@@ -21,6 +21,7 @@
     if (displayTab == null) {
         displayTab = "gameAdd";
     }
+    Game updateGame = (Game) request.getAttribute("game");
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -44,7 +45,11 @@
                     </a> 
                 </div>  
             </nav>
+            <%if (message==null){%>
             <h5 style="font-family:Times New Roman; font-style: italic;">You must back to homepage to logout</h5>
+            <%} else { %>
+            <h5 style="font-family:Times New Roman; font-style: italic;"><%=message%></h5>
+            <%}%>
         </div>
 
         <div class="forms">
