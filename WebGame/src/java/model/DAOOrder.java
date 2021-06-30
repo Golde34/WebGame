@@ -149,7 +149,26 @@ public class DAOOrder {
         return list;
     }
     
-    public ArrayList<Order> getOrders(int uId) {
+    public Order getOrderByOId(int oId) {
+        Order o = new Order();
+        String sql = "select * from [Order] where status = 1 and oId="+oId;
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            if (rs.next()) {
+                o.setoId(rs.getInt("oId"));
+                o.setuId(rs.getInt("uId"));
+                o.setOrderDate(rs.getTimestamp("orderDate"));
+                o.setTotal(rs.getDouble("total"));
+                o.setStatus(rs.getInt("status"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return o;
+    }
+
+    
+    public ArrayList<Order> getOrdersByUId(int uId) {
         ArrayList<Order> list = new ArrayList<>();
         String sql = "select * from [Order] where status = 1 and uId="+uId;
         ResultSet rs = dbConn.getData(sql);

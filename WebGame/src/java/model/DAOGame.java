@@ -59,20 +59,19 @@ public class DAOGame {
     public int updateInfoGame(Game game) {
         int n = 0;
         String sql = "update Game set Title=?, coId=?, description=?, version=?, rating=?, releaseDate=?, price=?, state=?, status=? where gId=? ";
-
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, game.getTitle());
             ps.setInt(2, game.getCoID());
             ps.setString(3, game.getDescription());
             ps.setString(4, game.getVersion());
-            ps.setDate(5, game.getReleaseDate());
-            ps.setInt(6, game.getRating());
+            ps.setInt(5, game.getRating());
+            ps.setDate(6, game.getReleaseDate());
             ps.setDouble(7, game.getPrice());
             ps.setString(8, game.getState());
             ps.setInt(9, game.getStatus());
             ps.setInt(10, game.getGid());
-            ps.executeUpdate();
+            n = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOGame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -488,4 +487,9 @@ public class DAOGame {
         });
         return list;
     }
+    
+//    public static void main(String[] args) {
+//        DAOGame dao = new DAOGame(new DBConnection());
+//        System.out.println(dao.updateInfoGame(dao.getGameById(22)));
+//    }
 }
