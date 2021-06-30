@@ -7,6 +7,7 @@ package controller;
 
 import entity.Game;
 import entity.Order;
+import entity.OrderDetail;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import model.DAOGame;
 import model.DAOLibrary;
 import model.DAOOrder;
+import model.DAOOrder_Detail;
 import model.DAOUser;
 import model.DBConnection;
 
@@ -45,7 +47,8 @@ public class UserController extends HttpServlet {
     DAOLibrary daoLib = new DAOLibrary(dbCon);
     DAOOrder daoOrder = new DAOOrder(dbCon);
     DAOGame daoGame = new DAOGame(dbCon);
-
+    DAOOrder_Detail daoOrDe = new DAOOrder_Detail(dbCon);
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -194,12 +197,10 @@ public class UserController extends HttpServlet {
             if (service.equalsIgnoreCase("info")) {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
-
                 ArrayList<Game> listGame = daoGame.getGameByUIdFromLibrarySorted(x.getuId());
                 request.setAttribute("listGame", listGame);
-                ArrayList<Order> listOrder = daoOrder.getOrders(x.getuId());
+                ArrayList<Order> listOrder = daoOrder.getOrdersByUId(x.getuId());
                 request.setAttribute("listOrder", listOrder);
-
                 sendDispatcher(request, response, "profile.jsp");
             }
 
@@ -232,11 +233,44 @@ public class UserController extends HttpServlet {
             }
             
             if (service.equalsIgnoreCase("vieworder")) {
+                
+                int oId = Integer.parseInt(request.getParameter("orderId"));
+                Order order = daoOrder.getOrderByOId(oId);
+                ArrayList<OrderDetail> listOD = daoOrDe.getByOrdId(oId);
+                ArrayList<Game> listG = new ArrayList<>();
+                for (OrderDetail od : listOD) {
+                    Game g = daoGame.getGameById(od.getgId());
+                    listG.add(g);
+                }
+                request.setAttribute("order", order);
+                request.setAttribute("listG", listG);
+                sendDispatcher(request, response, "order.jsp");
+            }
+            
+            if (service.equalsIgnoreCase("edit")) {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
-                int oId = Integer.parseInt(request.getParameter("orderId"));
                 
-                sendDispatcher(request, response, "order.jsp");
+                sendDispatcher(request, response, "edit.jsp");
+            }
+            
+            if (service.equalsIgnoreCase("changeinfo")) {
+                User x = (User) request.getSession().getAttribute("currUser");
+                request.setAttribute("currUser", x);
+                String name = request.getParameter("name");
+                String mail = request.getParameter("mail");
+                String phone = request.getParameter("phone");
+                String address = request.getParameter("address");
+                String pass = request.getParameter("pass");
+                
+                User u = new User(x.getuId(), name, mail, phone, address);
+                if (pass.equals(x.getPass())){
+                    daoUser.updateinfo(u);
+                    request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
+                    sendDispatcher(request, response, "UserControllerMap?service=info");
+                }
+                out.print("wrong pass");
+                sendDispatcher1(request, response, "UserControllerMap?service=edit");
             }
         }
     }

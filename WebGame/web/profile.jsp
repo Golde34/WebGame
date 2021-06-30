@@ -44,6 +44,7 @@
             <div class="col-xs-12 col-sm-6 col-md-6" style="  margin-left: 50px; ">
                 <div style="background-color: white; border-radius: 10px; padding: 10px 10px 15px 35px;">
                     <h1>Hello User <%=x.getuName()%></h1>
+                    <a href="UserControllerMap?service=edit">Edit information</a>
                     <hr style="height:3px;color:gray;background-color:gray">
                     <p><%=x.getuName()%> </p>
                     <p>Role: <%=x.getSystem_role()%></p>
@@ -67,6 +68,7 @@
                         }%>
                 </div>
             </div>
+            <div class="col-xs-12 col-sm-6 col-md-1"></div>
             <div class="col-xs-12 col-sm-6 col-md-5">
                 <div style="background-color: white; border-radius: 10px; padding: 10px 10px 15px 35px;">
                     <%if (listGame.isEmpty()) {%> <p>No games bought yet </p> 

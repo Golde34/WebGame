@@ -34,6 +34,14 @@ public class User {
         this.username = username;
         this.pass = pass;
     }
+
+    public User(int uId, String uName, String uMail, String uPhone, String uAddress) {
+        this.uId = uId;
+        this.uName = uName;
+        this.uMail = uMail;
+        this.uPhone = uPhone;
+        this.uAddress = uAddress;
+    }
     
     public User(int uId, String uName, int experience, String uMail, String uPhone, String uAddress, double wallet, String system_role, String username, String pass, int status) {
         this.uId = uId;

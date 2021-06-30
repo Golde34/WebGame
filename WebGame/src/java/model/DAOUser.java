@@ -310,6 +310,22 @@ public class DAOUser {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void updateinfo(User obj) {
+        
+        String sql = "UPDATE [User] SET uName=?, uMail=?, uPhone=?, uAddress=? where uId=?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1,obj.getuName());
+            pre.setString(2,obj.getuMail());
+            pre.setString(3,obj.getuPhone());
+            pre.setString(4,obj.getuAddress());
+            pre.setInt(5, obj.getuId());
+            pre.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 //    
 //            public static void main(String[] args) {
 //        DBConnection dbcon = new DBConnection();

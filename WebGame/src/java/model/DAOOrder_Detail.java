@@ -89,6 +89,24 @@ public class DAOOrder_Detail {
         return list;
     }
     
+    public ArrayList<OrderDetail> getByOrdId(int oId) {
+        ArrayList<OrderDetail> list = new ArrayList<>();
+        String sql = "select * from [Order_Detail] where oId = " + oId ;
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            while(rs.next()){
+                OrderDetail od = new OrderDetail();
+                od.setoId(rs.getInt("oId"));
+                od.setgId(rs.getInt("gId"));
+                od.setPrice(rs.getDouble("price"));
+                list.add(od);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOOrder_Detail.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
     public HashMap<Integer, ArrayList<OrderDetail>> getListOrderDetail() {
         HashMap<Integer, ArrayList<OrderDetail>> list = new HashMap<>();
         DAOOrder daoOd = new DAOOrder(dbConn);
@@ -98,5 +116,4 @@ public class DAOOrder_Detail {
         }
         return list;
     }
-
 }
