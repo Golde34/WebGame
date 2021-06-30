@@ -35,7 +35,7 @@
             ArrayList<Game> listFreeGame = (ArrayList<Game>) request.getAttribute("listFreeGame");
             String title = (String) request.getAttribute("title");
             if (title == null) {
-                title = "GAME BY PLATFORM";
+                title = "ALL GAME";
             }
         %>
         <div class="container">
@@ -254,7 +254,7 @@
             </div>
             <%}%>
         </div>
-
+        
         <div class="container">
             <div class="container-fluid">
                 <!--VIDEOs-->
