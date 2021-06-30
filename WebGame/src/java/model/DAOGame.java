@@ -463,4 +463,27 @@ public class DAOGame {
         }
         return list;
     }
+    
+    public ArrayList<Game> getGameByUIdFromLibrarySorted(int uId) {
+        ArrayList<Game> list = new ArrayList<>();
+
+        String sql = "select gId from Library where uId = " + uId;
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            while (rs.next()) {
+                Game g = getGameById(rs.getInt("gId"));
+                list.add(g);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Collections.sort(list, new Comparator<Game>() {
+           
+            @Override
+            public int compare(Game g, Game g1) {
+                return (g.getTitle().compareTo(g1.getTitle()));
+            }
+        });
+        return list;
+    }
 }

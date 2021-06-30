@@ -98,5 +98,5 @@ public class DAOOrder_Detail {
         }
         return list;
     }
-    
+
 }

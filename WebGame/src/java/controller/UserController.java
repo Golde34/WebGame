@@ -195,7 +195,7 @@ public class UserController extends HttpServlet {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
 
-                ArrayList<Game> listGame = daoGame.getGameByUIdFromLibrary(x.getuId());
+                ArrayList<Game> listGame = daoGame.getGameByUIdFromLibrarySorted(x.getuId());
                 request.setAttribute("listGame", listGame);
                 ArrayList<Order> listOrder = daoOrder.getOrders(x.getuId());
                 request.setAttribute("listOrder", listOrder);
@@ -226,11 +226,17 @@ public class UserController extends HttpServlet {
                     sendDispatcher1(request, response, "topup.jsp");
                 } else if (phone.equals(x.getuPhone()) && pass.equals(x.getPass())) {
                     daoUser.updateWalletUser(x, amount);
-
                     request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
-
                     sendDispatcher(request, response, "UserControllerMap?service=info");
                 }
+            }
+            
+            if (service.equalsIgnoreCase("vieworder")) {
+                User x = (User) request.getSession().getAttribute("currUser");
+                request.setAttribute("currUser", x);
+                int oId = Integer.parseInt(request.getParameter("orderId"));
+                
+                sendDispatcher(request, response, "order.jsp");
             }
         }
     }
