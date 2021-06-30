@@ -68,6 +68,7 @@ public class CartController extends HttpServlet {
                     if (ShoppingCart.get(i).getGid() == gameId) {
                         request.setAttribute("mess", "Game already in cart");
                         sendDispatcher(request, response, "Cart.jsp");
+                        return;
                     }
                 }
                 ShoppingCart.add(addGame);
