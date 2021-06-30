@@ -99,6 +99,7 @@ public class CartController extends HttpServlet {
                 double wallet = user.getWallet();
                 if (wallet >= total) {
                     Order addOrder = new Order(-1, user.getuId(), null, total);
+                    addOrder.setStatus(0);
                     daoOrder.insertOrder(addOrder);
                     int oId = daoOrder.getLatestOrderByUseridAndTotal(user.getuId(), total);
                     OrderDetail orderDetail = new OrderDetail();

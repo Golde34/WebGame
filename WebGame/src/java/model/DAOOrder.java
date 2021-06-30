@@ -32,11 +32,12 @@ public class DAOOrder {
     public int insertOrder(Order obj) {
         int n = 0;
         String sql = "Insert into [Order](uId, orderDate, total, status)"
-                + " values (?,GETDATE(),?,1)";
+                + " values (?,GETDATE(),?,?)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, obj.getuId());
             pre.setDouble(2, obj.getTotal());
+            pre.setInt(3, obj.getStatus());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOOrder.class.getName()).log(Level.SEVERE, null, ex);
