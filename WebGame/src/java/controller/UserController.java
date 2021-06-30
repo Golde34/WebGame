@@ -97,7 +97,7 @@ public class UserController extends HttpServlet {
                     mess = "Username must be more than 5 characters !!";
                     checkUser = false;
                 }
-                if (daoUser.checkDupUserName(username)) {
+                if (daoUser.checkExistUserName(username)) {
                     mess = "Username has been used !!";
                     checkUser = false;
                 }

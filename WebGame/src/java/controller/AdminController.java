@@ -13,6 +13,7 @@ import entity.Platform;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -55,6 +56,7 @@ public class AdminController extends HttpServlet {
     DAOUser daoUser = new DAOUser(dbCon);
     DAOGalery daoGalery = new DAOGalery(dbCon);
     
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -67,15 +69,15 @@ public class AdminController extends HttpServlet {
             }
             //Home.jsp
             if (service.equalsIgnoreCase("HomeAdmin")) {
-                ArrayList<Game> listGame = daoGame.getAllGame();
+                ArrayList<Game> listGame = daoGame.getTrueGame();
                 request.setAttribute("listGame", listGame);
-                ArrayList<Category> listCategory = daoCate.getAllCategories();
+                ArrayList<Category> listCategory = daoCate.getTrueCategories();
                 request.setAttribute("listCategory", listCategory);
-                ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
+                ArrayList<Platform> listPlatform = daoPlat.getTruePlatforms();
                 request.setAttribute("listPlatform", listPlatform);
-                ArrayList<Company> listCompany = daoCom.getAllCompany();
+                ArrayList<Company> listCompany = daoCom.getTrueCompany();
                 request.setAttribute("listCompany", listCompany);
-                ArrayList<User> listUser = daoUser.getAllUser();
+                ArrayList<User> listUser = daoUser.getTrueUser();
                 request.setAttribute("listUser", listUser);
                 HashMap<Game, ArrayList<Galery>> listGameGalery = new HashMap<Game,ArrayList<Galery>>();
                 for (Game game : listGame) {
@@ -89,6 +91,39 @@ public class AdminController extends HttpServlet {
             if (service.equalsIgnoreCase("logout")){
                 request.getSession().invalidate();
                 sendDispatcher(request, response, "/login.jsp");
+            }
+            
+            if (service.equalsIgnoreCase("addGame")){
+                String title = request.getParameter("title");
+                int coId = Integer.parseInt(request.getParameter("coId"));
+                String desc = request.getParameter("description");
+                String version = request.getParameter("version");
+                Date releaseDate = Date.valueOf(request.getParameter("releaseDate"));
+                int rating = Integer.parseInt(request.getParameter("rating"));
+                double price= Double.parseDouble(request.getParameter("price"));
+                String state = request.getParameter("state");
+                Game newGame = new Game(0, title, coId, version, version, rating, releaseDate, price, state,0);
+                int n = daoGame.insertGame(newGame);
+                if (n!=0) request.setAttribute("message", "Insert Successfully");
+                else request.setAttribute("message", "Insert Failed");
+                request.setAttribute("tab", "gameAdd");
+                ArrayList<Game> listGame = daoGame.getTrueGame();
+                request.setAttribute("listGame", listGame);
+                ArrayList<Category> listCategory = daoCate.getTrueCategories();
+                request.setAttribute("listCategory", listCategory);
+                ArrayList<Platform> listPlatform = daoPlat.getTruePlatforms();
+                request.setAttribute("listPlatform", listPlatform);
+                ArrayList<Company> listCompany = daoCom.getTrueCompany();
+                request.setAttribute("listCompany", listCompany);
+                ArrayList<User> listUser = daoUser.getTrueUser();
+                request.setAttribute("listUser", listUser);
+                HashMap<Game, ArrayList<Galery>> listGameGalery = new HashMap<Game,ArrayList<Galery>>();
+                for (Game game : listGame) {
+                    ArrayList<Galery> gameGalery = daoGalery.getFullGameGalery(game.getGid());
+                    listGameGalery.put(game, gameGalery);                
+                }
+                request.setAttribute("listGameGalery", listGameGalery);
+                sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
             
         }   

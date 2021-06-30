@@ -16,7 +16,9 @@
     ArrayList<Company> comList = (ArrayList<Company>) request.getAttribute("listCompany");
     ArrayList<User> userList = (ArrayList<User>) request.getAttribute("listUser");
     HashMap<Game, ArrayList<Galery>> listGameGalery = (HashMap<Game, ArrayList<Galery>>) request.getAttribute("listGameGalery");
-
+    String message = (String) request.getAttribute("message");
+    String displayTab = (String) request.getAttribute("tab");
+    if (displayTab==null) displayTab="gameAdd";
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -31,9 +33,11 @@
     <body>
         <div class="header">
             <h2>This part will be the header</h2>
-            <p>Test paragraph</p>
-            <% ArrayList<Game> list = (ArrayList<Game>) request.getAttribute("listGame");%>
-
+            <%  if (message==null) { %>
+                <p>Test paragraph</p>
+            <%} else {%>
+            <p><%=message%></p>
+            <%}%>
         </div>
 
         <div class="forms">
@@ -41,38 +45,39 @@
                 <div class="dropdown">
                     <button class="dropbtn" style="width: 250px; background-color: #04AA6D;color: white; padding: 16px; font-size: 16px; margin: 5px; border: 2px solid;">Game Management</button>
                     <div class="dropdown-content">
-                        <button class="tablinks" onclick="openForm(event, 'gAdd')" id="defaultOpen">Add</button>
-                        <button class="tablinks" onclick="openForm(event, 'gUpdate')">Update</button>
-                        <button class="tablinks" onclick="openForm(event, 'gDel')">Delete/Restore</button>
+                        <button class="tablinks" onclick="openForm(event, 'gAdd')" id="gameAdd">Add</button>
+                        <button class="tablinks" onclick="openForm(event, 'gUpdate')" id="gameUpdate">Update</button>
+                        <button class="tablinks" onclick="openForm(event, 'gDel')" id="gameDel">Delete/Restore</button>
                     </div>
                 </div>
                 <div class="dropdown">
                     <button class="dropbtn" style="width: 250px; background-color: #04AA6D;color: white; padding: 16px; font-size: 16px; margin: 5px; border: 2px solid;">User Management</button>
                     <div class="dropdown-content">
-                        <button class="tablinks" onclick="openForm(event, 'uAdd')">Add</button>
-                        <button class="tablinks" onclick="openForm(event, 'uUpdate')">Update</button>
-                        <button class="tablinks" onclick="openForm(event, 'uDel')">Delete/Restore</button>
+                        <button class="tablinks" onclick="openForm(event, 'uAdd')" id="userAdd">Add</button>
+                        <button class="tablinks" onclick="openForm(event, 'uUpdate')" id="userUpdate">Update</button>
+                        <button class="tablinks" onclick="openForm(event, 'uDel')" id="userDel">Delete/Restore</button>
                     </div>
                 </div>
                 <div class="dropdown">
                     <button class="dropbtn" style="width: 250px; background-color: #04AA6D;color: white; padding: 16px; font-size: 16px; margin: 5px; border: 2px solid;">Company Management</button>
                     <div class="dropdown-content">
-                        <button class="tablinks" onclick="openForm(event, 'comAdd')">Add</button>
-                        <button class="tablinks" onclick="openForm(event, 'comUpdate')">Update</button>
-                        <button class="tablinks" onclick="openForm(event, 'comDel')">Delete/Restore</button>
+                        <button class="tablinks" onclick="openForm(event, 'comAdd')" id="companyAdd">Add</button>
+                        <button class="tablinks" onclick="openForm(event, 'comUpdate')" id="companyUpdate">Update</button>
+                        <button class="tablinks" onclick="openForm(event, 'comDel')" id="companyDel">Delete/Restore</button>
                     </div>
                 </div>
                 <div class="dropdown">
                     <button class="dropbtn" style="width: 250px; background-color: #04AA6D;color: white; padding: 16px; font-size: 16px; margin: 5px; border: 2px solid;">Galery Management</button>
                     <div class="dropdown-content">
-                        <button class="tablinks" onclick="openForm(event, 'galeryAdd')">Add</button>
-                        <button class="tablinks" onclick="openForm(event, 'galeryUpdate')">Update</button>
+                        <button class="tablinks" onclick="openForm(event, 'galeryAdd')" id="galeryA">Add</button>
+                        <button class="tablinks" onclick="openForm(event, 'galeryUpdate')" id="galeryU">Update</button>
                     </div>
                 </div>
             </div>
             <%-- Add game --%>
             <div id="gAdd" class="tabcontent">
                 <h3>Game - Add</h3>
+                <h2>Defaut status will be 0 , change this after adding all the materials</h2>
                 <form action="AdminControllerMap" method="POST">
                     <table border="1" style="width: 95%;">
                         <tr>
@@ -82,7 +87,7 @@
                         <tr>
                             <td>Company</td>
                             <td>
-                                <select name="coId" id="ids">
+                                <select name="coId" >
                                     <% for (Company com : comList) {%>
                                     <option value="<%=com.getCoId()%>"> <%=com.getCoName()%> </option>
                                     <% }%>
@@ -92,7 +97,7 @@
                         <tr>
                             <td>Description</td>
                             <td>
-                                <textarea name="desciption" style="height: 120px; width: 100%; border: 1px; overflow-x: hidden; overflow-y: scroll;" required> </textarea>
+                                <textarea name="description" style="height: 120px; width: 100%; border: 1px; overflow-x: hidden; overflow-y: scroll;" required> </textarea>
                             </td>
                         </tr>
                         <tr>
@@ -109,7 +114,7 @@
                         </tr>
                         <tr>
                             <td>Price</td>
-                            <td><input type="number" name="rating" min="0" step="0.01" style="width:100%" required></td>
+                            <td><input type="number" name="price" min="0" step="0.01" style="width:100%" required></td>
                         </tr>
                         <tr>
                             <td>State</td>
@@ -273,7 +278,7 @@
                             <td>USer ID</td>
                             <td><select name="uId" >
                                     <% for (User user : userList) {%>
-                                    <option value="<%=user.getuId() %>"> <%=user.getuId()%> : <%=user.getUsername() %> </option>
+                                    <option value="<%=user.getuId()%>"> <%=user.getuId()%> : <%=user.getUsername()%> </option>
                                     <% }%>
                                 </select>
                             </td>
@@ -334,7 +339,7 @@
                             <td>Game ID</td>
                             <td><select name="gId" id="ids">
                                     <% for (User user : userList) {%>
-                                    <option value="<%=user.getuId() %>"> <%=user.getuId()%> : <%=user.getUsername() %> </option>
+                                    <option value="<%=user.getuId()%>"> <%=user.getuId()%> : <%=user.getUsername()%> </option>
                                     <% } %>
                                 </select>
                             </td>
@@ -409,7 +414,7 @@
                             <td>Company ID</td>
                             <td><select name="coId" >
                                     <% for (Company com : comList) {%>
-                                    <option value="<%=com.getCoId() %>"> <%=com.getCoId() %> : <%=com.getCoName() %> </option>
+                                    <option value="<%=com.getCoId()%>"> <%=com.getCoId()%> : <%=com.getCoName()%> </option>
                                     <% }%>
                                 </select>
                             </td>
@@ -464,7 +469,7 @@
                             <td>Company ID</td>
                             <td><select name="coId" >
                                     <% for (Company com : comList) {%>
-                                    <option value="<%=com.getCoId() %>"> <%=com.getCoId() %> : <%=com.getCoName() %> </option>
+                                    <option value="<%=com.getCoId()%>"> <%=com.getCoId()%> : <%=com.getCoName()%> </option>
                                     <% }%>
                                 </select>
                             </td>
@@ -521,13 +526,13 @@
                             <td><select name="galery">
                                     <% for (HashMap.Entry<Game, ArrayList<Galery>> en : listGameGalery.entrySet()) {
                                             Game key = en.getKey();
-                                            ArrayList<Galery> val = en.getValue(); %>
-                                            <optgroup label="<%=key.getGid()%> : <%=key.getTitle()%>">
-                                                <% for (Galery gal : val) { %>
-                                                        <option value="<%=gal.getLink()%>"><%=gal.getType()+"|"+gal.getLink()%></option>
-                                                <%}%>
-                                            </optgroup>
-                                        <% } %>
+                                            ArrayList<Galery> val = en.getValue();%>
+                                    <optgroup label="<%=key.getGid()%> : <%=key.getTitle()%>">
+                                        <% for (Galery gal : val) {%>
+                                        <option value="<%=gal.getLink()%>"><%=gal.getType() + "|" + gal.getLink()%></option>
+                                        <%}%>
+                                    </optgroup>
+                                    <% }%>
                                 </select>
                             </td>
                         </tr>
@@ -551,11 +556,16 @@
                 </form>
             </div>
             <%-- Update Galery --%>
-            <script>document.getElementById("defaultOpen").click();</script>
+            <%  if (displayTab==null) {%>
+            <script>document.getElementById("gameAdd").click();</script>
+            <%} else {%>
+            <script>document.getElementById("<%=displayTab%>").click();</script>
+            <% } %>
         </div>
-
+        
         <div class="orders">
             <p>this is orders</p>
+            <p><%=displayTab%></p>
         </div>
     </body>
 </html>

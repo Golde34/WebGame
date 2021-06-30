@@ -34,10 +34,10 @@ public class DAOGame {
         conn = dbconn.getConnection();
     }
 
-    public void insertGame(Game game) {
-        sql = "Insert into Game(Title,coId,description,version,rating,releaseDate,price,state,status) values (?,?,?,?,?,?,?,?,1)";
+    public int insertGame(Game game) {
+        sql = "Insert into Game(Title,coId,description,version,rating,releaseDate,price,state,status) values (?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps;
-
+        int n =0;
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, game.getTitle());
@@ -48,10 +48,12 @@ public class DAOGame {
             ps.setDate(6, game.getReleaseDate());
             ps.setDouble(7, game.getPrice());
             ps.setString(8, game.getState());
-            ps.executeUpdate();
+            ps.setInt(9, game.getStatus());
+            n = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOGame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return n;
     }
 
     public int updateInfoGame(Game game) {
@@ -246,7 +248,7 @@ public class DAOGame {
 
     public ArrayList<Game> getTrueGame() {
         ArrayList<Game> list = new ArrayList<>();
-        String sql = "SELECT * FROM Game where status=1 ";
+        String sql = "SELECT * FROM Game";
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {

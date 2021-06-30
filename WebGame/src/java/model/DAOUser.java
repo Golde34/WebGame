@@ -137,7 +137,7 @@ public class DAOUser {
         return n;
     }
     
-    public boolean checkDupUserName(String username) {
+    public boolean checkExistUserName(String username) {
         String sql = "SELECT * FROM [User] WHERE username = '" + username + "'";
         ResultSet rs = dbConn.getData(sql);
         try {
@@ -177,7 +177,7 @@ public class DAOUser {
     }
     
     public User getUserByUsername(String username) {
-        String sql = "SELECT * FROM [User] WHERE username = '" + username + "'";
+        String sql = "SELECT * FROM [User] WHERE username = '" + username + "' and status=1";
         ResultSet rs = dbConn.getData(sql);
         try {
             if (rs.next()) {
@@ -211,6 +211,32 @@ public class DAOUser {
     }
 
     public ArrayList<User> getAllUser() {
+        ArrayList<User> list = new ArrayList<>();
+        String sql = "SELECT * FROM [User] where status=1";
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            while (rs.next()) {
+                User c = new User();
+                c.setuId(rs.getInt("uId"));
+                c.setuName(rs.getString("uName"));
+                c.setExperience(rs.getInt("experience"));
+                c.setuMail(rs.getString("uMail"));
+                c.setuPhone(rs.getString("uPhone"));
+                c.setuAddress(rs.getString("uAddress"));
+                c.setWallet(rs.getDouble("wallet"));
+                c.setSystem_role(rs.getString("system_role"));
+                c.setUsername(rs.getString("username"));
+                c.setPass(rs.getString("pass"));
+                c.setStatus(rs.getInt("status"));
+                list.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    public ArrayList<User> getTrueUser() {
         ArrayList<User> list = new ArrayList<>();
         String sql = "SELECT * FROM [User]";
         ResultSet rs = dbConn.getData(sql);
@@ -248,7 +274,7 @@ public class DAOUser {
             s2 = " and status = " + status + " ";
         }
 
-        String sql = "SELECT * FROM [User] WHERE uname like '%" + uName + "%' " + s1 + " " + s2;
+        String sql = "SELECT * FROM [User] WHERE status=1 and uname like '%" + uName + "%' " + s1 + " " + s2;
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {
