@@ -130,7 +130,7 @@
                                                          data-toggle="dropdown">
                                 <span class="fas fa-hands-helping"></span> HELP</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#aboutus.html"><span class="fas fa-info-circle"></span> About us</a>
+                                <a class="dropdown-item" href="aboutUs.jsp"><span class="fas fa-info-circle"></span> About us</a>
                                 <a class="dropdown-item" href="#contact"><span class="fas fa-envelope"></span> Contact</a>
 
                             </div>
