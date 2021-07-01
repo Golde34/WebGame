@@ -388,12 +388,12 @@
                         </tr>
                         <tr>
                             <td>Found Date</td>
-                            <td><input type="date" name="foundDate" ></td>
+                            <td><input type="date" name="foundDate" required></td>
                         </tr>
                         <tr>
                             <td>Description</td>
                             <td>
-                                <textarea name="desciption" style="height: 120px; width: 100%; border: 1px; overflow-x: hidden; overflow-y: scroll;" required> </textarea>
+                                <textarea name="description" style="height: 120px; width: 100%; border: 1px; overflow-x: hidden; overflow-y: scroll;" required> </textarea>
                             </td>
                         </tr>
                         <tr>
@@ -426,6 +426,7 @@
             <%-- Update Company --%>
             <div id="comUpdate" class="tabcontent">
                 <h3>Company - Update</h3>
+                <p>Leave the field blank if you don't want to update</p>
                 <form action="AdminControllerMap" method="POST">
                     <table border="1" style="width: 95%;">
                         <tr>
@@ -448,7 +449,7 @@
                         <tr>
                             <td>Description</td>
                             <td>
-                                <textarea name="desciption" style="height: 120px; width: 100%; border: 1px; overflow-x: hidden; overflow-y: scroll;"> </textarea>
+                                <textarea name="description" style="height: 120px; width: 100%; border: 1px; overflow-x: hidden; overflow-y: scroll;"> </textarea>
                             </td>
                         </tr>
                         <tr>
@@ -501,9 +502,10 @@
                         <tr>
                             <td></td>
                             <td><input type="submit" value="Update" name="submit">
-                                <input type="hidden" value="delUser" name="service"></td>
+                                <input type="hidden" value="delCom" name="service"></td>
                         </tr>
                     </table>
+                </form>
             </div>
             <%-- Delete Company --%>
             <%-- Add Galery --%>
@@ -523,6 +525,16 @@
                         <tr>
                             <td>File name</td>
                             <td><input type="text" name="link" style="width:100%" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Type Select</td>
+                            <td><select name="type">
+                                <option value="img-po">Image Poster</option>
+                                <option value="img-gp">Image Gameplay</option>
+                                <option value="img-bg">Image Background</option>
+                                <option value="vid-gp">Video Gameplay</option>
+                                <option value="vid-trailer">Video Trailer</option>
                             </td>
                         </tr>
                         <tr>
@@ -547,7 +559,7 @@
                                             ArrayList<Galery> val = en.getValue();%>
                                     <optgroup label="<%=key.getGid()%> : <%=key.getTitle()%>">
                                         <% for (Galery gal : val) {%>
-                                        <option value="<%=gal.getLink()%>"><%=gal.getType() + "|" + gal.getLink()%></option>
+                                        <option value="<%=gal.getgId()+" "+gal.getLink()+" "+gal.getType()%>"><%=gal.getgId() + "|" +gal.getType() + "|" + gal.getLink()%></option>
                                         <%}%>
                                     </optgroup>
                                     <% }%>
@@ -557,6 +569,16 @@
                         <tr>
                             <td>File link</td>
                             <td><input type="text" name="link" style="width:100%" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Type Select</td>
+                            <td><select name="type">
+                                <option value="img-po">Image Poster</option>
+                                <option value="img-gp">Image Gameplay</option>
+                                <option value="img-bg">Image Background</option>
+                                <option value="vid-gp">Video Gameplay</option>
+                                <option value="vid-trailer">Video Trailer</option>
                             </td>
                         </tr>
                         <tr>

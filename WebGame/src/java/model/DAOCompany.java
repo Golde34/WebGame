@@ -31,7 +31,7 @@ public class DAOCompany {
     
     public int insertCompany(Company obj) {
         int n = 0;
-        String sql = "INSERT INTO Company(coName, foundDate, description, logo, coAddress, coPhone, coMail) + values (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Company(coName, foundDate, description, logo, coAddress, coPhone, coMail, status) values (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, obj.getCoName());
@@ -41,6 +41,7 @@ public class DAOCompany {
             pre.setString(5, obj.getCoAddress());
             pre.setString(6, obj.getCoPhone());
             pre.setString(7, obj.getCoMail());
+            pre.setInt(8, obj.getStatus());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOCompany.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,6 +73,19 @@ public class DAOCompany {
         int n = 0;
         String sql = "UPDATE Company SET status = "
                 + (status == 1 ? 1 : 0) + " WHERE coName = '" + coName + "'";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCompany.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
+    }
+    
+    public int changeStatus(int coId, int status) {
+        int n = 0;
+        String sql = "UPDATE Company SET status = "
+                + (status == 1 ? 1 : 0) + " WHERE coId = '" + coId + "'";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             n = pre.executeUpdate();

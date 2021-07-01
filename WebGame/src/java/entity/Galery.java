@@ -13,12 +13,12 @@ public class Galery {
     private int gId;
     private String link;
     private String type;
-    private boolean status;
+    private int status;
 
     public Galery() {
     }
 
-    public Galery(int gId, String link, String type, boolean status) {
+    public Galery(int gId, String link, String type, int status) {
         this.gId = gId;
         this.link = link;
         this.type = type;
@@ -37,7 +37,7 @@ public class Galery {
         return type;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
@@ -53,7 +53,12 @@ public class Galery {
         this.type = type;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
+    }
+    
+    @Override
+    public String toString(){
+        return "Game Id: "+gId+"; Type: "+type+"; Link: "+link+"; Status: "+status ;
     }
 }

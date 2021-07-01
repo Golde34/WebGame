@@ -30,32 +30,37 @@ public class DAOGalery {
         conn = dbconn.getConnection();
     }
 
-    public void insertGalery(Galery gal) {
-        sql = "insert into Galery(gId,link,type,status) values(?,?,?,1)";
+    public int insertGalery(Galery gal) {
+        sql = "insert into Galery(gId,link,type,status) values(?,?,?,?)";
+        int n=0;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, gal.getgId());
             ps.setString(2, gal.getLink());
             ps.setString(3, gal.getType());
-            ps.executeUpdate();
+            ps.setInt(4, gal.getStatus());
+            n = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOGalery.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return n;
     }
     
-    public void updateGalery(Galery oldGal, Galery newGal) {
+    public int updateGalery(Galery oldGal, Galery newGal) {
         sql = "update Galery set link=?, type=?, status=? where gId=? and link=?";
+        int n = 0;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, newGal.getLink());
             ps.setString(2, newGal.getType());
-            ps.setBoolean(3, newGal.isStatus());
-            ps.setInt(4, newGal.getgId());
-            ps.setString(5, newGal.getLink());
-            ps.executeUpdate();
+            ps.setInt(3, newGal.getStatus());
+            ps.setInt(4, oldGal.getgId());
+            ps.setString(5, oldGal.getLink());
+            n = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOGalery.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return n;
     }
 
     public ArrayList<Galery> getAllGaleries() {
@@ -65,7 +70,7 @@ public class DAOGalery {
         int gId;
         String link;
         String type;
-        boolean status;
+        int status;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -73,7 +78,7 @@ public class DAOGalery {
                 gId = rs.getInt("gId");
                 link = rs.getString("link");
                 type = rs.getString("type");
-                status = rs.getBoolean("status");
+                status = rs.getInt("status");
                 x = new Galery(gId, link, type, status);
                 list.add(x);
             }
@@ -90,7 +95,7 @@ public class DAOGalery {
         int gId;
         String link;
         String type;
-        boolean status;
+        int status;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -98,7 +103,7 @@ public class DAOGalery {
                 gId = rs.getInt("gId");
                 link = rs.getString("link");
                 type = rs.getString("type");
-                status = rs.getBoolean("status");
+                status = rs.getInt("status");
                 x = new Galery(gId, link, type, status);
                 list.add(x);
             }
@@ -114,7 +119,7 @@ public class DAOGalery {
         int gId;
         String link;
         String type;
-        boolean status;
+        int status;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -122,7 +127,7 @@ public class DAOGalery {
                 gId = rs.getInt("gId");
                 link = rs.getString("link");
                 type = rs.getString("type");
-                status = rs.getBoolean("status");
+                status = rs.getInt("status");
                 Galery a = new Galery(gId, link, type, status);
                 x.add(a);
             }
@@ -149,7 +154,7 @@ public class DAOGalery {
         int gId;
         String link;
         String type;
-        boolean status;
+        int status;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, xgId);
@@ -159,7 +164,7 @@ public class DAOGalery {
                 gId = rs.getInt("gId");
                 link = rs.getString("link");
                 type = rs.getString("type");
-                status = rs.getBoolean("status");
+                status = rs.getInt("status");
                 x = new Galery(gId, link, type, status);
                 list.add(x);
             }
@@ -176,7 +181,7 @@ public class DAOGalery {
         int gId;
         String link;
         String type;
-        boolean status;
+        int status;
         try {
             Statement ps = conn.createStatement();
             ResultSet rs = ps.executeQuery(sql);
@@ -184,7 +189,7 @@ public class DAOGalery {
                 gId = rs.getInt("gId");
                 link = rs.getString("link");
                 type = rs.getString("type");
-                status = rs.getBoolean("status");
+                status = rs.getInt("status");
                 x = new Galery(gId, link, type, status);
                 list.add(x);
             }
@@ -201,7 +206,7 @@ public class DAOGalery {
         int gId;
         String link;
         String type;
-        boolean status;
+        int status;
         try {
             Statement ps = conn.createStatement();
             ResultSet rs = ps.executeQuery(sql);
@@ -209,7 +214,7 @@ public class DAOGalery {
                 gId = rs.getInt("gId");
                 link = rs.getString("link");
                 type = rs.getString("type");
-                status = rs.getBoolean("status");
+                status = rs.getInt("status");
                 x = new Galery(gId, link, type, status);
                 list.add(x);
             }
@@ -270,7 +275,7 @@ public class DAOGalery {
         int gId;
         String link;
         String type;
-        boolean status;
+        int status;
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, gid);
@@ -279,7 +284,7 @@ public class DAOGalery {
                 gId = rs.getInt("gId");
                 link = rs.getString("link");
                 type = rs.getString("type");
-                status = rs.getBoolean("status");
+                status = rs.getInt("status");
                 x = new Galery(gId, link, type, status);
                 list.add(x);
             }
@@ -287,6 +292,12 @@ public class DAOGalery {
             Logger.getLogger(DAOGalery.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
-        
+    }
+    
+    public static void main(String[] args) {
+        DAOGalery dao = new DAOGalery(new DBConnection());
+        System.out.println(dao.updateGalery(
+                new Galery(22, "randomfileagain2.jpg", "vid-gp", 1), 
+                new Galery(22, "test1.jpg", "vid-trailer", 1)));
     }
 }
