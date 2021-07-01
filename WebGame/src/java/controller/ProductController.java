@@ -161,6 +161,23 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("title", title);
                 sendDispatcher(request, response, "/index.jsp");
             }
+            if (service.equalsIgnoreCase("searchByPlat1")) {
+                String title;
+                int platID = Integer.parseInt(request.getParameter("platID"));
+                ArrayList<Game> listGame = daoGame.getGameByPlatformId(platID);
+                request.setAttribute("listGame", listGame);
+                ArrayList<Game> listNewGame = daoGame.getGamesSort("releaseDate", true);
+                request.setAttribute("listNewGame", listNewGame);
+                ArrayList<Game> listHotGame = daoGame.getGameByRating();
+                request.setAttribute("listHotGame", listHotGame);
+                ArrayList<Game> listFreeGame = daoGame.getGamesSort("price", false);
+                request.setAttribute("listFreeGame", listFreeGame);
+                ArrayList<Category> listCategory = daoCate.getAllCategories();
+                request.setAttribute("listCategory", listCategory);
+                ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
+                request.setAttribute("listPlatform", listPlatform);         
+                sendDispatcher(request, response, "/allgame.jsp");
+            }
             
         }   
     }

@@ -4,6 +4,8 @@
     Author     : dumyd
 --%>
 
+<%@page import="model.DAOPlatform"%>
+<%@page import="entity.Platform"%>
 <%@page import="entity.Category"%>
 <%@page import="model.DAOCategory"%>
 <%@page import="entity.Galery"%>
@@ -87,6 +89,8 @@
             DAOGalery daoGalery = new DAOGalery(dbCon);
             DAOCategory daoCate = new DAOCategory(dbCon);
             ArrayList<Category> cateList = daoCate.getAllCategories();
+            DAOPlatform daoPlat = new DAOPlatform(dbCon);
+            ArrayList<Platform> platList = daoPlat.getAllPlatforms();
         %>
         <jsp:include page="header.jsp"/>   
 
@@ -97,8 +101,20 @@
                 <h1 class="neon1" data-text="BUY ZONE">Game Storage</h1>
                 <h2 class="neon"> No Game Found</h2>
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md-2">
+                <div class="btn-group" style="float:right">
+                    <button type="button" class="btn btn-danger dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Search By Platform
+                    </button>
+                    <div class="dropdown-menu" style="background-color: #fff; text-align: center">
+                        <% for (Platform p : platList) {%>
+                        <a class="dropdown-item" href="ProductControllerMap?service=searchByPlat1&platID=<%=p.getPlId()%>">
+                            <%=p.getPlname()%></a>
+                            <% }%>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-2">
                 <div class="btn-group" style="float:right">
                     <button type="button" class="btn btn-danger dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Search By Category
@@ -124,8 +140,20 @@
                         <div class="col-md-8">
                             <h1 class="neon1" data-text="BUY ZONE">Game Storage</h1>
                         </div>
-                        <div class="col-md-1"></div>
-                        <div class="col-sm-12 col-md-3">
+                        <div class="col-sm-12 col-md-2">
+                            <div class="btn-group" style="float:right">
+                                <button type="button" class="btn btn-danger dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Search By Platform
+                                </button>
+                                <div class="dropdown-menu" style="background-color: #fff; text-align: center">
+                                    <% for (Platform p : platList) {%>
+                                    <a class="dropdown-item" href="ProductControllerMap?service=searchByPlat1&platID=<%=p.getPlId()%>">
+                                        <%=p.getPlname()%></a>
+                                        <% }%>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
                             <div class="btn-group" style="float:right">
                                 <button type="button" class="btn btn-danger dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Search By Category
