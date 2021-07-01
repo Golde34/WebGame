@@ -67,7 +67,7 @@
                         </div>
 
                         <div class="input-group">
-                            <label class="text-danger"><%= mess.toString()%></label>
+                            <label class="text-danger" style="color: red;"><%= mess.toString()%></label>
                         </div>
                     </div>
 

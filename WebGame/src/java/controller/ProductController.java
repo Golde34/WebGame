@@ -157,7 +157,11 @@ public class ProductController extends HttpServlet {
                     title = "PS4 GAME";
                 } else if (platID == 2) {
                     title = "XOBX GAME";
-                } else title = "PC GAME";
+                } else if (platID == 3) title = "PC GAME";
+                else if (platID == 4) title = "Mobile GAME";
+                else {
+                    title = "NS GAME";
+                }
                 request.setAttribute("title", title);
                 sendDispatcher(request, response, "/index.jsp");
             }

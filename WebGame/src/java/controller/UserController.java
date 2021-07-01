@@ -48,7 +48,7 @@ public class UserController extends HttpServlet {
     DAOOrder daoOrder = new DAOOrder(dbCon);
     DAOGame daoGame = new DAOGame(dbCon);
     DAOOrder_Detail daoOrDe = new DAOOrder_Detail(dbCon);
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -92,7 +92,7 @@ public class UserController extends HttpServlet {
                 String address = request.getParameter("address");
                 String cPass = request.getParameter("confirm-password");
                 String regPass = request.getParameter("regPass");
-                
+
                 User user = new User(displayName, regMail, regPhone, address, "User", username, cPass);
                 String mess = "";
                 boolean checkUser = true;
@@ -110,7 +110,7 @@ public class UserController extends HttpServlet {
                 }
                 String regexStr = "(09|03|07|08|05)+([0-9]{8})";
                 if (!regPhone.matches(regexStr)) {
-                    mess = "The phone number is not invalid";
+                    mess = "The phone number is invalid";
                     checkUser = false;
                 }
                 if (daoUser.checkExistMail(regMail)) {
@@ -141,6 +141,8 @@ public class UserController extends HttpServlet {
                 String mess;
                 String oldPassword = request.getParameter("oldPassword");
                 String newPassword = request.getParameter("newPassword");
+                String confirmPass = request.getParameter("confirm-password");
+                
                 HttpSession session = request.getSession();
                 User user = (User) session.getAttribute("currUser");
                 String username = user.getUsername();
@@ -153,13 +155,17 @@ public class UserController extends HttpServlet {
                     mess = "New Password is too week";
                     request.setAttribute("mess", mess);
                     sendDispatcher(request, response, "jsp/changepass.jsp");
+                } else if (!confirmPass.equalsIgnoreCase(newPassword)) {
+                    mess = "The confirm password is not match";
+                    request.setAttribute("mess", mess);
+                    sendDispatcher(request, response, "jsp/changepass.jsp");
                 } else {
                     daoUser.changePassword(username, newPassword);
                     mess = "Change password successfully !!";
                     user = daoUser.getUserByUsername(username);
                     session.setAttribute("currUser", user);
                     request.setAttribute("mess", mess);
-                    sendDispatcher(request, response, "jsp/login.jsp");
+                    sendDispatcher(request, response, "index.jsp");
                 }
             }
 
@@ -231,9 +237,9 @@ public class UserController extends HttpServlet {
                     sendDispatcher(request, response, "UserControllerMap?service=info");
                 }
             }
-            
+
             if (service.equalsIgnoreCase("vieworder")) {
-                
+
                 int oId = Integer.parseInt(request.getParameter("orderId"));
                 Order order = daoOrder.getOrderByOId(oId);
                 ArrayList<OrderDetail> listOD = daoOrDe.getByOrdId(oId);
@@ -246,14 +252,14 @@ public class UserController extends HttpServlet {
                 request.setAttribute("listG", listG);
                 sendDispatcher(request, response, "order.jsp");
             }
-            
+
             if (service.equalsIgnoreCase("edit")) {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
-                
+
                 sendDispatcher(request, response, "edit.jsp");
             }
-            
+
             if (service.equalsIgnoreCase("changeinfo")) {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
@@ -262,9 +268,9 @@ public class UserController extends HttpServlet {
                 String phone = request.getParameter("phone");
                 String address = request.getParameter("address");
                 String pass = request.getParameter("pass");
-                
+
                 User u = new User(x.getuId(), name, mail, phone, address);
-                if (pass.equals(x.getPass())){
+                if (pass.equals(x.getPass())) {
                     daoUser.updateinfo(u);
                     request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
                     sendDispatcher(request, response, "UserControllerMap?service=info");

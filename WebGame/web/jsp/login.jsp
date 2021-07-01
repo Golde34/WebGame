@@ -54,12 +54,6 @@
                             <p class="text-center">Not register yet? <a href="${contextPath}/jsp/register.jsp">SIGN UP</a></p>
                         </div>
                     </div>
-                    <div class="col-md-2">
-
-                    </div>
-                    <div class="col-md-5">
-
-                    </div>
                 </div>
             </form>
         </div>   
