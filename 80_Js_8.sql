@@ -322,34 +322,34 @@ INSERT INTO Game_Category(caId,gId,[status]) VALUES(2,19,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(3,1,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(3,2,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(3,21,1);
---Casu,1al
+--Casual
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(4,3,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(4,6,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(4,20,1);
--- ,1TD
+-- TD
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(5,11,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(5,10,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(5,20,1);
---Puzz,1le
+--Puzzle
 INSERT INTO Game_Category(caId,gId,[status])	VALUES(6,6,1);
---MO,1BA
+--MOBA
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(7,16,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(7,21,1);
---Batle roya,1le
+--Batle royale
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(8,21,1);
---Horr,1or
---Shoot,1er
+--Horror
+--Shooter
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(10,17,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(10,21,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(10,18,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(10,19,1);
---Fighti,1ng
+--Fighting
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(11,5,1);
---su,1rv
+--surv
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(12,14,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(12,15,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(12,19,1);
---o,1nl
+--onl
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(13,1,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(13,2,1); 
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(13,3,1);
@@ -368,7 +368,7 @@ INSERT INTO Game_Category(caId,gId,[status]) VALUES(13,18,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(13,19,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(13,20,1); 
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(13,21,1);
---o,1ff
+--off
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(14,4,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(14,5,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(14,6,1);
@@ -380,39 +380,39 @@ INSERT INTO Game_Category(caId,gId,[status]) VALUES(14,14,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(14,15,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(14,18,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(14,19,1);
---sing,1le
-INSERT INTO Game_Category(caId,gId,[status])	VALUES(14,3,1);
-INSERT INTO Game_Category(caId,gId,[status])	VALUES(14,4,1);
-INSERT INTO Game_Category(caId,gId,[status]) VALUES(14,5,1);
-INSERT INTO Game_Category(caId,gId,[status]) VALUES(14,6,1);
-INSERT INTO Game_Category(caId,gId,[status])	VALUES(14,7,1);
-INSERT INTO Game_Category(caId,gId,[status])	VALUES(14,8,1);
-INSERT INTO Game_Category(caId,gId,[status])	VALUES(14,9,1);
-INSERT INTO Game_Category(caId,gId,[status]) VALUES(14,11,1);
-INSERT INTO Game_Category(caId,gId,[status]) VALUES(14,12,1);
-INSERT INTO Game_Category(caId,gId,[status])	VALUES(14,13,1);
-INSERT INTO Game_Category(caId,gId,[status]) VALUES(14,14,1);
-INSERT INTO Game_Category(caId,gId,[status])	VALUES(14,15,1);
-INSERT INTO Game_Category(caId,gId,[status])	VALUES(14,18,1);
-INSERT INTO Game_Category(caId,gId,[status]) VALUES(14,19,1);
-INSERT INTO Game_Category(caId,gId,[status])	VALUES(14,20,1);
---mul,1ti
-INSERT INTO Game_Category(caId,gId,[status])	VALUES(15,1,1);
-INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,2,1); 
+--single
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,3,1);
-INSERT INTO Game_Category(caId,gId,[status])	VALUES(15,5,1);
-INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,6,1); 
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,4,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,5,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,6,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,7,1);
-INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,9,1); 
-INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,10,1);
-INSERT INTO Game_Category(caId,gId,[status])	VALUES(15,11,1);
-INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,14,1); 
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,8,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,9,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,11,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,12,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,13,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,14,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,15,1);
-INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,16,1);
-INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,17,1); 
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,18,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,19,1);
-INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,21,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(15,20,1);
+--multi
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,1,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,2,1); 
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,3,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,5,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,6,1); 
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,7,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,9,1); 
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,10,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,11,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,14,1); 
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,15,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,16,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,17,1); 
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,18,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,19,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(16,21,1);
 -------------------------------------------
 --dbo.[Platform]
 INSERT INTO [Platform] (plName,[description],[status]) VALUES('PS','PlayStation',1);
