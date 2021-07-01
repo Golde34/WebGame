@@ -106,8 +106,8 @@ public class AdminController extends HttpServlet {
                 String state = request.getParameter("state");
                 Game newGame = new Game(0, title, coId, desc, version, rating, releaseDate, price, state,0);
                 int n = daoGame.insertGame(newGame);
-                if (n!=0) request.setAttribute("message", "Insert Successfully");
-                else request.setAttribute("message", "Insert Failed");
+                if (n!=0) request.setAttribute("message", "Insert Game Successfully");
+                else request.setAttribute("message", "Insert Game Failed");
                 request.setAttribute("tab", "gameAdd");
                 // <editor-fold defaultstate="collapsed" desc="SetParams">
                 ArrayList<Game> listGame = daoGame.getTrueGame();
@@ -150,8 +150,8 @@ public class AdminController extends HttpServlet {
                 String state = request.getParameter("state");
                 updateGame.setState(state);
                 int n = daoGame.updateInfoGame(updateGame);
-                if (n!=0) request.setAttribute("message", "Update Successfully");
-                else request.setAttribute("message", "Update Failed");
+                if (n!=0) request.setAttribute("message", "Update Game Successfully");
+                else request.setAttribute("message", "Update Game Failed");
                 request.setAttribute("tab", "gameUpdate");
                 // <editor-fold defaultstate="collapsed" desc="SetParams">
                 ArrayList<Game> listGame = daoGame.getTrueGame();
@@ -180,8 +180,8 @@ public class AdminController extends HttpServlet {
                 int status = Integer.parseInt(request.getParameter("status"));
                 
                 int n = daoGame.changeStatus(gId, status);
-                if (n!=0) request.setAttribute("message", "Update Successfully");
-                else request.setAttribute("message", "Update Failed");
+                if (n!=0) request.setAttribute("message", "Update Game Successfully");
+                else request.setAttribute("message", "Update Game Failed");
                 request.setAttribute("tab", "gameDel");
                 // <editor-fold defaultstate="collapsed" desc="SetParams">
                 ArrayList<Game> listGame = daoGame.getTrueGame();
@@ -204,6 +204,111 @@ public class AdminController extends HttpServlet {
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
             
+            if (service.equalsIgnoreCase("addUser")){
+                String username = request.getParameter("username");
+                String uname = request.getParameter("uname");
+                String mail = request.getParameter("mail");
+                String phone = request.getParameter("phone");
+                String address = request.getParameter("address");
+                String pass = request.getParameter("pass");
+                User newUser = new User(0, uname, 0, mail, phone, address, 0, "User", username, pass, 1);
+                int n = daoUser.addUser(newUser);
+                if (n!=0) request.setAttribute("message", "Insert User Successfully");
+                else request.setAttribute("message", "Insert User Failed");
+                request.setAttribute("tab", "userAdd");
+                // <editor-fold defaultstate="collapsed" desc="SetParams">
+                ArrayList<Game> listGame = daoGame.getTrueGame();
+                request.setAttribute("listGame", listGame);
+                ArrayList<Category> listCategory = daoCate.getTrueCategories();
+                request.setAttribute("listCategory", listCategory);
+                ArrayList<Platform> listPlatform = daoPlat.getTruePlatforms();
+                request.setAttribute("listPlatform", listPlatform);
+                ArrayList<Company> listCompany = daoCom.getTrueCompany();
+                request.setAttribute("listCompany", listCompany);
+                ArrayList<User> listUser = daoUser.getTrueUser();
+                request.setAttribute("listUser", listUser);
+                HashMap<Game, ArrayList<Galery>> listGameGalery = new HashMap<Game,ArrayList<Galery>>();
+                for (Game game : listGame) {
+                    ArrayList<Galery> gameGalery = daoGalery.getFullGameGalery(game.getGid());
+                    listGameGalery.put(game, gameGalery);                
+                }
+                request.setAttribute("listGameGalery", listGameGalery);
+                // </editor-fold>
+                sendDispatcher(request, response, "admin/adminIndex.jsp");
+            }
+            
+            if (service.equalsIgnoreCase("updateUser")){
+                int uId = Integer.parseInt(request.getParameter("uId"));
+                User updateUser = daoUser.getUserById(uId);
+                String username = request.getParameter("username");
+                if (username.trim().length()!=0) updateUser.setUsername(username);
+                String uname = request.getParameter("uname");
+                if (uname.trim().length()!=0) updateUser.setuName(uname);
+                String exp = request.getParameter("exp");
+                if (exp.trim().length()!=0) updateUser.setExperience(Integer.parseInt(exp));
+                String mail = request.getParameter("mail");
+                if (mail.trim().length()!=0) updateUser.setuMail(mail);
+                String phone = request.getParameter("phone");
+                if (phone.trim().length()!=0) updateUser.setuPhone(phone);
+                String address = request.getParameter("address");
+                if (address.trim().length()!=0) updateUser.setuAddress(address);
+                String wallet = request.getParameter("wallet");
+                if (wallet.trim().length()!=0) updateUser.setWallet(Double.parseDouble(wallet));
+                String role = request.getParameter("role");
+                updateUser.setSystem_role(role);
+                int n = daoUser.updateInfoUser(updateUser);
+                if (n!=0) request.setAttribute("message", "Update User Successfully");
+                else request.setAttribute("message", "Update User Failed");
+                request.setAttribute("tab", "userUpdate");
+                // <editor-fold defaultstate="collapsed" desc="SetParams">
+                ArrayList<Game> listGame = daoGame.getTrueGame();
+                request.setAttribute("listGame", listGame);
+                ArrayList<Category> listCategory = daoCate.getTrueCategories();
+                request.setAttribute("listCategory", listCategory);
+                ArrayList<Platform> listPlatform = daoPlat.getTruePlatforms();
+                request.setAttribute("listPlatform", listPlatform);
+                ArrayList<Company> listCompany = daoCom.getTrueCompany();
+                request.setAttribute("listCompany", listCompany);
+                ArrayList<User> listUser = daoUser.getTrueUser();
+                request.setAttribute("listUser", listUser);
+                HashMap<Game, ArrayList<Galery>> listGameGalery = new HashMap<Game,ArrayList<Galery>>();
+                for (Game game : listGame) {
+                    ArrayList<Galery> gameGalery = daoGalery.getFullGameGalery(game.getGid());
+                    listGameGalery.put(game, gameGalery);                
+                }
+                request.setAttribute("listGameGalery", listGameGalery);
+    // </editor-fold>
+                request.setAttribute("user", updateUser);
+                sendDispatcher(request, response, "admin/adminIndex.jsp");
+            }
+            
+            if (service.equalsIgnoreCase("delUser")) {
+                int uId = Integer.parseInt(request.getParameter("uId"));
+                int status = Integer.parseInt(request.getParameter("status"));
+                int n = daoUser.changeStatus(uId, status);
+                if (n!=0) request.setAttribute("message", "Update User Successfully");
+                else request.setAttribute("message", "Update User Failed");
+                request.setAttribute("tab", "userDel");
+                // <editor-fold defaultstate="collapsed" desc="SetParams">
+                ArrayList<Game> listGame = daoGame.getTrueGame();
+                request.setAttribute("listGame", listGame);
+                ArrayList<Category> listCategory = daoCate.getTrueCategories();
+                request.setAttribute("listCategory", listCategory);
+                ArrayList<Platform> listPlatform = daoPlat.getTruePlatforms();
+                request.setAttribute("listPlatform", listPlatform);
+                ArrayList<Company> listCompany = daoCom.getTrueCompany();
+                request.setAttribute("listCompany", listCompany);
+                ArrayList<User> listUser = daoUser.getTrueUser();
+                request.setAttribute("listUser", listUser);
+                HashMap<Game, ArrayList<Galery>> listGameGalery = new HashMap<Game,ArrayList<Galery>>();
+                for (Game game : listGame) {
+                    ArrayList<Galery> gameGalery = daoGalery.getFullGameGalery(game.getGid());
+                    listGameGalery.put(game, gameGalery);                
+                }
+                request.setAttribute("listGameGalery", listGameGalery);
+    // </editor-fold>
+                sendDispatcher(request, response, "admin/adminIndex.jsp");
+            }
         }   
     }
 

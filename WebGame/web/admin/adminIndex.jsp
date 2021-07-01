@@ -248,6 +248,7 @@
             <%-- Add User --%>
             <div id="uAdd" class="tabcontent">
                 <h3>User - Add</h3>
+                <p>The user will be added with default values: Exp=0; Wallet=0; SysRole=User;</p>
                 <form action="AdminControllerMap" method="POST">
                     <table border="1" style="width: 95%;">
                         <tr>
@@ -273,6 +274,10 @@
                             <td><input type="text" name="address" style="width:100%" required></td>
                         </tr>
                         <tr>
+                            <td>Password</td>
+                            <td><input type="text" name="pass" style="width:100%" required></td>
+                        </tr>
+                        <tr>
                             <td></td>
                             <td><input type="submit" value="Add" name="submit">
                                 <input type="hidden" value="addUser" name="service"></td>
@@ -283,7 +288,8 @@
             <%-- Add User --%>
             <%-- Update User --%>
             <div id="uUpdate" class="tabcontent">
-                <h3>User - Update</h3>
+                <h3>User - Update</h3>                
+                <p>Leave the field blank if you don't want to update</p>
                 <form action="AdminControllerMap" method="POST">
                     <table border="1" style="width: 95%;">
                         <tr>
@@ -309,7 +315,7 @@
                         </tr>
                         <tr>
                             <td>Mail</td>
-                            <td><input type="text" name="version" placeholder="User Mail" style="width:100%"></td>
+                            <td><input type="text" name="mail" placeholder="User Mail" style="width:100%"></td>
                         </tr>
                         <tr>
                             <td>Phone </td>
@@ -349,7 +355,7 @@
                     <table border="1" style="width: 95%;">
                         <tr>
                             <td>Game ID</td>
-                            <td><select name="gId" id="ids">
+                            <td><select name="uId" id="ids">
                                     <% for (User user : userList) {%>
                                     <option value="<%=user.getuId()%>"> <%=user.getuId()%> : <%=user.getUsername()%> </option>
                                     <% } %>

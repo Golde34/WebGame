@@ -118,6 +118,19 @@ public class DAOUser {
         return n;
     }
     
+    public int changeStatus(int id, int status) {
+        int n = 0;
+        String sql = "UPDATE [User] SET status = " + (status == 1 ? 1 : 0)
+                + " WHERE uId = '" + id + "'";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
+    }
+    
     public int removeCustomer(int id) {
         int n = 0;
         String sql = "SELECT * FROM [User] AS a JOIN Order as b on a.uid = b.uid "
