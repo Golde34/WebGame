@@ -133,4 +133,11 @@ public class Game {
         this.status = status;
     }
     
+    @Override
+    public String toString(){
+        return "GameID: "+gid+"; Title: "+title+"; Company ID: "+coID+
+                "<br>Description: "+description+"<br>Version: "+version+
+                "; Rating:"+rating+"; Release Date: "+releaseDate+
+                "<br>Price: "+price+"; State: "+state+"; Status: "+status;
+    }
 }

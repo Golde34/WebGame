@@ -109,6 +109,7 @@ public class AdminController extends HttpServlet {
                 if (n!=0) request.setAttribute("message", "Insert Game Successfully");
                 else request.setAttribute("message", "Insert Game Failed");
                 request.setAttribute("tab", "gameAdd");
+                request.setAttribute("newGame", newGame);
                 // <editor-fold defaultstate="collapsed" desc="SetParams">
                 ArrayList<Game> listGame = daoGame.getTrueGame();
                 request.setAttribute("listGame", listGame);
@@ -171,18 +172,18 @@ public class AdminController extends HttpServlet {
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
     // </editor-fold>
-                request.setAttribute("game", updateGame);
+                request.setAttribute("updateGame", updateGame);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
             
             if (service.equalsIgnoreCase("delGame")) {
                 int gId = Integer.parseInt(request.getParameter("gId"));
                 int status = Integer.parseInt(request.getParameter("status"));
-                
                 int n = daoGame.changeStatus(gId, status);
                 if (n!=0) request.setAttribute("message", "Update Game Successfully");
                 else request.setAttribute("message", "Update Game Failed");
                 request.setAttribute("tab", "gameDel");
+                request.setAttribute("delGame", "Set Game with Id="+gId+" status to "+status);
                 // <editor-fold defaultstate="collapsed" desc="SetParams">
                 ArrayList<Game> listGame = daoGame.getTrueGame();
                 request.setAttribute("listGame", listGame);
@@ -216,6 +217,7 @@ public class AdminController extends HttpServlet {
                 if (n!=0) request.setAttribute("message", "Insert User Successfully");
                 else request.setAttribute("message", "Insert User Failed");
                 request.setAttribute("tab", "userAdd");
+                request.setAttribute("newUser",newUser);
                 // <editor-fold defaultstate="collapsed" desc="SetParams">
                 ArrayList<Game> listGame = daoGame.getTrueGame();
                 request.setAttribute("listGame", listGame);
@@ -278,7 +280,7 @@ public class AdminController extends HttpServlet {
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
     // </editor-fold>
-                request.setAttribute("user", updateUser);
+                request.setAttribute("updateUser", updateUser);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
             
@@ -307,6 +309,7 @@ public class AdminController extends HttpServlet {
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
     // </editor-fold>
+                request.setAttribute("delUser", "Set User with Id="+uId+" status to "+status);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
             
@@ -324,6 +327,7 @@ public class AdminController extends HttpServlet {
                 if (n!=0) request.setAttribute("message", "Insert Company Successfully");
                 else request.setAttribute("message", "Insert Company Failed");
                 request.setAttribute("tab", "companyAdd");
+                request.setAttribute("newCom", newCom);
                 // <editor-fold defaultstate="collapsed" desc="SetParams">
                 ArrayList<Game> listGame = daoGame.getTrueGame();
                 request.setAttribute("listGame", listGame);
@@ -384,7 +388,7 @@ public class AdminController extends HttpServlet {
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
     // </editor-fold>
-                request.setAttribute("com", updateCom);
+                request.setAttribute("updateCom", updateCom);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
             
@@ -395,6 +399,7 @@ public class AdminController extends HttpServlet {
                 if (n!=0) request.setAttribute("message", "Update Company Successfully");
                 else request.setAttribute("message", "Update Company Failed");
                 request.setAttribute("tab", "companyDel");
+                request.setAttribute("delCom", "Set Company with Id="+coId+" status to "+status);
                 // <editor-fold defaultstate="collapsed" desc="SetParams">
                 ArrayList<Game> listGame = daoGame.getTrueGame();
                 request.setAttribute("listGame", listGame);
@@ -443,6 +448,7 @@ public class AdminController extends HttpServlet {
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
                 // </editor-fold>
+                request.setAttribute("newGalery", newGalery);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
             
@@ -479,7 +485,7 @@ public class AdminController extends HttpServlet {
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
     // </editor-fold>
-                request.setAttribute("gal", newGal);
+                request.setAttribute("updateGalery", newGal);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
         }   
