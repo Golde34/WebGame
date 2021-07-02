@@ -118,11 +118,14 @@
 
         <%  ArrayList<Game> ShoppingCart = (ArrayList<Game>) session.getAttribute("ShoppingCart");
             String mess = (String) request.getAttribute("mess");
+            String alMess = (String ) request.getAttribute("alMess");
             String messCheckOut = (String) request.getAttribute("messCheckOut");
         %>
         <div class="container page-content">
+            <% if (alMess != null) { %> 
+                <h4 class="neon" data-text="BUY ZONE"><%= alMess %></h4>
+            <%}%>
             <% if (ShoppingCart.isEmpty()) { %>
-
             <%if (messCheckOut != null) {%>
             <h4 class="neon" data-text="BUY ZONE"><%= messCheckOut%></h4>
             <h4 class="neon" data-text="BUY ZONE"><a href="index.jsp" >Back to HomePage</a></h4>
@@ -136,7 +139,6 @@
                 <%  DBConnection dbCon = new DBConnection();
                     DAOGalery daoGalery = new DAOGalery(dbCon);
                     DAOCategory daoCate = new DAOCategory(dbCon);
-                    ArrayList<Category> cateList = daoCate.getAllCategories();
                     Double SubTotal = 0.0;
                     for (Game elem : ShoppingCart) {
                         SubTotal += elem.getPrice();

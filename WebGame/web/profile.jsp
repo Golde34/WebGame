@@ -63,7 +63,7 @@
                     <%} else {%>
                     <p>History Transaction: </p>
                     <%for (Order o : listOrder) {%>
-                    <p>+ <a href="UserControllerMap?service=vieworder&orderId=<%= o.getoId()%>"> Oder <%= o.getoId()%> </a></p>
+                    <p>+ <a href="UserControllerMap?service=vieworder&orderId=<%= o.getoId()%>"> Order <%= o.getoId()%> </a></p>
                     <%}
                         }%>
                 </div>

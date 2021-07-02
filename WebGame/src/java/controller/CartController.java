@@ -70,14 +70,14 @@ public class CartController extends HttpServlet {
                 ArrayList<Game> ShoppingCart = (ArrayList<Game>) request.getSession().getAttribute("ShoppingCart");
                 for (int i = 0; i < ShoppingCart.size(); i++) {
                     if (ShoppingCart.get(i).getGid() == gameId) {
-                        request.setAttribute("mess", "Game already in cart");
+                        request.setAttribute("alMess", "Game already in cart");
                         sendDispatcher(request, response, "Cart.jsp");
                         return;
                     }
                 }
                 for (int i = 0; i < userLibrary.size(); i++) {
                     if(userLibrary.get(i).getGid() == gameId){
-                        request.setAttribute("messCheckOut", "You have already bought this game");
+                        request.setAttribute("alMess", "You have already bought this game");
                         sendDispatcher(request, response, "Cart.jsp");
                         return;
                     }
