@@ -62,7 +62,7 @@
                 width: 0;
                 height: 6px;
                 border-radius: 15px;
-                background-image:linear-gradient(to right, red, orange , yellow, green, cyan, blue, violet);
+                background-color: #31b0d5;
                 transition: all 0.2s ease;
             }
             .tab-item {
@@ -70,7 +70,7 @@
                 padding: 16px 20px 11px 20px;
                 font-size: 20px;
                 text-align: center;
-                color: #c23564;
+                color: black;
                 background-color: #fff;
                 border-top-left-radius: 5px;
                 border-top-right-radius: 5px;
@@ -110,7 +110,7 @@
             .container{
                 height:100vh;
             }
-            
+
         </style>
     </head>
     <body>
@@ -127,8 +127,8 @@
             <div class="container">
                 <div class="row" style="font-size: 150%; padding-bottom: 70px;">
                     <div class="col-xs-12 col-sm-6 col-md-1">
-                        <div class="user-avatar avatar_large" style="background-color: #e2c147;width: 190px;height: 190px">
-                            <object class="avatar_lagre" data="images/T.jpg" alt="" width="190" height="190"></object>
+                        <div class="user-avatar avatar_large" style="background-color: #e2c147;width: 190px;height: 190px;">
+                            <object style="border: solid;" class="avatar_lagre" data="images/T.jpg" alt="" width="190" height="190"></object>
                         </div>
                     </div>     <div class="col-xs-12 col-sm-6 col-md-1"></div>       
                     <div class="col-xs-12 col-sm-6 col-md-10">
@@ -158,9 +158,10 @@
                             <div class="tab-pane active">
                                 <div style="padding:5%">
                                     <h1 style="font-family: Time New Roman; display: inline-block"><%=x.getuName()%></h1>
-                                    <a style="display: inline-block" href="UserControllerMap?service=edit">Edit</a>
+                                    <a  href="UserControllerMap?service=edit"><button type="button" class="btn btn-danger " >Edit</button>
+                                    </a>
                                     <hr style="height:3px;color:gray;background-color:gray">
-                                    <p>Wallet: <%=x.getWallet()%><a href="UserControllerMap?service=topup">Recharge</a></p>
+                                    <p>Wallet: <%=x.getWallet()%><a href="UserControllerMap?service=topup"><button type="button" class="btn btn-info " >Recharge</button></a></p>
                                     <p>Address: <%=x.getuAddress()%></p> 
                                     <p>Mail: <%=x.getuMail()%></p> 
                                     <p>Phone: <%=x.getuPhone()%></p>
@@ -185,21 +186,21 @@
                                     <%for (Game game : listGame) {%>
                                     <p>+ <a style="background-color: none" href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>"> <%= game.getTitle()%> </a></p>
                                     <%}
-                                }%>
+                                        }%>
                                 </div>
 
                             </div>
                             <div class="tab-pane">
-                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    
+
                 </div>
             </div>
         </div>
         <jsp:include page="footer.jsp"/> 
-
+        <script src="${contextPath}/js/bootstrap.min.js"></script>
         <script src="https://kit.fontawesome.com/9650a62e47.js" crossorigin="anonymous"></script>
         <script src="js/slick.min.js"></script>
         <script src="js/jquery-2.2.4.min.js"></script>
