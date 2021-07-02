@@ -84,17 +84,17 @@
                         <%}%>
                         <br><br>
                         <%  if (isFollowed == true) { %>
-                        <div class="button-platform" style="background-color: gray; border-radius: 15px; height: 50px;">
+                        <div class="button-platform" style="background-color: pink; border-radius: 15px; height: 50px;">
                             <h3 style="text-align: center; position: relative; top: 50%; transform: translateY(-50%); margin: 0; padding: 0;"  class="nk-feature-title">
                                 <a href="GameControllerMap?service=deleteWishlist&gameID=<%=game.getGid()%>"><span class="fa fa-fas fa-plus"></span>   Following</a></h3>
                         </div>
                         <% } else { %>
-                        <div class="button-platform" style="background-color: pink; border-radius: 15px; height: 50px;">
+                        <div class="button-platform" style="background-color: #aace60; border-radius: 15px; height: 50px;">
                             <h3 style="text-align: center; position: relative; top: 50%; transform: translateY(-50%); margin: 0; padding: 0;"  class="nk-feature-title">
                                 <% User user = (User) session.getAttribute("currUser");
                                     if (user != null) {
                                 %>
-                                <a href="GameControllerMap?service=addWishlist&gameID=<%=game.getGid()%>"><span class="fa fa-fas fa-plus"></span>   Follow</a>
+                                <a style="color: white;" href="GameControllerMap?service=addWishlist&gameID=<%=game.getGid()%>"><span class="fa fa-fas fa-plus"></span>   Follow</a>
                                 <%} else { %>
                                 <a onclick="alert('You have to login to follow this product');"><span class="fa fa-fas fa-plus"></span>   Follow</a>           
                                 <% } %>
