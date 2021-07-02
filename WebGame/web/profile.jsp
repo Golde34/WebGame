@@ -20,6 +20,8 @@
         <title>JSP Page</title>
         <!--Css-->
         <link href="${contextPath}/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="css/stylehome.css">
         <link href="css/font-awesome.css" rel="stylesheet">
         <link href="${contextPath}/css/font-awesome.min.css" rel="stylesheet">
@@ -29,6 +31,25 @@
         <style>.neondu{
                 color: #fff;
                 text-shadow: 0 0 20px #ff005b;
+            }
+            footer{
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 50px 20%;
+                background: #111;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                font-family: Roboto;
+                color: #fff;
+                margin-top: auto;
+            }
+            footer .container{
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                flex-direction: row;
             }
         </style>
     </head>
@@ -42,22 +63,22 @@
 
         <div class="row" style="font-size: 150%; padding-bottom: 70px;">
             <div class="col-xs-12 col-sm-6 col-md-6" style="  margin-left: 50px; ">
-                <div style="background-color: white; border-radius: 10px; padding: 10px 10px 15px 35px;">
-                    <h1>Hello User <%=x.getuName()%></h1>
-                    <a href="UserControllerMap?service=edit">Edit information</a>
-                    <hr style="height:3px;color:gray;background-color:gray">
-                    <p><%=x.getuName()%> </p>
-                    <p>Role: <%=x.getSystem_role()%></p>
-
-                    <p>Wallet: <%=x.getWallet()%><a href="UserControllerMap?service=topup"> Nap tien</a></p>
-
-                    <p>Information:<br>
-                        Experience: <%=x.getExperience()%><br>
-                        Address: <%=x.getuAddress()%> <br>
-                        Mail: <%=x.getuMail()%> <br>
-                        Phone: <%=x.getuPhone()%>
-                    </p>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user-edit"></i></button>
+                    <ul class="dropdown-menu" style="background-color: white; border-radius: 10px;">
+                        <li><div style="padding: 5%">
+                                <h2><%=x.getuName()%></h2>
+                                <a style="display: inline-block" href="UserControllerMap?service=edit">Edit</a>
+                                <hr style="height:3px;color:gray;background-color:gray">
+                                <p>Wallet: <%=x.getWallet()%><a href="UserControllerMap?service=topup"> Recharge</a></p>
+                                <p>Address: <%=x.getuAddress()%></p> 
+                                <p>Mail: <%=x.getuMail()%></p> 
+                                <p>Phone: <%=x.getuPhone()%></p>
+                            </div></li>
+                    </ul>
                 </div>
+
                 <div style="background-color: white; border-radius: 10px; padding: 10px 10px 15px 35px;margin-top: 20px;">
                     <%if (listOrder.isEmpty()) {%> <p>No order yet</p> 
                     <%} else {%>
@@ -85,28 +106,11 @@
 
 
         <jsp:include page="footer.jsp"/> 
-        <script src="${contextPath}/js/bootstrap.min.js"></script>
+
         <script src="https://kit.fontawesome.com/9650a62e47.js" crossorigin="anonymous"></script>
         <script src="js/slick.min.js"></script>
         <script src="js/jquery-2.2.4.min.js"></script>
-        <script src="js/jquery.appear.min.js"></script>
-        <script src="js/jquery.easypiechart.min.js"></script>
-        <script>
-            $(function () {
-                $('.chart').easyPieChart({
-                    easing: 'easeOutElastic',
-                    delay: 3000,
-                    barColor: '#369670',
-                    trackColor: '#fff',
-                    scaleColor: false,
-                    lineWidth: 10,
-                    trackWidth: 21,
-                    size: 110,
-                    lineCap: 'round',
 
-                });
-            });
 
-        </script>
     </body>
 </html>

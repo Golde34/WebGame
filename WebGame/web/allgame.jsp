@@ -195,6 +195,11 @@
             </div><%}%>
         </div>
 
+        
+        
+        
+        
+        
         <jsp:include page="footer.jsp"/>   
         <!--Jquery, JS-->
 
