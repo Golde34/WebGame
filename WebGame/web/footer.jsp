@@ -58,7 +58,7 @@
             <!--Bắt Đầu Nội Dung Giới Thiệu-->
             <div class="about">
                 <h2>About Us</h2>
-                <p>80% JS</p>
+                <p>80JS Corporation <a href="aboutUs.jsp">Details</a></p> 
                 <img src="images/FPT.jpg">
             </div>
             <!--Kết Thúc Nội Dung Giới Thiệu-->

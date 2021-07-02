@@ -86,7 +86,8 @@
                 </div>
                 <div class="navbar navbar-inverse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.jsp">HOME</a></li>
+                        <li class="active"><a style="background-color: #76cc11;
+                                              color: #FFF ;"href="index.jsp">HOME</a></li>
                         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
                                                          data-toggle="dropdown">
                                 <span class="fa fa-gamepad"></span> GAMES</a>
@@ -105,7 +106,7 @@
                                 <% for (Category x : cateList) {%>
                                 <a class="dropdown-item" href="ProductControllerMap?service=searchByCate1&cateID=<%=x.getCaId()%>">
                                     <i style="float:left;" class="fas fa-caret-right"></i> <%=x.getCaName()%><i style="float:right;" class="fas fa-caret-left"></i></a>
-                                <% } %>
+                                    <% } %>
                             </div>
                         </li>
                         <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle"
@@ -114,7 +115,7 @@
                                 <% for (Platform p : platList) {%>
                                 <a class="dropdown-item" href="ProductControllerMap?service=searchByPlat&platID=<%=p.getPlId()%>">
                                     <i style="float:left;" class="fas fa-caret-right"></i><%=p.getPlname()%><i style="float:right;" class="fas fa-caret-left"></i></a>
-                                <% }%>
+                                        <% }%>
                             </div>
                         </li>
                     </ul>

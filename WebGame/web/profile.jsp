@@ -22,7 +22,7 @@
         <link href="${contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-        <link rel="stylesheet" type="text/css" href="css/stylehome.css">
+        <link rel="stylesheet" type="text/css" href="css/profile.css">
         <link href="css/font-awesome.css" rel="stylesheet">
         <link href="${contextPath}/css/font-awesome.min.css" rel="stylesheet">
         <script src="js/Jquery.js"></script>
@@ -108,7 +108,7 @@
                 margin-bottom: 8px;
             }
             .container{
-                height:100vh;
+                height:150vh;
                 background-color: #f0f2f5;
             }
 
