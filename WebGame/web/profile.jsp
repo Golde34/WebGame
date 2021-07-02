@@ -51,6 +51,66 @@
                 flex-wrap: wrap;
                 flex-direction: row;
             }
+            .tabs {
+                display: flex;
+                position: relative;
+            }
+            .tabs .line {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 0;
+                height: 6px;
+                border-radius: 15px;
+                background-image:linear-gradient(to right, red, orange , yellow, green, cyan, blue, violet);
+                transition: all 0.2s ease;
+            }
+            .tab-item {
+                min-width: 80px;
+                padding: 16px 20px 11px 20px;
+                font-size: 20px;
+                text-align: center;
+                color: #c23564;
+                background-color: #fff;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                border-bottom: 5px solid transparent;
+                opacity: 0.6;
+                cursor: pointer;
+                transition: all 0.5s ease;
+            }
+            .tab-icon {
+                font-size: 24px;
+                width: 32px;
+                position: relative;
+                top: 2px;
+            }
+            .tab-item:hover {
+                opacity: 1;
+                background-color: rgba(194, 53, 100, 0.05);
+                border-color: rgba(194, 53, 100, 0.1);
+            }
+            .tab-item.active {
+                opacity: 1;
+            }
+            .tab-content {
+                padding: 28px 0;
+            }
+            .tab-pane {
+                color: #333;
+                display: none;
+            }
+            .tab-pane.active {
+                display: block;
+            }
+            .tab-pane h2 {
+                font-size: 24px;
+                margin-bottom: 8px;
+            }
+            .container{
+                height:100vh;
+            }
+            
         </style>
     </head>
     <body>
@@ -60,57 +120,118 @@
             ArrayList<Game> listGame = (ArrayList<Game>) request.getAttribute("listGame");
             ArrayList<Order> listOrder = (ArrayList<Order>) request.getAttribute("listOrder");
         %>
-
-        <div class="row" style="font-size: 150%; padding-bottom: 70px;">
-            <div class="col-xs-12 col-sm-6 col-md-6" style="  margin-left: 50px; ">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user-edit"></i></button>
-                    <ul class="dropdown-menu" style="background-color: white; border-radius: 10px;">
-                        <li><div style="padding: 5%">
-                                <h2><%=x.getuName()%></h2>
-                                <a style="display: inline-block" href="UserControllerMap?service=edit">Edit</a>
-                                <hr style="height:3px;color:gray;background-color:gray">
-                                <p>Wallet: <%=x.getWallet()%><a href="UserControllerMap?service=topup"> Recharge</a></p>
-                                <p>Address: <%=x.getuAddress()%></p> 
-                                <p>Mail: <%=x.getuMail()%></p> 
-                                <p>Phone: <%=x.getuPhone()%></p>
-                            </div></li>
-                    </ul>
-                </div>
-
-                <div style="background-color: white; border-radius: 10px; padding: 10px 10px 15px 35px;margin-top: 20px;">
-                    <%if (listOrder.isEmpty()) {%> <p>No order yet</p> 
-                    <%} else {%>
-                    <p>History Transaction: </p>
-                    <%for (Order o : listOrder) {%>
-                    <p>+ <a href="UserControllerMap?service=vieworder&orderId=<%= o.getoId()%>"> Order <%= o.getoId()%> </a></p>
-                    <%}
-                        }%>
-                </div>
+        <div class="main">
+            <div class="background">
+                <img style="height:300px;width: 1878px;object-fit: cover;"src="images/profileback.jpg">
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-1"></div>
-            <div class="col-xs-12 col-sm-6 col-md-5">
-                <div style="background-color: white; border-radius: 10px; padding: 10px 10px 15px 35px;">
-                    <%if (listGame.isEmpty()) {%> <p>No games bought yet </p> 
-                    <%} else {%>
-                    <p>Owned Game: </p>
-                    <%for (Game game : listGame) {%>
-                    <p>+ <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>"> <%= game.getTitle()%> </a></p>
-                    <%}
-                        }%>
-                </div>
+            <div class="container">
+                <div class="row" style="font-size: 150%; padding-bottom: 70px;">
+                    <div class="col-xs-12 col-sm-6 col-md-1">
+                        <div class="user-avatar avatar_large" style="background-color: #e2c147;width: 190px;height: 190px">
+                            <object class="avatar_lagre" data="images/T.jpg" alt="" width="190" height="190"></object>
+                        </div>
+                    </div>     <div class="col-xs-12 col-sm-6 col-md-1"></div>       
+                    <div class="col-xs-12 col-sm-6 col-md-10">
+                        <!-- Tab items -->
+                        <div class="tabs">
+                            <div class="tab-item active">
+                                <i class="fas fa-user-edit"></i>
+                                Infor
+                            </div>
+                            <div class="tab-item">
+                                <i class="fas fa-receipt"></i>
+                                Orders
+                            </div>
+                            <div class="tab-item">
+                                <i class="tab-icon fas fa-plus-circle"></i>
+                                Lists
+                            </div>
+                            <div class="tab-item">
+                                <i class="fas fa-bookmark"></i>
+                                Favorites
+                            </div>
+                            <div class="line"></div>
+                        </div>
 
+                        <!-- Tab content -->
+                        <div class="tab-content">
+                            <div class="tab-pane active">
+                                <div style="padding:5%">
+                                    <h1 style="font-family: Time New Roman; display: inline-block"><%=x.getuName()%></h1>
+                                    <a style="display: inline-block" href="UserControllerMap?service=edit">Edit</a>
+                                    <hr style="height:3px;color:gray;background-color:gray">
+                                    <p>Wallet: <%=x.getWallet()%><a href="UserControllerMap?service=topup">Recharge</a></p>
+                                    <p>Address: <%=x.getuAddress()%></p> 
+                                    <p>Mail: <%=x.getuMail()%></p> 
+                                    <p>Phone: <%=x.getuPhone()%></p>
+                                </div>
+                            </div>
+                            <div class="tab-pane">
+                                <div style="background-color: white; border-radius: 10px; padding: 10px 10px 15px 35px;margin-top: 20px;">
+                                    <%if (listOrder.isEmpty()) {%> <p>No order yet</p> 
+                                    <%} else {%>
+                                    <p>History Transaction: </p>
+                                    <%for (Order o : listOrder) {%>
+                                    <p>+ <a href="UserControllerMap?service=vieworder&orderId=<%= o.getoId()%>"> Order <%= o.getoId()%> </a></p>
+                                    <%}
+                                        }%>
+                                </div>
+                            </div>
+                            <div class="tab-pane">
+                                <div style="background-color: white; border-radius: 10px; padding: 10px 10px 15px 35px;">
+                                    <%if (listGame.isEmpty()) {%> <p>No games bought yet </p> 
+                                    <%} else {%>
+                                    <p>Owned Game: </p>
+                                    <%for (Game game : listGame) {%>
+                                    <p>+ <a style="background-color: none" href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>"> <%= game.getTitle()%> </a></p>
+                                    <%}
+                                }%>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane">
+                                </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
             </div>
         </div>
-
-
         <jsp:include page="footer.jsp"/> 
 
         <script src="https://kit.fontawesome.com/9650a62e47.js" crossorigin="anonymous"></script>
         <script src="js/slick.min.js"></script>
         <script src="js/jquery-2.2.4.min.js"></script>
 
+        <script>
+            const $ = document.querySelector.bind(document);
+            const $$ = document.querySelectorAll.bind(document);
 
+            const tabs = $$(".tab-item");
+            const panes = $$(".tab-pane");
+
+            const tabActive = $(".tab-item.active");
+            const line = $(".tabs .line");
+
+            line.style.left = tabActive.offsetLeft + "px";
+            line.style.width = tabActive.offsetWidth + "px";
+
+            tabs.forEach((tab, index) => {
+                const pane = panes[index];
+
+                tab.onclick = function () {
+                    $(".tab-item.active").classList.remove("active");
+                    $(".tab-pane.active").classList.remove("active");
+
+                    line.style.left = this.offsetLeft + "px";
+                    line.style.width = this.offsetWidth + "px";
+
+                    this.classList.add("active");
+                    pane.classList.add("active");
+                };
+            });
+
+        </script>
     </body>
 </html>

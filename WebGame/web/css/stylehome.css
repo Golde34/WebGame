@@ -17,8 +17,8 @@ body {background:#FFF;font-family:Consolas, "Andale Mono", "Lucida Console", "Lu
 	background-color: #EF652F;
 }
 .active a{
-	background-color:#76CC11 !important;
-	color: #FFFFFF !important;
+	background-color:#76CC11;
+	color: #FFFFFF ;
 }
 
 .fa-shopping-basket{
