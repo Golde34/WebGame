@@ -64,14 +64,10 @@
                         <% ArrayList<Galery> backgroundImage = daoGalery.getOneGaleryByType(listGa, "img-po");%>
                         <img src="<%=backgroundImage.get(0).getLink().trim()%>" style="height:686.25px;width: 457.5px;"alt="">
                         <a  id="gameAdd" onclick="alert('Add to library sucessfull');"></a> 
-<<<<<<< Updated upstream
                         <%if(alMess != null){ %>
                         <%=alMess %>
                         <%}%>
                         <button style="background-color: pink;">Follow</button>
-=======
-                        
->>>>>>> Stashed changes
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-7">
                         <div class="wrapper">
