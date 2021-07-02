@@ -46,11 +46,14 @@
             DAOGalery daoGalery = new DAOGalery(dbCon);
             ArrayList<Galery> listGa = daoGalery.getGaleryById(game.getGid());
             ArrayList<Game> userLibrary = (ArrayList<Game>) request.getSession().getAttribute("Library");
+            String alMess = (String) request.getAttribute("alMess");
             boolean isOwned = false;
-            for (int i = 0; i < userLibrary.size(); i++) {
-                if (game.getGid() == userLibrary.get(i).getGid()) {
-                    isOwned = true;
-                    break;
+            if (userLibrary != null ) {
+                for (int i = 0; i < userLibrary.size(); i++) {
+                    if (game.getGid() == userLibrary.get(i).getGid()) {
+                        isOwned = true;
+                        break;
+                    }
                 }
             }
         %>
@@ -61,8 +64,14 @@
                         <% ArrayList<Galery> backgroundImage = daoGalery.getOneGaleryByType(listGa, "img-po");%>
                         <img src="<%=backgroundImage.get(0).getLink().trim()%>" style="height:686.25px;width: 457.5px;"alt="">
                         <a  id="gameAdd" onclick="alert('Add to library sucessfull');"></a> 
-                        <%=(String) request.getAttribute("alMess") %>
+<<<<<<< Updated upstream
+                        <%if(alMess != null){ %>
+                        <%=alMess %>
+                        <%}%>
                         <button style="background-color: pink;">Follow</button>
+=======
+                        
+>>>>>>> Stashed changes
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-7">
                         <div class="wrapper">
@@ -143,8 +152,6 @@
                                         <a onclick="alert('You have to login to buy this product');"><button type="button" class="btn btn-success">Add to cart</button></a>                                        
                                         <%      }
                                             }%>
-
-
                                     </div>
                                 </div>
 
