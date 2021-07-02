@@ -5,12 +5,13 @@
  */
 package controller;
 
-import entity.Game;
+import entity.*;
 import entity.Order;
 import entity.OrderDetail;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.DAOCategory;
 import model.DAOGame;
 import model.DAOGame_Category;
+import model.DAOLibrary;
 import model.DAOOrder;
 import model.DAOOrder_Detail;
 import model.DAOPlatform;
@@ -50,6 +52,7 @@ public class CartController extends HttpServlet {
     DAOOrder daoOrder = new DAOOrder(dbCon);
     DAOOrder_Detail dAOOrder_Detail = new DAOOrder_Detail(dbCon);
     DAOUser daoUser = new DAOUser(dbCon);
+    DAOLibrary daoLibrary = new DAOLibrary(dbCon);
     DAOGame_Category daoGaCa = new DAOGame_Category(dbCon);
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -59,6 +62,7 @@ public class CartController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String service = request.getParameter("service");
             User user = (User) request.getSession().getAttribute("currUser");
+            ArrayList<Game> userLibrary = (ArrayList<Game>) request.getSession().getAttribute("Library");
 
             if (service.equalsIgnoreCase("AddToCart")) {
                 int gameId = Integer.parseInt(request.getParameter("gameId"));
@@ -67,6 +71,13 @@ public class CartController extends HttpServlet {
                 for (int i = 0; i < ShoppingCart.size(); i++) {
                     if (ShoppingCart.get(i).getGid() == gameId) {
                         request.setAttribute("mess", "Game already in cart");
+                        sendDispatcher(request, response, "Cart.jsp");
+                        return;
+                    }
+                }
+                for (int i = 0; i < userLibrary.size(); i++) {
+                    if(userLibrary.get(i).getGid() == gameId){
+                        request.setAttribute("messCheckOut", "You have already bought this game");
                         sendDispatcher(request, response, "Cart.jsp");
                         return;
                     }
@@ -100,7 +111,6 @@ public class CartController extends HttpServlet {
                 double wallet = user.getWallet();
                 if (wallet >= total) {
                     Order addOrder = new Order(-1, user.getuId(), null, total);
-                    addOrder.setStatus(0);
                     daoOrder.insertOrder(addOrder);
                     int oId = daoOrder.getLatestOrderByUseridAndTotal(user.getuId(), total);
                     OrderDetail orderDetail = new OrderDetail();
@@ -109,7 +119,17 @@ public class CartController extends HttpServlet {
                         orderDetail.setgId(game.getGid());
                         orderDetail.setPrice(game.getPrice());
                         dAOOrder_Detail.insertOrderDetail(orderDetail);
+                    }                    
+                    
+                    Library addLib = new Library();
+                    for (int i = 0; i < ShoppingCart.size(); i++) {
+                        addLib.setuId(user.getuId());
+                        addLib.setgId(ShoppingCart.get(i).getGid());
+                        daoLibrary.insertLibrary(addLib);
                     }
+                    ArrayList<Game> Library = daoLibrary.getGameByUIdAndStatus(user.getuId(), 1);
+                    request.getSession().setAttribute("Library", Library);
+
                     ShoppingCart.removeAll(ShoppingCart);
                     user.setWallet(wallet - total);
                     daoUser.updateInfoUser(user);
@@ -121,6 +141,18 @@ public class CartController extends HttpServlet {
                     request.setAttribute("mess", "Your currency is not enough");
                     sendDispatcher(request, response, "Cart.jsp");
                 }
+            }
+            
+            if (service.equalsIgnoreCase("AddToLibrary")) {
+                int gameId = Integer.parseInt(request.getParameter("gameId"));
+                Library lib = new Library();
+                lib.setuId(user.getuId());
+                lib.setgId(gameId);
+                daoLibrary.insertLibrary(lib);
+                ArrayList<Game> Library = daoLibrary.getGameByUIdAndStatus(user.getuId(), 1);
+                request.getSession().setAttribute("Library", Library);
+                request.setAttribute("alMess", "<script>document.getElementById(\"gameAdd\").click();</script>");
+                request.getRequestDispatcher("GameControllerMap?service=getGame&gameID="  + gameId).forward(request, response);
             }
         }
     }

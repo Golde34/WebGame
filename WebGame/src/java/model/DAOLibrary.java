@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 /**
  *
  * @author Duong
@@ -31,7 +32,7 @@ public class DAOLibrary {
 
     public int insertLibrary(Library obj) {
         int n = 0;
-        String sql = "INSERT INTO Library(uId, gId, status) + values (?,?,1)";
+        String sql = "INSERT INTO Library(uId, gId, status) values (?,?,1)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, obj.getuId());
@@ -45,6 +46,8 @@ public class DAOLibrary {
 
     public ArrayList<Game> getGameByUIdAndStatus(int uId, int status) {
         ArrayList<Game> list = new ArrayList<>();
+        DAOGame daoGame = new DAOGame(dbConn);
+        Game g = new Game();
         String s = " ";
         if (status != -1) {
             s = " and status = " + status + " ";
@@ -53,8 +56,7 @@ public class DAOLibrary {
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {
-                Game g = new Game();
-                g.setGid(rs.getInt("gId"));
+                g = daoGame.getGameById(rs.getInt("gId"));
                 list.add(g);
             }
         } catch (SQLException ex) {
