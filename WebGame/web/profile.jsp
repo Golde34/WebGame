@@ -109,6 +109,7 @@
             }
             .container{
                 height:100vh;
+                background-color: #f0f2f5;
             }
 
         </style>
@@ -125,13 +126,15 @@
                 <img style="height:300px;width: 1878px;object-fit: cover;"src="images/profileback.jpg">
             </div>
             <div class="container">
+                <br>
                 <div class="row" style="font-size: 150%; padding-bottom: 70px;">
-                    <div class="col-xs-12 col-sm-6 col-md-1">
+                    <div class="col-xs-12 col-sm-6 col-md-2">
                         <div class="user-avatar avatar_large" style="background-color: #e2c147;width: 190px;height: 190px;">
-                            <object style="border: solid;" class="avatar_lagre" data="images/T.jpg" alt="" width="190" height="190"></object>
+                            <object style="border: solid #f0f2f5 white; border-radius: 15px; " class="avatar_lagre" data="images/T.jpg" alt="" width="190" height="190"></object>
                         </div>
-                    </div>     <div class="col-xs-12 col-sm-6 col-md-1"></div>       
-                    <div class="col-xs-12 col-sm-6 col-md-10">
+                    </div>    
+                    <div class="col-xs-12 col-sm-6 col-md-1"></div>       
+                    <div class="col-xs-12 col-sm-6 col-md-9">
                         <!-- Tab items -->
                         <div class="tabs">
                             <div class="tab-item active">
@@ -148,7 +151,7 @@
                             </div>
                             <div class="tab-item">
                                 <i class="fas fa-bookmark"></i>
-                                Favorites
+                                Wishlist
                             </div>
                             <div class="line"></div>
                         </div>
@@ -156,12 +159,12 @@
                         <!-- Tab content -->
                         <div class="tab-content">
                             <div class="tab-pane active">
-                                <div style="padding:5%">
+                                <div>
                                     <h1 style="font-family: Time New Roman; display: inline-block"><%=x.getuName()%></h1>
                                     <a  href="UserControllerMap?service=edit"><button type="button" class="btn btn-danger " >Edit</button>
                                     </a>
                                     <hr style="height:3px;color:gray;background-color:gray">
-                                    <p>Wallet: <%=x.getWallet()%><a href="UserControllerMap?service=topup"><button type="button" class="btn btn-info " >Recharge</button></a></p>
+                                    <p>Wallet: <%=x.getWallet()%> <a href="UserControllerMap?service=topup"><button type="button" class="btn btn-info " >Recharge</button></a></p>
                                     <p>Address: <%=x.getuAddress()%></p> 
                                     <p>Mail: <%=x.getuMail()%></p> 
                                     <p>Phone: <%=x.getuPhone()%></p>
@@ -191,6 +194,15 @@
 
                             </div>
                             <div class="tab-pane">
+                                <div style="background-color: white; border-radius: 10px; padding: 10px 10px 15px 35px;">
+                                    <%if (listGame.isEmpty()) {%> <p>No games in wishlist yet </p> 
+                                    <%} else {%>
+                                    <p>Owned Game: </p>
+                                    <%for (Game game : listGame) {%>
+                                    <p>+ <a style="background-color: none" href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>"> <%= game.getTitle()%> </a></p>
+                                    <%}
+                                        }%>
+                                </div>
                             </div>
                         </div>
                     </div>
