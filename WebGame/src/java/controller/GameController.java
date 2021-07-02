@@ -86,6 +86,10 @@ public class GameController extends HttpServlet {
                 request.setAttribute("listGameGalery", listGameGalery);
                 sendDispatcher(request, response, "game.jsp");
             }
+            
+            if (service.equalsIgnoreCase("addWishlist")) {
+                String follow = "";
+            }
         }
         
     }
