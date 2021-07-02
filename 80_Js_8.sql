@@ -92,6 +92,7 @@ CREATE TABLE dbo.[User](
 CREATE TABLE dbo.[Library](
 	[uId] int NOT NULL,
 	gId int NOT NULL,
+	[Type] nvarchar(63) NOT NULL,
 	[status] bit,
 	FOREIGN KEY ([uId]) REFERENCES dbo.[User]([uId]),
 	FOREIGN KEY (gId) REFERENCES dbo.[Game](gId),
@@ -474,21 +475,20 @@ INSERT INTO [User](username,system_role,uName,pass,[status],experience,uAddress,
 INSERT INTO [User](username,system_role,uName,pass,[status],experience,uAddress,uMail,uPhone,wallet) VALUES ('tungnhh1','User','Nguyen Huu Hai Tung','123456',1,600,'Ca Mau, Viet Nam','tungnhh0@gmail.com','0154782369',999);
 -------------------------------------------
 --dbo.[Library]
-INSERT INTO [Library]([uId],gId,[status]) VALUES(1,1,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(1,2,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(1,3,1);
+INSERT INTO [Library]([uId],gId,type,[status]) VALUES(1,1,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(1,2,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(1,3,'owned',1);
 
-INSERT INTO [Library]([uId],gId,[status]) VALUES(2,1,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(2,2,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(2,3,1);
-INSERT INTO [Library]([uId],gId,[status]) VALUES(2,4,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(2,5,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(2,10,1);
-INSERT INTO [Library]([uId],gId,[status]) VALUES(2,9,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(2,11,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(2,17,1);
+INSERT INTO [Library]([uId],gId,type,[status]) VALUES(2,1,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(2,2,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(2,3,'owned',1);
+INSERT INTO [Library]([uId],gId,type,[status]) VALUES(2,4,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(2,5,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(2,10,'owned',1);
+INSERT INTO [Library]([uId],gId,type,[status]) VALUES(2,9,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(2,11,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(2,17,'owned',1);
 
-INSERT INTO [Library]([uId],gId,[status]) VALUES(3,2,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(3,16,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(3,19,1);
-
-INSERT INTO [Library]([uId],gId,[status]) VALUES(6,1,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(6,2,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(6,3,1);
-INSERT INTO [Library]([uId],gId,[status]) VALUES(6,4,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(6,5,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(6,6,1);
-INSERT INTO [Library]([uId],gId,[status]) VALUES(6,7,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(6,8,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(6,9,1);
-INSERT INTO [Library]([uId],gId,[status]) VALUES(6,10,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(6,11,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(6,12,1);
-INSERT INTO [Library]([uId],gId,[status]) VALUES(6,13,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(6,14,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(6,15,1);
-INSERT INTO [Library]([uId],gId,[status]) VALUES(6,16,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(6,17,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(6,18,1);
-INSERT INTO [Library]([uId],gId,[status]) VALUES(6,19,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(6,20,1);	INSERT INTO [Library]([uId],gId,[status]) VALUES(6,21,1);
+INSERT INTO [Library]([uId],gId,type,[status]) VALUES(3,2,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(3,16,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(3,19,'owned',1);
+INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,1,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,2,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,3,'owned',1);
+INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,4,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,5,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,6,'owned',1);
+INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,7,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,8,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,9,'owned',1);
+INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,10,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,11,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,12,'owned',1);
+INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,13,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,14,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,15,'owned',1);
+INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,16,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,17,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,18,'owned',1);
+INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,19,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,20,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,21,'owned',1);
 -------------------------------------------
 --dbo.[Order]
 INSERT INTO [Order]([uId],total,orderdate,[status]) VALUES (1,99.99,'2020-1-26',1);
