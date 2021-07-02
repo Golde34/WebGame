@@ -488,6 +488,45 @@ public class DAOGame {
         return list;
     }
     
+    public ArrayList<Game> getGameByUIdFromWishlist(int uId) {
+        ArrayList<Game> list = new ArrayList<>();
+
+        String sql = "select gId from Library where uId = " + uId + " and [type] = 'favour'";
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            while (rs.next()) {
+                Game g = getGameById(rs.getInt("gId"));
+                list.add(g);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    public ArrayList<Game> getGameByUIdFromWishlistSorted(int uId) {
+        ArrayList<Game> list = new ArrayList<>();
+
+        String sql = "select gId from Library where uId = " + uId + " and [type] = 'favour'";
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            while (rs.next()) {
+                Game g = getGameById(rs.getInt("gId"));
+                list.add(g);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Collections.sort(list, new Comparator<Game>() {
+           
+            @Override
+            public int compare(Game g, Game g1) {
+                return (g.getTitle().compareTo(g1.getTitle()));
+            }
+        });
+        return list;
+    }
+    
 //    public static void main(String[] args) {
 //        DAOGame dao = new DAOGame(new DBConnection());
 //        System.out.println(dao.updateInfoGame(dao.getGameById(22)));

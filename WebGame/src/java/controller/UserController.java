@@ -208,6 +208,8 @@ public class UserController extends HttpServlet {
                 request.setAttribute("currUser", x);
                 ArrayList<Game> listGame = daoGame.getGameByUIdFromLibrarySorted(x.getuId());
                 request.setAttribute("listGame", listGame);
+                ArrayList<Game> listWishlist = daoGame.getGameByUIdFromWishlistSorted(x.getuId());
+                request.setAttribute("wishlistGame", listWishlist);
                 ArrayList<Order> listOrder = daoOrder.getOrdersByUId(x.getuId());
                 request.setAttribute("listOrder", listOrder);
                 sendDispatcher(request, response, "profile.jsp");

@@ -120,6 +120,7 @@
             User x = (User) request.getAttribute("currUser");
             ArrayList<Game> listGame = (ArrayList<Game>) request.getAttribute("listGame");
             ArrayList<Order> listOrder = (ArrayList<Order>) request.getAttribute("listOrder");
+            ArrayList<Game> whislist = (ArrayList<Game>) request.getAttribute("wishlistGame");
         %>
         <div class="main">
             <div class="background">
@@ -195,10 +196,10 @@
                             </div>
                             <div class="tab-pane">
                                 <div style="background-color: white; border-radius: 10px; padding: 10px 10px 15px 35px;">
-                                    <%if (listGame.isEmpty()) {%> <p>No games in wishlist yet </p> 
+                                    <%if (whislist.isEmpty()) {%> <p>No games in wishlist yet </p> 
                                     <%} else {%>
                                     <p>Owned Game: </p>
-                                    <%for (Game game : listGame) {%>
+                                    <%for (Game game : whislist) {%>
                                     <p>+ <a style="background-color: none" href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>"> <%= game.getTitle()%> </a></p>
                                     <%}
                                         }%>
