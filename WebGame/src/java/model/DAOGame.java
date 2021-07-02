@@ -452,7 +452,7 @@ public class DAOGame {
     public ArrayList<Game> getGameByUIdFromLibrary(int uId) {
         ArrayList<Game> list = new ArrayList<>();
 
-        String sql = "select gId from Library where uId = " + uId;
+        String sql = "select gId from Library where uId = " + uId + " and [type] = 'owned'";
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {
@@ -468,7 +468,7 @@ public class DAOGame {
     public ArrayList<Game> getGameByUIdFromLibrarySorted(int uId) {
         ArrayList<Game> list = new ArrayList<>();
 
-        String sql = "select gId from Library where uId = " + uId;
+        String sql = "select gId from Library where uId = " + uId + " and [type] = 'owned'";
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {
