@@ -61,7 +61,7 @@ public class GameController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String service = request.getParameter("service");
+            String service = request.getParameter("service");          
             if (service == null) {
                 service = "";
             }

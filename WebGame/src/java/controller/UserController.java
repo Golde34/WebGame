@@ -47,6 +47,7 @@ public class UserController extends HttpServlet {
     DAOLibrary daoLib = new DAOLibrary(dbCon);
     DAOOrder daoOrder = new DAOOrder(dbCon);
     DAOGame daoGame = new DAOGame(dbCon);
+    DAOLibrary daolibrary = new DAOLibrary(dbCon);
     DAOOrder_Detail daoOrDe = new DAOOrder_Detail(dbCon);
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -75,6 +76,8 @@ public class UserController extends HttpServlet {
                     request.getSession().setAttribute("role", log.getSystem_role());
                     ArrayList<Game> ShoppingCart = new ArrayList<>();
                     request.getSession().setAttribute("ShoppingCart", ShoppingCart);
+                    ArrayList<Game> Library = daolibrary.getGameByUIdAndStatus(log.getuId(), 1);
+                    request.getSession().setAttribute("Library", Library);
                     sendDispatcher(request, response, "index.jsp");
                 } else {
                     mess = "Login failed, check your username or your password.";
