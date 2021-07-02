@@ -21,7 +21,17 @@
     if (displayTab == null) {
         displayTab = "gameAdd";
     }
-    Game updateGame = (Game) request.getAttribute("game");
+    Game newGame = (Game) request.getAttribute("newGame");
+    Game updateGame = (Game) request.getAttribute("updateGame");
+    String delGame = (String) request.getAttribute("delGame");
+    User newUser = (User) request.getAttribute("newUser");
+    User updateUser = (User) request.getAttribute("updateUser");
+    String delUser = (String) request.getAttribute("delUser");
+    Company newCom = (Company) request.getAttribute("newCom");
+    Company updateCom = (Company) request.getAttribute("updateCom");
+    String delCom = (String) request.getAttribute("delCom");
+    Galery newGalery = (Galery) request.getAttribute("newGalery");
+    Galery updateGalery = (Galery) request.getAttribute("updateGalery");
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -145,6 +155,9 @@
                         </tr>
                     </table>
                 </form>
+                <%if (newGame!=null){%>
+                <p>Added new game: <br><%=newGame.toString()%></p>
+                <%}%>
             </div>
             <%-- Add game --%>
             <%-- Update game --%>
@@ -214,6 +227,9 @@
                         </tr>
                     </table>
                 </form>
+                <%if (updateGame!=null){%>
+                <p>Updated game: <br><%=updateGame.toString()%></p>
+                <%}%>                
             </div>
             <%-- Update game --%>
             <%-- Delete game --%>
@@ -243,6 +259,9 @@
                         </tr>
                     </table>
                 </form>
+                <%if (delGame!=null){%>
+                <p><%=delGame%></p>
+                <%}%>
             </div>
             <%-- Delete game --%>
             <%-- Add User --%>
@@ -284,6 +303,9 @@
                         </tr>
                     </table>
                 </form>
+                <%if (newUser!=null){%>
+                <p>Added new user: <br><%=newUser.toString()%></p>
+                <%}%>
             </div>
             <%-- Add User --%>
             <%-- Update User --%>
@@ -346,6 +368,9 @@
                         </tr>
                     </table>
                 </form>
+                <%if (updateUser!=null){%>
+                <p>Updated user: <br><%=updateUser.toString()%></p>
+                <%}%>                
             </div>
             <%-- Update User --%>
             <%-- Delete User --%>
@@ -375,6 +400,9 @@
                         </tr>
                     </table>
                 </form>
+                <%if (delUser!=null){%>
+                <p><%=delUser%></p>
+                <%}%>
             </div>
             <%-- Delete User --%>
             <%-- Add Company --%>
@@ -421,6 +449,9 @@
                         </tr>
                     </table>
                 </form>
+                <%if (newCom!=null){%>
+                <p>Added new Company: <br><%=newCom.toString()%></p>
+                <%}%>
             </div>
             <%-- Add Company --%>
             <%-- Update Company --%>
@@ -477,6 +508,9 @@
                         </tr>
                     </table>
                 </form>
+                <%if (updateCom!=null){%>
+                <p>Updated Company: <br><%=updateCom.toString()%></p>
+                <%}%>
             </div>
             <%-- Update Company --%>
             <%-- Delete Company --%>
@@ -506,6 +540,9 @@
                         </tr>
                     </table>
                 </form>
+                <%if (delCom!=null){%>
+                <p><%=delCom%></p>
+                <%}%>
             </div>
             <%-- Delete Company --%>
             <%-- Add Galery --%>
@@ -544,6 +581,9 @@
                         </tr>
                     </table>
                 </form>
+                <%if (newGalery!=null){%>
+                <p>Added new galery: <br><%=newGalery.toString()%></p>
+                <%}%>
             </div>
             <%-- Add Galery --%>
             <%-- Update Galery --%>
@@ -594,6 +634,9 @@
                         </tr>
                     </table>
                 </form>
+                <%if (updateGalery!=null){%>
+                <p>Updated galery: <br><%=updateGalery.toString()%></p>
+                <%}%>
             </div>
             <%-- Update Galery --%>
             <%  if (displayTab == null) {%>
