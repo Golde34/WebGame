@@ -11,7 +11,9 @@ import entity.Galery;
 import entity.Game;
 import entity.Game_Category;
 import entity.Game_Platform;
+import entity.Library;
 import entity.Platform;
+import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import model.DAOGalery;
 import model.DAOGame;
 import model.DAOGame_Category;
 import model.DAOGame_Platform;
+import model.DAOLibrary;
 import model.DAOPlatform;
 import model.DBConnection;
 
@@ -46,54 +49,92 @@ public class GameController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     DBConnection dbCon = new DBConnection();
-    DAOGame     daoGame = new DAOGame(dbCon);
+    DAOGame daoGame = new DAOGame(dbCon);
     DAOCategory daoCate = new DAOCategory(dbCon);
     DAOPlatform daoPlat = new DAOPlatform(dbCon);
     DAOGame_Category daoGaCa = new DAOGame_Category(dbCon);
     DAOGame_Platform daoGaPl = new DAOGame_Platform(dbCon);
     DAOCompany daoCom = new DAOCompany(dbCon);
     DAOGalery daoGalery = new DAOGalery(dbCon);
-    
+    DAOLibrary daoLibrary = new DAOLibrary(dbCon);
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String service = request.getParameter("service");          
+            User user = (User) request.getSession().getAttribute("currUser");
+            String service = request.getParameter("service");
             if (service == null) {
                 service = "";
             }
-            
+
             if (service.equalsIgnoreCase("getGame")) {
-                int gameID = Integer.parseInt(request.getParameter("gameID"));
-                Game game= daoGame.getGameById(gameID);
-                request.setAttribute("game", game);
-                Company com = daoCom.getCompany(game.getCoID());
-                request.setAttribute("com", com);
-                ArrayList<Platform> listPl= daoPlat.getPlatform(gameID);
-                request.setAttribute("listPl", listPl);
-                ArrayList<Category> listCa= daoCate.getCategory(gameID);
-                request.setAttribute("listCa", listCa);
-                ArrayList<Game> listGaCa= daoGame.getGame_SameCategory(gameID);
-                request.setAttribute("listGaCa", listGaCa);
-                ArrayList<Game> listGaPl= daoGame.getGame_SamePlatform(gameID);
-                request.setAttribute("listGaPl", listGaPl);
-                ArrayList<Game> listGaCo= daoGame.getGame_SameCom(gameID);
-                request.setAttribute("listGaCo", listGaCo);
-                ArrayList<Galery> listGameGalery = daoGalery.getFullGameGalery(gameID);
-                request.setAttribute("listGameGalery", listGameGalery);
-                sendDispatcher(request, response, "game.jsp");
+                if (user != null) {
+                    int gameID = Integer.parseInt(request.getParameter("gameID"));
+                    Game game = daoGame.getGameById(gameID);
+                    request.setAttribute("game", game);
+                    Company com = daoCom.getCompany(game.getCoID());
+                    request.setAttribute("com", com);
+                    ArrayList<Platform> listPl = daoPlat.getPlatform(gameID);
+                    request.setAttribute("listPl", listPl);
+                    ArrayList<Category> listCa = daoCate.getCategory(gameID);
+                    request.setAttribute("listCa", listCa);
+                    ArrayList<Game> listGaCa = daoGame.getGame_SameCategory(gameID);
+                    request.setAttribute("listGaCa", listGaCa);
+                    ArrayList<Game> listGaPl = daoGame.getGame_SamePlatform(gameID);
+                    request.setAttribute("listGaPl", listGaPl);
+                    ArrayList<Game> listGaCo = daoGame.getGame_SameCom(gameID);
+                    request.setAttribute("listGaCo", listGaCo);
+                    ArrayList<Galery> listGameGalery = daoGalery.getFullGameGalery(gameID);
+                    request.setAttribute("listGameGalery", listGameGalery);
+                    ArrayList<Game> wishlist = daoLibrary.getGameInWishList(user.getuId(), 1);
+                    request.getSession().setAttribute("wishlist", wishlist);
+                    sendDispatcher(request, response, "game.jsp");
+                } else {
+                    int gameID = Integer.parseInt(request.getParameter("gameID"));
+                    Game game = daoGame.getGameById(gameID);
+                    request.setAttribute("game", game);
+                    Company com = daoCom.getCompany(game.getCoID());
+                    request.setAttribute("com", com);
+                    ArrayList<Platform> listPl = daoPlat.getPlatform(gameID);
+                    request.setAttribute("listPl", listPl);
+                    ArrayList<Category> listCa = daoCate.getCategory(gameID);
+                    request.setAttribute("listCa", listCa);
+                    ArrayList<Game> listGaCa = daoGame.getGame_SameCategory(gameID);
+                    request.setAttribute("listGaCa", listGaCa);
+                    ArrayList<Game> listGaPl = daoGame.getGame_SamePlatform(gameID);
+                    request.setAttribute("listGaPl", listGaPl);
+                    ArrayList<Game> listGaCo = daoGame.getGame_SameCom(gameID);
+                    request.setAttribute("listGaCo", listGaCo);
+                    ArrayList<Galery> listGameGalery = daoGalery.getFullGameGalery(gameID);
+                    request.setAttribute("listGameGalery", listGameGalery);
+                    sendDispatcher(request, response, "game.jsp");
+                }
+            }
+
+            if (service.equalsIgnoreCase("addWishlist")) {
+                int gameId = Integer.parseInt(request.getParameter("gameID"));
+                Library list = new Library();
+                list.setuId(user.getuId());
+                list.setgId(gameId);
+                daoLibrary.insertWishLish(list);
+                request.getRequestDispatcher("GameControllerMap?service=getGame&gameID=" + gameId).forward(request, response);
             }
             
-            if (service.equalsIgnoreCase("addWishlist")) {
-                String follow = "";
+            if (service.equalsIgnoreCase("deleteWishlist")) {
+                int gameId = Integer.parseInt(request.getParameter("gameID"));
+                Library list = new Library();
+                list.setuId(user.getuId());
+                list.setgId(gameId);
+                daoLibrary.deleteWishlist(list);
+                request.getRequestDispatcher("GameControllerMap?service=getGame&gameID=" + gameId).forward(request, response);
             }
         }
-        
+
     }
-    
+
     public void sendDispatcher(HttpServletRequest request, HttpServletResponse response, String path) {
         try {
             RequestDispatcher rd = request.getRequestDispatcher(path);
@@ -102,7 +143,7 @@ public class GameController extends HttpServlet {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

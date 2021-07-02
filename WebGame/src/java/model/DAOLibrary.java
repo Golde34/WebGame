@@ -11,10 +11,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 /**
  *
@@ -32,7 +32,7 @@ public class DAOLibrary {
 
     public int insertLibrary(Library obj) {
         int n = 0;
-        String sql = "INSERT INTO Library(uId, gId, status) values (?,?,1)";
+        String sql = "INSERT INTO Library(uId, gId, [type],  status) values (?,?,'owned',1)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, obj.getuId());
@@ -52,7 +52,7 @@ public class DAOLibrary {
         if (status != -1) {
             s = " and status = " + status + " ";
         }
-        String sql = "select * from Library where uId = " + uId + s + "order by uId desc";
+        String sql = "select * from Library where uId = " + uId + "and [type] = 'owned'" + s + "order by uId desc";
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {
@@ -65,4 +65,51 @@ public class DAOLibrary {
         return list;
     }
 
+    public int insertWishLish(Library obj) {
+        int n = 0;
+        String sql = "INSERT INTO Library(uId, gId, [type],  status) values (?,?,'favour',1)";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, obj.getuId());
+            pre.setInt(2, obj.getgId());
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOLibrary.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
+    }
+
+    public ArrayList<Game> getGameInWishList(int uId, int status) {
+        ArrayList<Game> list = new ArrayList<>();
+        DAOGame daoGame = new DAOGame(dbConn);
+        Game g = new Game();
+        String s = " ";
+        if (status != -1) {
+            s = " and status = " + status + " ";
+        }
+        String sql = "select * from Library where uId = " + uId + "and [type] = 'favour'" + s + "order by uId desc";
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            while (rs.next()) {
+                g = daoGame.getGameById(rs.getInt("gId"));
+                list.add(g);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public int deleteWishlist(Library list) {
+        int n = 0;
+        String sqlDelete = "delete from Library where uId = '" + list.getuId() + "' and gId = '" + list.getgId() + "'";
+        Statement stm;
+        try {
+            stm = conn.createStatement();
+            n = stm.executeUpdate(sqlDelete);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOLibrary.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
+    }
 }

@@ -12,14 +12,16 @@ package entity;
 public class Library {
     private int uId;
     private int gId;
+    private String type;
     private int status;
 
     public Library() {
     }
 
-    public Library(int uId, int gId, int status) {
+    public Library(int uId, int gId, String type, int status) {
         this.uId = uId;
         this.gId = gId;
+        this.type = type;
         this.status = status;
     }
 
@@ -42,6 +44,14 @@ public class Library {
 
     public void setgId(int gId) {
         this.gId = gId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getStatus() {

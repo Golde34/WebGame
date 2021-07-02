@@ -4,6 +4,8 @@
     Author     : dumyd
 --%>
 
+<%@page import="entity.Library"%>
+<%@page import="model.DAOLibrary"%>
 <%@page import="entity.User"%>
 <%@page import="entity.Galery"%>
 <%@page import="model.DAOGalery"%>
@@ -30,10 +32,12 @@
         <script src="js/Jquery.js"></script>
         <link rel="stylesheet" href="details.css">
         <link rel="stylesheet" href="css/slick.css">
-        <style>.neondu{
+        <style>
+            .neondu{
                 color: #fff;
                 text-shadow: 0 0 20px #ff005b;
-            }</style>
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="header.jsp"/>     
@@ -46,12 +50,22 @@
             DAOGalery daoGalery = new DAOGalery(dbCon);
             ArrayList<Galery> listGa = daoGalery.getGaleryById(game.getGid());
             ArrayList<Game> userLibrary = (ArrayList<Game>) request.getSession().getAttribute("Library");
+            ArrayList<Game> userWishlist = (ArrayList<Game>) request.getSession().getAttribute("wishlist");
             String alMess = (String) request.getAttribute("alMess");
             boolean isOwned = false;
+            boolean isFollowed = false;
             if (userLibrary != null) {
                 for (int i = 0; i < userLibrary.size(); i++) {
                     if (game.getGid() == userLibrary.get(i).getGid()) {
                         isOwned = true;
+                        break;
+                    }
+                }
+            }
+            if (userWishlist != null) {
+                for (int i = 0; i < userWishlist.size(); i++) {
+                    if (game.getGid() == userWishlist.get(i).getGid()) {
+                        isFollowed = true;
                         break;
                     }
                 }
@@ -61,17 +75,32 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-5">
-                        <% ArrayList<Galery> backgroundImage = daoGalery.getOneGaleryByType(listGa, "img-po");%>
+                        <% ArrayList<Galery> backgroundImage = daoGalery.getOneGaleryByType(listGa, "img-po");
+                        %>
                         <img src="<%=backgroundImage.get(0).getLink().trim()%>" style="height:686.25px;width: 457.5px;"alt="">
                         <a  id="gameAdd" onclick="alert('Add to library sucessfull');"></a> 
                         <%if (alMess != null) {%>
                         <%=alMess%>
                         <%}%>
                         <br><br>
-                        <div class="button-platform" style="background-color: pink; border-radius: 15px; height: 50px;">
-                            <h3 style="text-align: center; position: relative; top: 50%; transform: translateY(-50%); margin: 0; padding: 0;"  class="nk-feature-title neon1">
-                                <a href="GameControllerMap?service=addWishlist"><span class="fa fa-fas fa-plus"></span>   Follow</a></h3>
+                        <%  if (isFollowed == true) { %>
+                        <div class="button-platform" style="background-color: gray; border-radius: 15px; height: 50px;">
+                            <h3 style="text-align: center; position: relative; top: 50%; transform: translateY(-50%); margin: 0; padding: 0;"  class="nk-feature-title">
+                                <a href="GameControllerMap?service=deleteWishlist&gameID=<%=game.getGid()%>"><span class="fa fa-fas fa-plus"></span>   Following</a></h3>
                         </div>
+                        <% } else { %>
+                        <div class="button-platform" style="background-color: pink; border-radius: 15px; height: 50px;">
+                            <h3 style="text-align: center; position: relative; top: 50%; transform: translateY(-50%); margin: 0; padding: 0;"  class="nk-feature-title">
+                                <% User user = (User) session.getAttribute("currUser");
+                                    if (user != null) {
+                                %>
+                                <a href="GameControllerMap?service=addWishlist&gameID=<%=game.getGid()%>"><span class="fa fa-fas fa-plus"></span>   Follow</a>
+                                <%} else { %>
+                                <a onclick="alert('You have to login to follow this product');"><span class="fa fa-fas fa-plus"></span>   Follow</a>           
+                                <% } %>
+                            </h3>
+                        </div>
+                        <%}%>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-7">
                         <div class="wrapper">
@@ -100,7 +129,6 @@
                                         for (Game games : listGaCo) {
                                             if (games.getGid() != game.getGid()) {
                                     %>
-
 
                                     <p>+ <a href="GameControllerMap?service=getGame&gameID=<%=games.getGid()%>"> <%= games.getTitle()%> </a></p>
                                     <%   }

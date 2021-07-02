@@ -238,7 +238,7 @@
                                  src="<%= gList5_5.get(0).getLink().trim()%>" alt="<%= gList5_5.get(0).getLink().trim()%>">
                         </a>
 
-                        <p><%= listFreeGame.get(i).getTitle()%></p>
+                        <p><%= listFreeGame.get(i+4).getTitle()%></p>
                     </div>
                     <div class="col-md-4 box">
                         <a href="GameControllerMap?service=getGame&gameID=<%=listFreeGame.get(i=5).getGid()%>">
