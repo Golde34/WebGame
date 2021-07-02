@@ -62,6 +62,7 @@
                         <img src="<%=backgroundImage.get(0).getLink().trim()%>" alt="">
                         <a  id="gameAdd" onclick="alert('Add to library sucessfull');"></a> 
                         <%=(String) request.getAttribute("alMess") %>
+                        <button style="background-color: pink;">Follow</button>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-7">
                         <div class="wrapper">
