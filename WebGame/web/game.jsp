@@ -59,7 +59,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-5">
                         <% ArrayList<Galery> backgroundImage = daoGalery.getOneGaleryByType(listGa, "img-po");%>
-                        <img src="<%=backgroundImage.get(0).getLink().trim()%>" alt="">
+                        <img src="<%=backgroundImage.get(0).getLink().trim()%>" style="height:686.25px;width: 457.5px;"alt="">
                         <a  id="gameAdd" onclick="alert('Add to library sucessfull');"></a> 
                         <%=(String) request.getAttribute("alMess") %>
                         <button style="background-color: pink;">Follow</button>
