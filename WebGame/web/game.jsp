@@ -48,7 +48,7 @@
             ArrayList<Game> userLibrary = (ArrayList<Game>) request.getSession().getAttribute("Library");
             String alMess = (String) request.getAttribute("alMess");
             boolean isOwned = false;
-            if (userLibrary != null ) {
+            if (userLibrary != null) {
                 for (int i = 0; i < userLibrary.size(); i++) {
                     if (game.getGid() == userLibrary.get(i).getGid()) {
                         isOwned = true;
@@ -64,10 +64,14 @@
                         <% ArrayList<Galery> backgroundImage = daoGalery.getOneGaleryByType(listGa, "img-po");%>
                         <img src="<%=backgroundImage.get(0).getLink().trim()%>" style="height:686.25px;width: 457.5px;"alt="">
                         <a  id="gameAdd" onclick="alert('Add to library sucessfull');"></a> 
-                        <%if(alMess != null){ %>
-                        <%=alMess %>
+                        <%if (alMess != null) {%>
+                        <%=alMess%>
                         <%}%>
-                        <button style="background-color: pink;">Follow</button>
+                        <br><br>
+                        <div class="button-platform" style="background-color: pink; border-radius: 15px; height: 50px;">
+                            <h3 style="text-align: center; position: relative; top: 50%; transform: translateY(-50%); margin: 0; padding: 0;"  class="nk-feature-title neon1">
+                                <a href="GameControllerMap?service=addWishlist"><span class="fa fa-fas fa-plus"></span>   Follow</a></h3>
+                        </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-7">
                         <div class="wrapper">

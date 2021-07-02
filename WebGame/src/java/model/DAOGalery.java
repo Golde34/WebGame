@@ -294,10 +294,10 @@ public class DAOGalery {
         return list;
     }
     
-    public static void main(String[] args) {
-        DAOGalery dao = new DAOGalery(new DBConnection());
-        System.out.println(dao.updateGalery(
-                new Galery(22, "randomfileagain2.jpg", "vid-gp", 1), 
-                new Galery(22, "test1.jpg", "vid-trailer", 1)));
-    }
+//    public static void main(String[] args) {
+//        DAOGalery dao = new DAOGalery(new DBConnection());
+//        System.out.println(dao.updateGalery(
+//                new Galery(22, "randomfileagain2.jpg", "vid-gp", 1), 
+//                new Galery(22, "test1.jpg", "vid-trailer", 1)));
+//    }
 }
