@@ -156,7 +156,7 @@ public class ProductController extends HttpServlet {
                 if (platID == 1) {
                     title = "PS4 GAME";
                 } else if (platID == 2) {
-                    title = "XOBX GAME";
+                    title = "XBOX GAME";
                 } else if (platID == 3) title = "PC GAME";
                 else if (platID == 4) title = "Mobile GAME";
                 else {
