@@ -202,6 +202,25 @@ public class DAOOrder {
             Logger.getLogger(DAOOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
         return newestOrderId;
-    }    
+    } 
     
+    public ArrayList<Order> getAllOrderByDate() {
+        ArrayList<Order> list = new ArrayList<>();
+        String sql = "select top 5 * from [Order] where status = 1  order by orderDate desc";
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            while (rs.next()) {
+                Order o = new Order();
+                o.setoId(rs.getInt("oId"));
+                o.setuId(rs.getInt("uId"));
+                o.setOrderDate(rs.getTimestamp("orderDate"));
+                o.setTotal(rs.getDouble("total"));
+                o.setStatus(rs.getInt("status"));
+                list.add(o);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 }

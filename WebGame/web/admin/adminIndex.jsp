@@ -9,12 +9,13 @@
 <%@page import="entity.*"%>
 <%@page import="model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%  User curAdmin = (User) request.getSession().getAttribute("curUser");
+<%  User curAdmin = (User) request.getSession().getAttribute("currUser");
     ArrayList<Game> gameList = (ArrayList<Game>) request.getAttribute("listGame");
     ArrayList<Category> cateList = (ArrayList<Category>) request.getAttribute("listCategory");
     ArrayList<Platform> platList = (ArrayList<Platform>) request.getAttribute("listPlatform");
     ArrayList<Company> comList = (ArrayList<Company>) request.getAttribute("listCompany");
     ArrayList<User> userList = (ArrayList<User>) request.getAttribute("listUser");
+    ArrayList<Order> orderList = (ArrayList<Order>) request.getAttribute("orderList");
     HashMap<Game, ArrayList<Galery>> listGameGalery = (HashMap<Game, ArrayList<Galery>>) request.getAttribute("listGameGalery");
     String message = (String) request.getAttribute("message");
     String displayTab = (String) request.getAttribute("tab");
@@ -55,17 +56,18 @@
                     </a> 
                 </div>  
             </nav>
-            <%if (message==null){%>
-            <h5 style="font-family:Times New Roman; font-style: italic;">You must back to homepage to logout</h5>
+            <%if (message==null){
+                String[] name = curAdmin.getuName().split(" ");%>
+            <h4 style="font-family:Times New Roman; font-style: italic; text-align: center; margin-top: 20px; margin-bottom: 10px;">Welcome back <%=name[name.length-1] %>!</h4>
             <%} else { %>
-            <h5 style="font-family:Times New Roman; font-style: italic;"><%=message%></h5>
+            <h4 style="font-family:Times New Roman; font-style: italic; text-align: center; margin-top: 20px; margin-bottom: 10px;"><%=message%></h4>
             <%}%>
         </div>
 
         <div class="forms">
             <div class="tab">
                 <div class="dropdown">
-                    <button class="dropbtn" style="width: 250px; background-color: #04AA6D;color: white; padding: 16px; font-size: 16px; margin: 5px; border: 2px solid;">Game Management</button>
+                    <button class="dropbtn" style="width: 19vw; background-color: #04AA6D;color: white; padding: 16px; font-size: 16px; margin: 5px; border: 2px solid;">Game Management</button>
                     <div class="dropdown-content">
                         <button class="tablinks" onclick="openForm(event, 'gAdd')" id="gameAdd">Add</button>
                         <button class="tablinks" onclick="openForm(event, 'gUpdate')" id="gameUpdate">Update</button>
@@ -73,7 +75,7 @@
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="dropbtn" style="width: 250px; background-color: #04AA6D;color: white; padding: 16px; font-size: 16px; margin: 5px; border: 2px solid;">User Management</button>
+                    <button class="dropbtn" style="width: 19vw; background-color: #04AA6D;color: white; padding: 16px; font-size: 16px; margin: 5px; border: 2px solid;">User Management</button>
                     <div class="dropdown-content">
                         <button class="tablinks" onclick="openForm(event, 'uAdd')" id="userAdd">Add</button>
                         <button class="tablinks" onclick="openForm(event, 'uUpdate')" id="userUpdate">Update</button>
@@ -81,7 +83,7 @@
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="dropbtn" style="width: 250px; background-color: #04AA6D;color: white; padding: 16px; font-size: 16px; margin: 5px; border: 2px solid;">Company Management</button>
+                    <button class="dropbtn" style="width: 19vw; background-color: #04AA6D;color: white; padding: 16px; font-size: 16px; margin: 5px; border: 2px solid;">Company Management</button>
                     <div class="dropdown-content">
                         <button class="tablinks" onclick="openForm(event, 'comAdd')" id="companyAdd">Add</button>
                         <button class="tablinks" onclick="openForm(event, 'comUpdate')" id="companyUpdate">Update</button>
@@ -89,7 +91,7 @@
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="dropbtn" style="width: 250px; background-color: #04AA6D;color: white; padding: 16px; font-size: 16px; margin: 5px; border: 2px solid;">Galery Management</button>
+                    <button class="dropbtn" style="width: 19vw; background-color: #04AA6D;color: white; padding: 16px; font-size: 16px; margin: 5px; border: 2px solid;">Galery Management</button>
                     <div class="dropdown-content">
                         <button class="tablinks" onclick="openForm(event, 'galeryAdd')" id="galeryA">Add</button>
                         <button class="tablinks" onclick="openForm(event, 'galeryUpdate')" id="galeryU">Update</button>
@@ -99,7 +101,7 @@
             <%-- Add game --%>
             <div id="gAdd" class="tabcontent">
                 <h3>Game - Add</h3>
-                <h2>Defaut status will be 0 , change this after adding all the materials</h2>
+                <p>Default status will be 0 , change this after adding all the materials</p>
                 <form action="AdminControllerMap" method="POST">
                     <table border="1" style="width: 95%;">
                         <tr>
@@ -162,7 +164,8 @@
             <%-- Add game --%>
             <%-- Update game --%>
             <div id="gUpdate" class="tabcontent">
-                <h3>Game - Update (Leave blank if no update)</h3>
+                <h3>Game - Update </h3>
+                <p>Leave the field blank if you don't want to update</p>
                 <form action="AdminControllerMap" method="POST">
                     <table border="1" style="width: 95%;">
                         <tr>
@@ -589,6 +592,7 @@
             <%-- Update Galery --%>
             <div id="galeryUpdate" class="tabcontent">
                 <h3>Galery - Update</h3>
+                <p>Leave the field blank if you don't want to update</p>
                 <form action="AdminControllerMap" method="POST">
                     <table border="1" style="width: 95%;">
                         <tr>
@@ -647,8 +651,7 @@
         </div>
 
         <div class="orders">
-            <p>this is orders</p>
-            <p><%=displayTab%></p>
+            <h3>Recent orders</h3>
         </div>
 
         <%--JS--%>

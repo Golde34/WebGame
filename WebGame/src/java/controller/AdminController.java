@@ -9,6 +9,7 @@ import entity.Category;
 import entity.Company;
 import entity.Galery;
 import entity.Game;
+import entity.Order;
 import entity.Platform;
 import entity.User;
 import java.io.IOException;
@@ -28,6 +29,7 @@ import model.DAOCompany;
 import model.DAOGalery;
 import model.DAOGame;
 import model.DAOGame_Category;
+import model.DAOOrder;
 import model.DAOPlatform;
 import model.DAOUser;
 import model.DBConnection;
@@ -54,6 +56,7 @@ public class AdminController extends HttpServlet {
     DAOGame_Category daoGaCa = new DAOGame_Category(dbCon);
     DAOCompany daoCom = new DAOCompany(dbCon);
     DAOUser daoUser = new DAOUser(dbCon);
+    DAOOrder daoOrder = new DAOOrder(dbCon);
     DAOGalery daoGalery = new DAOGalery(dbCon);
     
     
@@ -86,6 +89,8 @@ public class AdminController extends HttpServlet {
                     listGameGalery.put(game, gameGalery);                
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
+                ArrayList<Order> orderList = daoOrder.getAllOrderByDate();
+                request.setAttribute("orderList", orderList);
                 // </editor-fold>
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
@@ -127,6 +132,8 @@ public class AdminController extends HttpServlet {
                     listGameGalery.put(game, gameGalery);                
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
+                ArrayList<Order> orderList = daoOrder.getAllOrderByDate();
+                request.setAttribute("orderList", orderList);
                 // </editor-fold>
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
@@ -171,7 +178,9 @@ public class AdminController extends HttpServlet {
                     listGameGalery.put(game, gameGalery);                
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
-    // </editor-fold>
+                ArrayList<Order> orderList = daoOrder.getAllOrderByDate();
+                request.setAttribute("orderList", orderList);
+                // </editor-fold>
                 request.setAttribute("updateGame", updateGame);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
@@ -201,7 +210,9 @@ public class AdminController extends HttpServlet {
                     listGameGalery.put(game, gameGalery);                
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
-    // </editor-fold>
+                ArrayList<Order> orderList = daoOrder.getAllOrderByDate();
+                request.setAttribute("orderList", orderList);
+                // </editor-fold>
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
             
@@ -235,6 +246,8 @@ public class AdminController extends HttpServlet {
                     listGameGalery.put(game, gameGalery);                
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
+                ArrayList<Order> orderList = daoOrder.getAllOrderByDate();
+                request.setAttribute("orderList", orderList);
                 // </editor-fold>
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
@@ -279,7 +292,9 @@ public class AdminController extends HttpServlet {
                     listGameGalery.put(game, gameGalery);                
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
-    // </editor-fold>
+                ArrayList<Order> orderList = daoOrder.getAllOrderByDate();
+                request.setAttribute("orderList", orderList);
+                // </editor-fold>
                 request.setAttribute("updateUser", updateUser);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
@@ -308,7 +323,9 @@ public class AdminController extends HttpServlet {
                     listGameGalery.put(game, gameGalery);                
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
-    // </editor-fold>
+                ArrayList<Order> orderList = daoOrder.getAllOrderByDate();
+                request.setAttribute("orderList", orderList);
+                // </editor-fold>
                 request.setAttribute("delUser", "Set User with Id="+uId+" status to "+status);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
@@ -345,6 +362,8 @@ public class AdminController extends HttpServlet {
                     listGameGalery.put(game, gameGalery);                
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
+                ArrayList<Order> orderList = daoOrder.getAllOrderByDate();
+                request.setAttribute("orderList", orderList);
                 // </editor-fold>
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
@@ -387,7 +406,9 @@ public class AdminController extends HttpServlet {
                     listGameGalery.put(game, gameGalery);                
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
-    // </editor-fold>
+                ArrayList<Order> orderList = daoOrder.getAllOrderByDate();
+                request.setAttribute("orderList", orderList);
+                // </editor-fold>
                 request.setAttribute("updateCom", updateCom);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
@@ -417,7 +438,9 @@ public class AdminController extends HttpServlet {
                     listGameGalery.put(game, gameGalery);                
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
-    // </editor-fold>
+                ArrayList<Order> orderList = daoOrder.getAllOrderByDate();
+                request.setAttribute("orderList", orderList);
+                // </editor-fold>
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }
             
@@ -447,6 +470,8 @@ public class AdminController extends HttpServlet {
                     listGameGalery.put(game, gameGalery);                
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
+                ArrayList<Order> orderList = daoOrder.getAllOrderByDate();
+                request.setAttribute("orderList", orderList);
                 // </editor-fold>
                 request.setAttribute("newGalery", newGalery);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
@@ -484,7 +509,9 @@ public class AdminController extends HttpServlet {
                     listGameGalery.put(game, gameGalery);                
                 }
                 request.setAttribute("listGameGalery", listGameGalery);
-    // </editor-fold>
+                ArrayList<Order> orderList = daoOrder.getAllOrderByDate();
+                request.setAttribute("orderList", orderList);
+                // </editor-fold>
                 request.setAttribute("updateGalery", newGal);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
             }

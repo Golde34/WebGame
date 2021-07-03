@@ -3,13 +3,15 @@ body {font-family: "Lato", sans-serif;}
 
 .forms {
     border: 2px solid #CCC;
-    height: 600px;
-    width: 70%;
+    height: 700px;
+    width: 68%;
     float: left;
 }
 
 .orders {
-    width:27%;
+    width:28%;
+    border: 2px solid #CCC;
+    height: 700px;
     float: right;
 }
 /* Style the tab */
