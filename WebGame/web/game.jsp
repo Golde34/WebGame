@@ -86,7 +86,6 @@
                         <%=alMess%>
                         <%}%>
                         <br><br>
-                        <%  if (isFollowed == true) {%>
                         <%  if (isFollowed == true && isOwned == false) {%>
                         <div class="button-platform" style="background-color: pink; border-radius: 15px; height: 50px;">
                             <h3 style="text-align: center; position: relative; top: 50%; transform: translateY(-50%); margin: 0; padding: 0;"  class="nk-feature-title">

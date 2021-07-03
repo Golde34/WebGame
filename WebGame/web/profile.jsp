@@ -29,7 +29,8 @@
         <script src="js/Jquery.js"></script>
         <link rel="stylesheet" href="details.css">
         <link rel="stylesheet" href="css/slick.css">
-        <style>.neondu{
+        <style>
+            .neondu{
                 color: #fff;
                 text-shadow: 0 0 20px #ff005b;
             }
@@ -112,7 +113,22 @@
                 height:150vh;
                 background-color: #f0f2f5;
             }
-
+            .skills {
+                text-align: right;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                color: white;
+            }
+            .container-level {
+                width: 100%;
+                background-color: #ddd;
+                border-radius: 15px;
+            }
+            .skills {
+                background-color: #04AA6D; 
+                color: black; height: 1px;
+                border-radius: 15px;
+            }
         </style>
     </head>
     <body>
@@ -122,7 +138,7 @@
             ArrayList<Game> listGame = (ArrayList<Game>) request.getAttribute("listGame");
             ArrayList<Order> listOrder = (ArrayList<Order>) request.getAttribute("listOrder");
             ArrayList<Game> whislist = (ArrayList<Game>) request.getAttribute("wishlistGame");
-            
+
         %>
         <div class="main">
             <div class="background">
@@ -135,6 +151,12 @@
                         <div class="user-avatar avatar_large" style="background-color: #e2c147;width: 190px;height: 190px;">
                             <object style="border: solid #f0f2f5 white; border-radius: 15px; " class="avatar_lagre" data="images/T.jpg" alt="" width="190" height="190"></object>
                         </div>
+                        <h2 style="font-family: Serif;">Lv <%= x.getExperience() / 1000%> </h2>
+                        <div class="container-level">
+                            <div class="skills" style="width: <%=(x.getExperience() % 1000)/10%>%; ">
+                            </div>
+                        </div>
+                        <!--.html {width: 90%; background-color: #04AA6D;}-->
                     </div>    
                     <div class="col-xs-12 col-sm-6 col-md-1"></div>       
                     <div class="col-xs-12 col-sm-6 col-md-9">
@@ -179,7 +201,7 @@
                                     <%} else {%>
                                     <p>History Transaction: </p>
                                     <%for (Order o : listOrder) {
-                                    Date date = new Date(o.getOrderDate().getTime());
+                                            Date date = new Date(o.getOrderDate().getTime());
                                     %>
                                     <p>+ <a href="UserControllerMap?service=vieworder&orderId=<%= o.getoId()%>"><%=date%> </a></p>
                                     <%}
@@ -222,7 +244,8 @@
         <script src="https://kit.fontawesome.com/9650a62e47.js" crossorigin="anonymous"></script>
         <script src="js/slick.min.js"></script>
         <script src="js/jquery-2.2.4.min.js"></script>
-
+        <script src="js/jquery.appear.min.js"></script>
+        <script src="js/jquery.easypiechart.min.js"></script>
         <script>
             const $ = document.querySelector.bind(document);
             const $$ = document.querySelectorAll.bind(document);
