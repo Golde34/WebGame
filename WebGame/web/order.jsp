@@ -23,16 +23,24 @@
         <title>Order Information</title>
         <!--Css-->
         <link href="${contextPath}/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/stylehome.css">
+        <script src="${contextPath}/js/bootstrap.min.js"></script>
         <link href="css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/stylehome.css">
         <link href="${contextPath}/css/font-awesome.min.css" rel="stylesheet">
         <script src="js/Jquery.js"></script>
-        <link rel="stylesheet" href="details.css">
-        <link rel="stylesheet" href="css/slick.css">
-        <style>.neondu{
-                color: #fff;
-                text-shadow: 0 0 20px #ff005b;
+        <link rel="stylesheet" href="style.css">
+        <style>
+            .neon1{color: #fff;text-shadow: 0 0 20px #ff005b;}
+            .neon2{color: #fff;text-shadow: 0 0 20px blue;}
+            .head{
+                border: solid black;
+                background-image: linear-gradient(to right, #f80c12,#ee1100,#ff3311,#ff4422,#ff6644,#ff9933,#feae2d,#ccbb33,#d0c310,#aacc22,#69d025,#22ccaa,#12bdb9,#11aabb,#4444dd,#3311bb,#3b0cbd,#442299); 
             }
+            h4{
+                color: black;
+                font-style: oblique;
+            }
+            
         </style>
     </head>
     <body>
@@ -46,7 +54,7 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8" style="color:white; background-color: black;">
-                <h1>Order</h1>
+                <h1 class="neon1">Order</h1>
                 <%Date date = new Date(order.getOrderDate().getTime());%>
                 <h3>Order date: <%=date%></h3>
                 <hr>
@@ -58,8 +66,8 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8" style="color:white; background-color: black;">
-                <h1>Details</h1>
-                <div style="text-align: center;">
+                <h1 class="neon2">Details</h1>
+                <div style="text-align: center;" class="head col-md-12">
                     <div class = "col-sm-12 col-md-4"><h4>Game</h4></div>
                     <div class="col-sm-12 col-md-3"><h4>Title</h4></div>
                     <div class="col-sm-12 col-md-3"><h4>Price</h4></div>
@@ -72,12 +80,10 @@
                     <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
                         <div class = "col-sm-12 col-md-4">             
                             <img style="height: 115px;width: 220px"src="<%= gList2.get(0).getLink().trim()%>" alt=""></div></a>         
-
-
-                    <div class="col-sm-12 col-md-3" id="getde1"><p ><%= game.getTitle()%></p></div>
-                    <div class="col-sm-12 col-md-3" id="getde"><p ><%= game.getPrice()%>$</p></div>
-                    <div class="col-sm-12 col-md-2" id="getde"><a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
-                            <button type="button">Details</button></a></div>
+                    <div class="col-sm-12 col-md-3 cc" id="getde1"><p ><%= game.getTitle()%></p></div>
+                    <div class="col-sm-12 col-md-3 cg" id="getde"><p ><%= game.getPrice()%>$</p></div>
+                    <div class="col-sm-12 col-md-2 cg" id="getde"><a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
+                            <button type="button" class="btn btn-success">Details</button></a></div>
 
                 </div><%}%>
             </div>
@@ -85,14 +91,14 @@
             <div class="col-md-2"></div>
         </div>        
 
-        <div class="row">
+        <div class="row total">
             <div class="col-md-2"></div>
-            <div class="col-md-8" style="color:white; background-color: black;">
+            <div class="col-md-8" style="color: white;background-color: black;">
                 <div style="text-align: center;">
                     <hr>
                     <div class = "col-sm-12 col-md-4"><h4></h4></div>
-                    <div class="col-sm-12 col-md-3"><h4>Total</h4></div>
-                    <div class="col-sm-12 col-md-3"><h4><%= order.getTotal()%>$</h4></div>
+                    <div class="col-sm-12 col-md-3"><h3>Total</h3>(included tax)</div>
+                    <div class="col-sm-12 col-md-3"><h3><%= order.getTotal()%>$</h3></div>
                     <div class="col-sm-12 col-md-2"><h4></h4></div>
                 </div>
             </div>

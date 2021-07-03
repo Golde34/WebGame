@@ -11,70 +11,97 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Information</title>
+        <%--js,css--%>   
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/form.css">
     </head>
     <body>
-        <h1>Edit profile</h1>
+
         <%
             User x = (User) request.getAttribute("currUser");
         %>
-        <hr>
-        <h3>Before </h3>
-        <table border="1">
-            <tbody>
-                <tr>
-                    <td>Name</td>
-                    <td><%=x.getuName()%></td>
-                </tr>
-                <tr>
-                    <td>Mail</td>
-                    <td><%=x.getuMail()%></td>
-                </tr>
-                <tr>
-                    <td>Phone number</td>
-                    <td><%=x.getuPhone()%></td>
-                </tr>
-                <tr>
-                    <td>Address</td>
-                    <td><%=x.getuAddress()%></td>
-                </tr>
-            </tbody>
-        </table>
-                
-        <hr>
-        <h3>After </h3>       
-        <form action="UserControllerMap" method="POST">
-            <input type="hidden" name ="service" value="changeinfo">
-            <table border="1">
-                <tbody>
-                    <tr>
-                        <td>Name</td>
-                        <td><textarea name="name" rows="2" cols="40"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td>Mail</td>
-                        <td><textarea name="mail" rows="2" cols="40"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td>Phone number</td>
-                        <td><textarea name="phone" rows="2" cols="40"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td>Address</td>
-                        <td><textarea name="address" rows="2" cols="40"></textarea></td>
-                    </tr>
-                    <tr>
-                    <td>Confirm Password</td>
-                    <td><input type="password" name="pass"></td>
-                </tr>
-                    <tr>
-                        <td><button type="reset">Reset</button></td>
-                        <td><button type="submit">Change</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
-        
-        
 
+        <div class="container">
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="box">
+                        <div class="content">
+                            <h2>Your profile</h2>
+                            <p>Name: <%=x.getuName()%> </p>
+                            <p>Mail: <%=x.getuMail()%> </p>
+                            <p>Phone number: <%=x.getuPhone()%></p>
+                            <p>Address: <%=x.getuAddress()%> </p>
+                        </div>
+                    </div>
+                </div>
+                <a href="index.jsp" >        
+                    <button style="text-align:center; color:white;border-radius: 15px;height: 4em; width: 10em;" class="btn-danger" >
+                        Back to Homepage
+                    </button> </a>
+            </div>
+            <div class="col-md-7">
+                <%--change--%>
+                <div class="card1">
+                    <div class="box1">
+                        <div class="content1">
+                            <form action="UserControllerMap" method="POST" >
+                                <input type="hidden" name ="service" value="changeinfo">
+                                <h1 class="text-center">Edit Profile</h1>
+
+                                <label class="label control-label">Display Name</label>
+                                <div class="input-group" >
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-user"></span></span>
+                                    <input type="text" class="form-control" name="name" 
+                                           placeholder="Your Name" >
+                                </div>
+
+                                <label class="label control-label">E-mail</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-envelope"></span></span>
+                                    <input type="email" class="form-control" name="mail" 
+                                           placeholder="Your E-mail" >
+                                </div>
+
+                                <label class="label control-label">Phone</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-phone"></span></span>
+                                    <input id="mobile" type="text" class="form-control" name="phone" 
+                                           placeholder="Your Phone" >
+                                    <span id='message1'></span>
+                                </div>
+
+                                <label class="label control-label">Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-user"></span></span>
+                                    <input type="text" class="form-control" name="address" 
+                                           placeholder="Your address" >
+                                </div>
+
+                                <label class="label control-label">Password</label>
+                                <div class="input-group">
+                                    <input id="password" type="password" class="form-control" name="pass" 
+                                           placeholder="Password">
+                                </div>
+                                <button type="reset" class="btn btn-info">Reset</button>
+                                <button type="submit" class="btn btn-success">Change</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <%--JS--%>
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="https://kit.fontawesome.com/9650a62e47.js" crossorigin="anonymous"></script>
     </body>
 </html>
