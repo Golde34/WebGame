@@ -149,6 +149,7 @@ public class CartController extends HttpServlet {
                 lib.setuId(user.getuId());
                 lib.setgId(gameId);
                 daoLibrary.insertLibrary(lib);
+                daoLibrary.deleteOwnedInWishlist(lib);
                 ArrayList<Game> Library = daoLibrary.getGameByUIdAndStatus(user.getuId(), 1);
                 request.getSession().setAttribute("Library", Library);
                 request.setAttribute("alMess", "<script>document.getElementById(\"gameAdd\").click();</script>");

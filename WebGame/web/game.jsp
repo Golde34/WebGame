@@ -44,13 +44,16 @@
         <%
             Game game = (Game) request.getAttribute("game");
             Company com = (Company) request.getAttribute("com");
-            ArrayList<Platform> listPl = (ArrayList<Platform>) request.getAttribute("listPl");
-            ArrayList<Category> listCa = (ArrayList<Category>) request.getAttribute("listCa");
             DBConnection dbCon = new DBConnection();
             DAOGalery daoGalery = new DAOGalery(dbCon);
-            ArrayList<Galery> listGa = daoGalery.getGaleryById(game.getGid());
+            DAOLibrary daoLibrary = new DAOLibrary(dbCon);
+            ArrayList<Platform> listPl = (ArrayList<Platform>) request.getAttribute("listPl");
+            ArrayList<Category> listCa = (ArrayList<Category>) request.getAttribute("listCa");
             ArrayList<Game> userLibrary = (ArrayList<Game>) request.getSession().getAttribute("Library");
             ArrayList<Game> userWishlist = (ArrayList<Game>) request.getSession().getAttribute("wishlist");
+            ArrayList<Galery> listGa = daoGalery.getGaleryById(game.getGid());
+            ArrayList<User> userOwned = daoLibrary.getOwnedByGame(game.getGid());
+            ArrayList<User> userWantGame = daoLibrary.getWishlistByGame(game.getGid());
             String alMess = (String) request.getAttribute("alMess");
             boolean isOwned = false;
             boolean isFollowed = false;
@@ -84,11 +87,15 @@
                         <%}%>
                         <br><br>
                         <%  if (isFollowed == true) {%>
+                        <%  if (isFollowed == true && isOwned == false) {%>
                         <div class="button-platform" style="background-color: pink; border-radius: 15px; height: 50px;">
                             <h3 style="text-align: center; position: relative; top: 50%; transform: translateY(-50%); margin: 0; padding: 0;"  class="nk-feature-title">
                                 <a href="GameControllerMap?service=deleteWishlist&gameID=<%=game.getGid()%>"><span class="fa fa-fas fa-plus"></span>   Following</a></h3>
                         </div>
-                        <% } else { %>
+                        <br>
+                        <p class="col-md-7 " style="font-size: 20px; color: #23527c;"><span class="far fa-clock"></span>  Want: <%=userWantGame.size()%></p>
+                        <p class="col-md-5 " style="font-size: 20px; color: #23527c;"><span class="fas fa-gamepad"></span>  Played: <%=userOwned.size()%></p>
+                        <% } else if (isFollowed == false && isOwned == false) { %>
                         <div class="button-platform" style="background-color: #aace60; border-radius: 15px; height: 50px;">
                             <h3 style="text-align: center; position: relative; top: 50%; transform: translateY(-50%); margin: 0; padding: 0;"  class="nk-feature-title">
                                 <% User user = (User) session.getAttribute("currUser");

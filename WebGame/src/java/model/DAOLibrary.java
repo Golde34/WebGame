@@ -7,6 +7,7 @@ package model;
 
 import entity.Game;
 import entity.Library;
+import entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -102,7 +103,7 @@ public class DAOLibrary {
 
     public int deleteWishlist(Library list) {
         int n = 0;
-        String sqlDelete = "delete from Library where uId = '" + list.getuId() + "' and gId = '" + list.getgId() + "'";
+        String sqlDelete = "delete from Library where uId = '" + list.getuId() + "' and gId = '" + list.getgId() + "' and [type] = 'favour'";
         Statement stm;
         try {
             stm = conn.createStatement();
@@ -112,4 +113,71 @@ public class DAOLibrary {
         }
         return n;
     }
+
+    public int changeStatus(int uId, int gid, int status) {
+        int n = 0;
+        String sql = "update Library set status = " + (status == 1 ? 1 : 0) + " where gId = '" + gid + "' and uId = " + uId;
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
+    }
+
+    public int deleteOwnedInWishlist(Library list) {
+        int n = 0;
+        String sql = "select * from Library where uId = " + list.getuId() + " and gId = '" + list.getgId() + "'and [type] = 'owned' and status = 1";
+        ResultSet rs = dbConn.getData(sql);
+        Library lib = null;
+        try {
+            if (rs.next()) {
+                lib = new Library(rs.getInt("uId"), rs.getInt("gId"));
+                String sqlDelete = "delete from Library where uId = '" + lib.getuId() + "' and gId = '" + lib.getgId() + "' and [type] = 'favour'";
+                Statement state = conn.createStatement();
+                n = state.executeUpdate(sqlDelete);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOLibrary.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
+    }
+
+    public ArrayList<User> getOwnedByGame(int gId) {
+        ArrayList<User> userList = new ArrayList<>();
+        DAOUser daoUser = new DAOUser(dbConn);
+        String sql = "SELECT * FROM Library WHERE gId = " + gId + " and [type] = 'owned'";
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            while(rs.next()) {
+                User u = daoUser.getUserById(rs.getInt("uId"));
+                userList.add(u);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOLibrary.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return userList;
+    }
+    
+    public ArrayList<User> getWishlistByGame(int gId) {
+        ArrayList<User> userList = new ArrayList<>();
+        DAOUser daoUser = new DAOUser(dbConn);
+        String sql = "SELECT * FROM Library WHERE gId = " + gId + " and [type] = 'favour'";
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            while(rs.next()) {
+                User u = daoUser.getUserById(rs.getInt("uId"));
+                userList.add(u);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOLibrary.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return userList;
+    }
+    
+//    public static void main(String[] args) throws SQLException {
+//        DAOLibrary dao = new DAOLibrary(new DBConnection());
+//        System.out.println(dao.deleteOwnedInWishlist(new Library(8, 17)));
+//    }
 }

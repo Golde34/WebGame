@@ -320,7 +320,6 @@ public class DAOGame {
         return list;
     }
 
-    //Day nay
     public ArrayList<Game> getGameByMultiCategoryId(String[] caIds) {
         if (caIds.length == 0) {
             return null;

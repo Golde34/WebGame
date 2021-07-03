@@ -203,6 +203,7 @@
                                     <%if (whislist.isEmpty()) {%> <p>No games in wishlist yet </p> 
                                     <%} else {%>
                                     <p>Wish List: </p>
+                                    <p>Games in wishlist: </p>
                                     <%for (Game game : whislist) {%>
                                     <p>+ <a style="background-color: none" href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>"> <%= game.getTitle()%> </a></p>
                                     <%}

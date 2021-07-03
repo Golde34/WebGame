@@ -68,7 +68,7 @@
                                     <%  DBConnection dbCon = new DBConnection();
                                         DAOGalery daoGalery = new DAOGalery(dbCon);
                                         ArrayList<Galery> gList0 = daoGalery.getGaleryByTypeId(listHotGame.get(0).getGid(), "img-bg");%>
-                                    <a href="#"><img style="width: 1500px; height: 600px; object-fit:cover" src="<%= gList0.get(0).getLink().trim()%>" alt="<%= gList0.get(0).getLink().trim()%>"></a>
+                                    <a href="GameControllerMap?service=getGame&gameID=<%=listHotGame.get(0).getGid()%>"><img style="width: 1500px; height: 600px; object-fit:cover" src="<%= gList0.get(0).getLink().trim()%>" alt="<%= gList0.get(0).getLink().trim()%>"></a>
                                     <br>
                                 </div>
                                 <%   for (int i = 1; i < listHotGame.size(); i++) { %> 
@@ -76,7 +76,7 @@
                                 %>
 
                                 <div class="item">
-                                    <a href="#"><img style="width: 1500px; height: 600px; object-fit:cover" src="<%= gList.get(0).getLink().trim()%>" alt="<%= gList.get(0).getLink().trim()%>"></a>
+                                    <a href="GameControllerMap?service=getGame&gameID=<%=listHotGame.get(i).getGid()%>"><img style="width: 1500px; height: 600px; object-fit:cover" src="<%= gList.get(0).getLink().trim()%>" alt="<%= gList.get(0).getLink().trim()%>"></a>
                                     <br>
                                 </div>
                                 <% } %>
