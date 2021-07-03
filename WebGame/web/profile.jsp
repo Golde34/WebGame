@@ -4,6 +4,8 @@
     Author     : Duong
 --%>
 
+<%@page import="model.DBConnection"%>
+<%@page import="model.DAOUser"%>
 <%@page import="java.sql.Date"%>
 <%@page import="entity.Order"%>
 <%@page import="entity.Game"%>
@@ -138,7 +140,9 @@
             ArrayList<Game> listGame = (ArrayList<Game>) request.getAttribute("listGame");
             ArrayList<Order> listOrder = (ArrayList<Order>) request.getAttribute("listOrder");
             ArrayList<Game> whislist = (ArrayList<Game>) request.getAttribute("wishlistGame");
-
+            DBConnection dbCon = new DBConnection();
+            DAOUser daoUser = new DAOUser(dbCon);
+            
         %>
         <div class="main">
             <div class="background">
@@ -151,9 +155,9 @@
                         <div class="user-avatar avatar_large" style="background-color: #e2c147;width: 190px;height: 190px;">
                             <object style="border: solid #f0f2f5 white; border-radius: 15px; " class="avatar_lagre" data="images/T.jpg" alt="" width="190" height="190"></object>
                         </div>
-                        <h2 style="font-family: Serif;">Lv <%= x.getExperience() / 1000%> </h2>
+                        <h2 style="font-family: Serif;">Lv <%= daoUser.getExp(x) / 1000%> </h2>
                         <div class="container-level">
-                            <div class="skills" style="width: <%=(x.getExperience() % 1000)/10%>%; ">
+                            <div class="skills" style="width: <%=(daoUser.getExp(x) % 1000)/10%>%; ">
                             </div>
                         </div>
                         <!--.html {width: 90%; background-color: #04AA6D;}-->

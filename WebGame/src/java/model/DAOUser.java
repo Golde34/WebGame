@@ -326,7 +326,6 @@ public class DAOUser {
     }
     
     public void updateinfo(User obj) {
-        
         String sql = "UPDATE [User] SET uName=?, uMail=?, uPhone=?, uAddress=? where uId=?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
@@ -340,45 +339,43 @@ public class DAOUser {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public int getExp(User obj) {
+        
+        int exp=200;
+        
+        String sql = "SELECT COUNT(gId) as count FROM [Library] where uId="+obj.getuId()+" and [status] =1 and type='owned' Group by uId";
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            if (rs.next()) {
+                String s = rs.getString("count");
+                if (s == null) {
+                    updateExp(obj,0);
+                    return 0;
+                } else {
+                    int ex = Integer.parseInt(s);
+                    updateExp(obj,ex*exp);
+                    return ex*exp;
+                }
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
     
-//    public int updateExperience(User obj) {
-//        int n = 0;
-//        String sql = "UPDATE [User] SET experience=? where uId=?";
-//        try {
-//            PreparedStatement pre = conn.prepareStatement(sql);
-//            pre.setInt(1, obj.getExperience());
-//            pre.setInt(2, obj.getuId());
-//            n = pre.executeUpdate();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return n;
-//    }
-//    
-//    
-//    public int earnExperience(Library list, User u) {
-//        int n = 0;
-//        String sql = "select * from Library where uId = " + list.getuId() + "and [type] = 'owned' and status = 1";
-//        ResultSet rs = dbConn.getData(sql);
-//        User user = null;
-//        try {
-//            if (rs.next()) {
-//                
-//                String sqlDelete = "delete from Library where uId = '" + lib.getuId() + "' and gId = '" + lib.getgId() + "' and [type] = 'favour'";
-//                Statement state = conn.createStatement();
-//                n = state.executeUpdate(sqlDelete);
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DAOLibrary.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return n;
-//    }
-//    
-//            public static void main(String[] args) {
-//        DBConnection dbcon = new DBConnection();
-//        DAOUser daoCa = new DAOUser(dbcon);
-//        
-//        daoCa.updateWalletUser(daoCa.getUserById(6), 1000);
-//        
-//     }
+    public int updateExp(User obj, int exp) {
+        int n = 0;
+        String sql = "UPDATE [User] SET experience=? where uId=?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, exp);
+            pre.setInt(2, obj.getuId());
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
+    }
 }
