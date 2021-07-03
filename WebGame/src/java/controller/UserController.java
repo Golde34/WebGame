@@ -215,11 +215,11 @@ public class UserController extends HttpServlet {
                 sendDispatcher(request, response, "profile.jsp");
             }
 
-            if (service.equalsIgnoreCase("topup")) {
+            if (service.equalsIgnoreCase("recharge")) {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
 
-                sendDispatcher(request, response, "topup.jsp");
+                sendDispatcher(request, response, "recharge.jsp");
             }
 
             if (service.equalsIgnoreCase("checkwallet")) {
@@ -232,10 +232,10 @@ public class UserController extends HttpServlet {
 
                 if (phone.trim().length() == 0) {
                     out.println("Phone number can't be emty!");
-                    sendDispatcher1(request, response, "topup.jsp");
+                    sendDispatcher1(request, response, "recharge.jsp");
                 } else if (pass.trim().length() == 0) {
                     out.println("Please re-enter your password");
-                    sendDispatcher1(request, response, "topup.jsp");
+                    sendDispatcher1(request, response, "recharge.jsp");
                 } else if (phone.equals(x.getuPhone()) && pass.equals(x.getPass())) {
                     daoUser.updateWalletUser(x, amount);
                     request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
@@ -282,6 +282,34 @@ public class UserController extends HttpServlet {
                 }
                 out.print("wrong pass");
                 sendDispatcher1(request, response, "UserControllerMap?service=edit");
+            }
+            
+            if (service.equalsIgnoreCase("topup")) {
+                User x = (User) request.getSession().getAttribute("currUser");
+                request.setAttribute("currUser", x);
+
+                sendDispatcher(request, response, "topup.jsp");
+            }
+            
+            if (service.equalsIgnoreCase("checkwallet2")) {
+                User x = (User) request.getSession().getAttribute("currUser");
+                request.setAttribute("currUser", x);
+
+                String phone = request.getParameter("phone");
+                String pass = request.getParameter("pass");
+                double amount = - Double.parseDouble(request.getParameter("amount"));
+
+                if (phone.trim().length() == 0) {
+                    out.println("Phone number can't be emty!");
+                    sendDispatcher1(request, response, "topup.jsp");
+                } else if (pass.trim().length() == 0) {
+                    out.println("Please re-enter your password");
+                    sendDispatcher1(request, response, "topup.jsp");
+                } else if (phone.equals(x.getuPhone()) && pass.equals(x.getPass())) {
+                    daoUser.updateWalletUser(x, amount);
+                    request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
+                    sendDispatcher(request, response, "UserControllerMap?service=info");
+                }
             }
         }
     }

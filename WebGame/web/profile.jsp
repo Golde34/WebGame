@@ -4,6 +4,7 @@
     Author     : Duong
 --%>
 
+<%@page import="java.sql.Date"%>
 <%@page import="entity.Order"%>
 <%@page import="entity.Game"%>
 <%@page import="java.util.ArrayList"%>
@@ -121,6 +122,7 @@
             ArrayList<Game> listGame = (ArrayList<Game>) request.getAttribute("listGame");
             ArrayList<Order> listOrder = (ArrayList<Order>) request.getAttribute("listOrder");
             ArrayList<Game> whislist = (ArrayList<Game>) request.getAttribute("wishlistGame");
+            
         %>
         <div class="main">
             <div class="background">
@@ -165,7 +167,7 @@
                                     <a  href="UserControllerMap?service=edit"><button type="button" class="btn btn-danger " >Edit</button>
                                     </a>
                                     <hr style="height:3px;color:gray;background-color:gray">
-                                    <p>Wallet: <%=x.getWallet()%> <a href="UserControllerMap?service=topup"><button type="button" class="btn btn-info " >Recharge</button></a></p>
+                                    <p>Wallet: <%=x.getWallet()%> <a href="UserControllerMap?service=recharge"><button type="button" class="btn btn-info " >Recharge</button></a></p>
                                     <p>Address: <%=x.getuAddress()%></p> 
                                     <p>Mail: <%=x.getuMail()%></p> 
                                     <p>Phone: <%=x.getuPhone()%></p>
@@ -176,13 +178,15 @@
                                     <%if (listOrder.isEmpty()) {%> <p>No order yet</p> 
                                     <%} else {%>
                                     <p>History Transaction: </p>
-                                    <%for (Order o : listOrder) {%>
-                                    <p>+ <a href="UserControllerMap?service=vieworder&orderId=<%= o.getoId()%>"> Order <%= o.getoId()%> </a></p>
+                                    <%for (Order o : listOrder) {
+                                    Date date = new Date(o.getOrderDate().getTime());
+                                    %>
+                                    <p>+ <a href="UserControllerMap?service=vieworder&orderId=<%= o.getoId()%>"><%=date%> </a></p>
                                     <%}
                                         }%>
                                 </div>
                             </div>
-                            <div class="tab-pane">
+                            <div class="tab-pane" id="library">
                                 <div style="background-color: white; border-radius: 10px; padding: 10px 10px 15px 35px;">
                                     <%if (listGame.isEmpty()) {%> <p>No games bought yet </p> 
                                     <%} else {%>
@@ -198,7 +202,7 @@
                                 <div style="background-color: white; border-radius: 10px; padding: 10px 10px 15px 35px;">
                                     <%if (whislist.isEmpty()) {%> <p>No games in wishlist yet </p> 
                                     <%} else {%>
-                                    <p>Owned Game: </p>
+                                    <p>Wish List: </p>
                                     <%for (Game game : whislist) {%>
                                     <p>+ <a style="background-color: none" href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>"> <%= game.getTitle()%> </a></p>
                                     <%}

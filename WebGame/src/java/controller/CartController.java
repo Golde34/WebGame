@@ -84,7 +84,7 @@ public class CartController extends HttpServlet {
                 }
                 ShoppingCart.add(addGame);
                 request.getSession().setAttribute("ShoppingCart", ShoppingCart);
-                sendDispatcher(request, response, "index.jsp");
+                sendDispatcher(request, response, "Cart.jsp");
             }
 
             if (service.equalsIgnoreCase("RemoveFromCart")) {
@@ -138,7 +138,7 @@ public class CartController extends HttpServlet {
                     request.setAttribute("messCheckOut", "Your order had been added!");
                     sendDispatcher(request, response, "Cart.jsp");
                 } else {
-                    request.setAttribute("mess", "Your currency is not enough");
+                    request.setAttribute("mess", "Your balance is not enough");
                     sendDispatcher(request, response, "Cart.jsp");
                 }
             }

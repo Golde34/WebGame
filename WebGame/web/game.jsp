@@ -23,7 +23,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Game Information</title>
         <!--Css-->
         <link href="${contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/stylehome.css">
@@ -83,7 +83,7 @@
                         <%=alMess%>
                         <%}%>
                         <br><br>
-                        <%  if (isFollowed == true) { %>
+                        <%  if (isFollowed == true) {%>
                         <div class="button-platform" style="background-color: pink; border-radius: 15px; height: 50px;">
                             <h3 style="text-align: center; position: relative; top: 50%; transform: translateY(-50%); margin: 0; padding: 0;"  class="nk-feature-title">
                                 <a href="GameControllerMap?service=deleteWishlist&gameID=<%=game.getGid()%>"><span class="fa fa-fas fa-plus"></span>   Following</a></h3>
@@ -119,7 +119,7 @@
                                     <div class="title"></div>
                                     <br><br>
                                     <p>Version <%= game.getVersion()%></p>
-                                    <p> Release Date <%= game.getReleaseDate()%></p>
+                                    <p>Release Date <%= game.getReleaseDate()%></p>
                                     <p>Game from:<a href="#"> <%= com.getCoName()%></a></p>
                                     <p>Same company's game: </p>
                                     <% ArrayList<Game> listGaCo = (ArrayList<Game>) request.getAttribute("listGaCo");
@@ -160,22 +160,21 @@
                                         <p>Status: Available</p>
                                         <% User user = (User) session.getAttribute("currUser");
                                             if (user != null) {
-                                                if (game.getPrice() == 0) {%>
-                                        <%if (isOwned) {%>
+                                                if (isOwned) {%>
                                         <a href="#"><button type="button" class="btn btn-success">Owned</button></a>
+                                        <a href="UserControllerMap?service=topup" ><button type="button" class="btn btn-success">Top up</button></a>
                                         <%} else {%>
-                                        <a href="CartControllerMap?service=AddToLibrary&gameId=<%=game.getGid()%>"><button type="button" class="btn btn-success">Add to library</button></a>
-                                        <%} %>
-
-                                        <a href="#" ><button type="button" class="btn btn-success">Topup</button></a>
-                                        <%      } else {%>
+                                        <%if (game.getPrice() == 0) {%>
+                                        <a href="CartControllerMap?service=AddToLibrary&gameId=<%=game.getGid()%>"><button type="button" class="btn btn-success">Add to library</button></a>                 
+                                        <%} else {%>
                                         <a href="CartControllerMap?service=AddToCart&gameId=<%=game.getGid()%>"><button type="button" class="btn btn-success">Add to cart</button></a>
+                                        <%}%>
                                         <%}
                                         } else {
                                             if (game.getPrice() == 0) {
                                         %>
                                         <a onclick="alert('You have to login to buy this product');"><button type="button" class="btn btn-success">Add to library</button></a>
-                                        <a onclick="alert('You have to login to topup this product');"><button type="button" class="btn btn-success">Topup</button></a>
+                                        <a onclick="alert('You have to login to top up this product');"><button type="button" class="btn btn-success">Top up</button></a>
                                         <%      } else {%>
                                         <a onclick="alert('You have to login to buy this product');"><button type="button" class="btn btn-success">Add to cart</button></a>                                        
                                         <%      }

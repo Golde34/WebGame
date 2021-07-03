@@ -4,6 +4,7 @@
     Author     : dumyd
 --%>
 
+<%@page import="entity.User"%>
 <%@page import="entity.Category"%>
 <%@page import="model.DAOCategory"%>
 <%@page import="entity.Galery"%>
@@ -19,7 +20,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>All Game Page</title>
+        <title>Cart Page</title>
         <!--Css-->
         <link href="${contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <script src="${contextPath}/js/bootstrap.min.js"></script>
@@ -120,6 +121,7 @@
             String mess = (String) request.getAttribute("mess");
             String alMess = (String ) request.getAttribute("alMess");
             String messCheckOut = (String) request.getAttribute("messCheckOut");
+            User x = (User) request.getSession().getAttribute("currUser");
         %>
         <div class="container page-content">
             <% if (alMess != null) { %> 
@@ -189,10 +191,15 @@
                     </div>
                     <div class="col-md-1"></div>
                     <div class="col-sm-12 col-md-3 summary-cart" style="">
-                        <p class="col-sm-12 left" >Summary</p>      
+                        <p class="col-sm-12 left" >Summary</p>
+                        <p class="col-sm-8 left" >Your Balance</p>     <p class="col-sm-4 right" >$<%=String.format("%.2f", x.getWallet())%></p>
+                        <p class="col-sm-7 left" >Not enough?</p>     <p class="col-sm-5 right" ><a href="UserControllerMap?service=recharge">Recharge</a></p>
+                        <p class="col-sm-12 left" ></p>
+                        <p class="col-sm-12 left" ></p>
+                        <p class="col-sm-12 " >______________________________</p>
                         <p class="col-sm-8 left" >Subtotal</p>     <p class="col-sm-4 right" >$<%=String.format("%.2f", SubTotal)%></p>
                         <p class="col-sm-8 left" >Estimated Tax</p><p class="col-sm-4 right" >$<%=String.format("%.2f", SubTotal * 0.1)%></p>
-                        <p class="col-sm-12 " >____________________________</p>
+                        <p class="col-sm-12 " >_____________________________</p>
                         <p class="col-sm-8 left" >Total</p>        <p class="col-sm-4 right" >$<%=String.format("%.2f", SubTotal * 1.1)%></p>
                         <button class="col-sm-12 checkout"><a href="CartControllerMap?service=CheckOut">Check out</a></button>
                     </div>

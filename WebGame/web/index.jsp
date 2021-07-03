@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>HomePage</title>
+        <title>Home Page</title>
         <link href="${contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <script src="${contextPath}/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/stylehome.css">

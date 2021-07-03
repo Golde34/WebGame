@@ -1,5 +1,5 @@
 <%-- 
-    Document   : topup
+    Document   : recharge
     Created on : Jun 27, 2021, 9:05:26 PM
     Author     : Duong
 --%>
@@ -16,11 +16,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Top up page</title>
+        <title>Recharge page</title>
     </head>
     <body>
         <form action="UserControllerMap" method="POST">
-            <input type="hidden" name ="service" value="checkwallet2">
+            <input type="hidden" name ="service" value="checkwallet">
             <table border="1">
                 <tbody>
                     <tr>
@@ -41,7 +41,7 @@
                     </tr>
                     <tr>
                         <td><button type="reset">Reset</button></td>
-                        <td><button type="submit">Top up</button></td>
+                        <td><button type="submit">Recharge</button></td>
                     </tr>
                 </tbody>
             </table>
