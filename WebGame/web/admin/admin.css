@@ -94,3 +94,10 @@ body {font-family: "Lato", sans-serif;}
 .dropdown:hover .dropdown-content {display: block;}
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.orderSmol{
+    border: #31b0d5 2px double;
+    border-radius: 5px;
+    text-align: center;
+    margin: 5px;
+}

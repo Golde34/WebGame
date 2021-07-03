@@ -66,7 +66,7 @@
             if (user != null) {
                 logHead = "  Profile";
                 loginOrChangePassword = "  Change Password";
-                registerOrCheckout = "  Check out";
+                registerOrCheckout = "  Sign out";
                 urlLogin = "jsp/changepass.jsp";
                 urlRegister = "UserControllerMap?service=logout";
             }
@@ -138,10 +138,11 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <%if (user != null) {%>
+                        <%if (user != null) {
+                         String[] name = user.getuName().split(" ");%>
                         <li style="background-color: #76cc11; border-radius: 3px; ">
                             <a style="color: white;">
-                                <span class="glyphicon "></span> Hello, <%=user.getUsername()%> 
+                                <span class="glyphicon "></span> Hello, <%=name[name.length-1]%> 
                             </a>
                         </li>
                         <%}%>

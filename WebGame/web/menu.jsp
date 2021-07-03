@@ -46,7 +46,7 @@
             <!--Popular Game-->
             <div class="container-fluid">
                 <!--Slide starts here-->
-                <h1 class="neon" data-text="HOT GAMES">THE MOST FAVOURITE</h1>
+                <h1 class="neon" data-text="HOT GAMES">FAVOURITE GAMES</h1>
                 <div class="row">
                     <div class="col-md-12 nopadding">
 
