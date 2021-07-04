@@ -29,7 +29,7 @@ body{
 .container .card1{
     position: ralative;
     min-width: 720px;
-    height: 680px;
+    height: 750px;
     box-shadow: inset 5px 5px 5px rgba(0,0,0,0.05),
         inset -5px -5px 5px rgba(255,255,255,0.5),
         5px 5px 5px rgba(0,0,0,0.05),
@@ -51,7 +51,10 @@ body{
 .container .card1 .box1{
     top: 20px;left: 20px;right: 20px;bottom: 20px;
     background: rgba(0,0,0,0.7);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: inset 5px 5px 5px rgba(0,0,0,0.05),
+        inset -5px -5px 5px rgba(255,255,255,0.5),
+        5px 5px 5px rgba(0,0,0,0.05),
+        -5px -5px 5px rgba(255,255,255,0.5);
     border-radius: 15px;
     display: flex;
     justify-content: center;
