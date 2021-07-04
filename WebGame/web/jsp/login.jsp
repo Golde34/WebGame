@@ -12,7 +12,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
         <title>LOGIN</title>
         <!--CSS-->
         <link href="${contextPath}/css/bootstrap.css" rel="stylesheet" type="text/css">
@@ -29,7 +28,7 @@
             <form action="/WebGame/UserControllerMap" method="POST">
                 <div class="row">
                     <div class="col-md-5">
-                        <h1 class="text-center">Login</h1>
+                        <h1 class="text-center" style="color: white;">Login</h1>
                         <label class="label control-label">Username</label>
                         <div class="input-group">
                             <span class="input-group-addon">

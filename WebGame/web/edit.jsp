@@ -36,9 +36,9 @@
                         </div>
                     </div>
                 </div>
-                        <a style="right: 50%;" href="index.jsp" >        
+                <a style="right: 50%;" href="index.jsp" >        
                     <button style="text-align:center; color:white;border-radius: 15px;height: 4em; width: 10em;" class="btn-danger" >
-                      <i class="fas fa-arrow-alt-circle-left"></i> Homepage
+                        <i class="fas fa-arrow-alt-circle-left"></i> Homepage
                     </button> </a>
             </div>
             <div class="col-md-7">
@@ -91,7 +91,7 @@
                                 <button type="reset" class="btn btn-info">Reset</button>
                                 <button type="submit" class="btn btn-success">Change</button>
                                 <br><br>
-                                
+
                             </form>
                         </div>
                     </div>
