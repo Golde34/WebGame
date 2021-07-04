@@ -32,12 +32,7 @@
         <script src="js/Jquery.js"></script>
         <link rel="stylesheet" href="details.css">
         <link rel="stylesheet" href="css/slick.css">
-        <style>
-            .neondu{
-                color: #fff;
-                text-shadow: 0 0 20px #ff005b;
-            }
-        </style>
+
     </head>
     <body>
         <jsp:include page="header.jsp"/>     
@@ -54,6 +49,7 @@
             ArrayList<Galery> listGa = daoGalery.getGaleryById(game.getGid());
             ArrayList<User> userOwned = daoLibrary.getOwnedByGame(game.getGid());
             ArrayList<User> userWantGame = daoLibrary.getWishlistByGame(game.getGid());
+            ArrayList<Game> listGaCa = (ArrayList<Game>) request.getAttribute("listGaCa");
             String alMess = (String) request.getAttribute("alMess");
             boolean isOwned = false;
             boolean isFollowed = false;
@@ -234,6 +230,36 @@
                         </div>
                     </div>
                 </div>
+                <hr>
+                <div>
+                    <div class="col-lg-12">
+                        <h1 class="neondu col-lg-10">Recommend</h1>     
+                    </div>
+                    <div class="roll2 col-lg-12">
+                        <div class="row slick2">
+                            <%
+                                for (Game game1 : listGaCa) { %>
+                            <%  ArrayList<Galery> gList2 = daoGalery.getGaleryByTypeId(game1.getGid(), "img-po");
+                            %>
+                            <div class="col-md-12">
+                                <div class="slick-item">
+                                    <div class="box">
+                                        <a href="GameControllerMap?service=getGame&gameID=<%=game1.getGid()%>">
+                                            <img src="<%= gList2.get(0).getLink().trim()%>" alt=""></a>
+                                        <p style="color: lightcoral;"><%= game1.getTitle()%></p>
+                                    </div>   
+                                </div>
+                            </div>
+                            <%}%>
+                        </div>
+                    </div>
+                    <div class="arrow-prev2">
+                        <i class="fas fa-arrow-circle-left"></i>
+                    </div>
+                    <div class="arrow-next2">
+                        <i class="fas fa-arrow-circle-right"></i>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -242,10 +268,13 @@
         <jsp:include page="footer.jsp"/> 
         <script src="${contextPath}/js/bootstrap.min.js"></script>
         <script src="https://kit.fontawesome.com/9650a62e47.js" crossorigin="anonymous"></script>
-        <script src="js/slick.min.js"></script>
         <script src="js/jquery-2.2.4.min.js"></script>
         <script src="js/jquery.appear.min.js"></script>
         <script src="js/jquery.easypiechart.min.js"></script>
+        <script src="js/style.js" type="text/javascript"></script>
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="${contextPath}/js/slick.min.js"></script>
         <script>
                                             $(function () {
                                                 $('.chart').easyPieChart({
@@ -263,5 +292,157 @@
                                             });
 
         </script>
+        <style>
+            .neondu{
+                color: #fff;
+                text-shadow: 0 0 20px #ff005b;
+            }
+            .navbar-right{
+                margin-right: 10px;
+            }
+            .navbar-inverse{
+                background-color: black;
+                padding: 20px;
+                margin-top: 0 !important;
+            }
+            .navbar-right li{
+                border-radius: 5%;
+                background-color: indigo;
+                margin: 5px;
+            }
+            .form-control{
+                padding-right: 100px;
+            }
+            .slick-dots li{
+                display: none;
+            }
+            .slick-item img{
+                height: 345px;
+                width: 255px;
+                object-fit: cover;
+                border-radius: 15px;
+            }
+            .arrow-prev{
+                position: absolute;
+                top: 130%;
+                left: 14%;
+            }
+            .arrow-next{
+                position: absolute;
+                top: 130%;
+                left: 83%;
+            }
+            .arrow-prev i{
+                font-size: 50px;
+                color: grey;
+                display: block;
+                width: 50px;
+                height: 50px;
+                text-align: center;
+                line-height: 50px;
+                cursor: pointer;
+
+            }
+            .arrow-next i{
+                font-size: 50px;
+                color: grey;
+                display: block;
+                width: 50px;
+                height: 50px;
+                text-align: center;
+                line-height: 50px;
+                cursor: pointer;
+
+            }
+
+            .arrow-prev2{
+                position: absolute;
+                top: 195%;
+                left: 14%;
+            }
+            .arrow-next2{
+                position: absolute;
+                top: 195%;
+                left: 83%;
+            }
+            .arrow-prev2 i{
+                font-size: 50px;
+                color: grey;
+                display: block;
+                width: 50px;
+                height: 50px;
+                text-align: center;
+                line-height: 50px;
+                cursor: pointer;
+
+            }
+            .arrow-next2 i{
+                font-size: 50px;
+                color: grey;
+                display: block;
+                width: 50px;
+                height: 50px;
+                text-align: center;
+                line-height: 50px;
+                cursor: pointer;
+
+            }
+
+            .slick-slider{
+                padding-bottom: 50px;
+            }
+
+            @media only screen and (max-width: 1200px){
+                .arrow-prev{
+                    visibility: hidden;
+                }
+                .arrow-next{
+                    visibility: hidden;
+                }
+            }
+
+            .about img{
+                height: 69px;
+            }
+            .arrow-next i:hover{
+                color: #fff;
+            }
+            .arrow-prev i:hover{
+                color: #fff;
+            }
+            .box p{
+                font-family: 'Forum', cursive;
+                text-align: center;
+                color: #fff;
+                font-size: 2em;
+                font-weight: bold;
+                font-variant: small-caps;
+            }
+            .slick-item .box {
+                text-align: center;
+            }
+            .box a{
+                font-size: 30px;
+                display: block;
+                text-align: center;
+                padding: 10px;
+                text-decoration: none;
+                text-transform: uppercase;
+                color: white;
+                border:none;
+            }
+            .overlay{
+                opacity: 0;
+
+            }
+            .box:hover img{
+                opacity: 0.2;
+            }
+            .box:hover .overlay{
+                opacity: 1;
+            }
+
+
+        </style>
     </body>
 </html>

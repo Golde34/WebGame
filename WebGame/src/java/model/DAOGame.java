@@ -362,7 +362,8 @@ public class DAOGame {
     }
 
     public ArrayList<Game> getGame_SameCategory(int gId) {
-        sql = "select distinct gid from Game_Category where caId in (Select caid from Game_Category where status=1 and gId=" + gId + ")";
+        sql = "select distinct gid from Game_Category "
+                + "where caId in (Select top 1 caid from Game_Category where status=1 and gId=" + gId + ")" + "and gId <> " + gId;
         ArrayList<Game> list = new ArrayList<>();
         Game x = null;
 
