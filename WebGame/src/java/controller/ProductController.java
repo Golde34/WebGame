@@ -23,7 +23,6 @@ import model.DBConnection;
  *
  * @author Admin
  */
-
 public class ProductController extends HttpServlet {
 
     /**
@@ -36,21 +35,21 @@ public class ProductController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     DBConnection dbCon = new DBConnection();
-    DAOGame     daoGame = new DAOGame(dbCon);
+    DAOGame daoGame = new DAOGame(dbCon);
     DAOCategory daoCate = new DAOCategory(dbCon);
     DAOPlatform daoPlat = new DAOPlatform(dbCon);
     DAOGame_Category daoGaCa = new DAOGame_Category(dbCon);
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String service = request.getParameter("service");
-            
+
             if (service == null) {
                 service = "HomePage";
-            } 
+            }
             //Home.jsp
             if (service.equalsIgnoreCase("HomePage")) {
                 ArrayList<Game> listGame = daoGame.getAllGame();
@@ -68,8 +67,8 @@ public class ProductController extends HttpServlet {
                 out.print("<h1>Okay</h1>");
                 sendDispatcher(request, response, "/index.jsp");
             }
-            
-            if (service.equalsIgnoreCase("searchByName")){
+
+            if (service.equalsIgnoreCase("searchByName")) {
                 ArrayList<Game> listGame = daoGame.getGameByName(request.getParameter("gameName"));
                 request.setAttribute("listGame", listGame);
                 ArrayList<Game> listHotGame = daoGame.getGameByRating();
@@ -84,7 +83,7 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("listPlatform", listPlatform);
                 sendDispatcher(request, response, "allgame.jsp");
             }
-            
+
             //menu.jsp
             if (service.equalsIgnoreCase("filterByCate")) {
                 String cateID[] = request.getParameterValues("cateID");
@@ -104,7 +103,7 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("listPlatform", listPlatform);
                 sendDispatcher(request, response, "/index.jsp");
             }
-            
+
             if (service.equalsIgnoreCase("searchByCate")) {
                 int cateID = Integer.parseInt(request.getParameter("cateID"));
                 ArrayList<Game> listGame = daoGame.getGameByCategoryId(cateID);
@@ -121,6 +120,7 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("listPlatform", listPlatform);
                 sendDispatcher(request, response, "/index.jsp");
             }
+            
             if (service.equalsIgnoreCase("searchByCate1")) {
                 int cateID = Integer.parseInt(request.getParameter("cateID"));
                 ArrayList<Game> listGame = daoGame.getGameByCategoryId(cateID);
@@ -137,7 +137,7 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("listPlatform", listPlatform);
                 sendDispatcher(request, response, "allgame.jsp");
             }
-            
+
             if (service.equalsIgnoreCase("searchByPlat")) {
                 String title;
                 int platID = Integer.parseInt(request.getParameter("platID"));
@@ -157,16 +157,18 @@ public class ProductController extends HttpServlet {
                     title = "PS4 GAME";
                 } else if (platID == 2) {
                     title = "XBOX GAME";
-                } else if (platID == 3) title = "PC GAME";
-                else if (platID == 4) title = "Mobile GAME";
-                else {
+                } else if (platID == 3) {
+                    title = "PC GAME";
+                } else if (platID == 4) {
+                    title = "Mobile GAME";
+                } else {
                     title = "NS GAME";
                 }
                 request.setAttribute("title", title);
                 sendDispatcher(request, response, "/index.jsp");
             }
+            
             if (service.equalsIgnoreCase("searchByPlat1")) {
-                String title;
                 int platID = Integer.parseInt(request.getParameter("platID"));
                 ArrayList<Game> listGame = daoGame.getGameByPlatformId(platID);
                 request.setAttribute("listGame", listGame);
@@ -179,11 +181,11 @@ public class ProductController extends HttpServlet {
                 ArrayList<Category> listCategory = daoCate.getAllCategories();
                 request.setAttribute("listCategory", listCategory);
                 ArrayList<Platform> listPlatform = daoPlat.getAllPlatforms();
-                request.setAttribute("listPlatform", listPlatform);         
+                request.setAttribute("listPlatform", listPlatform);
                 sendDispatcher(request, response, "/allgame.jsp");
             }
-            
-        }   
+
+        }
     }
 
     public void sendDispatcher(HttpServletRequest request, HttpServletResponse response, String path) {
@@ -194,7 +196,7 @@ public class ProductController extends HttpServlet {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public String getPictureName(String path) {
         for (int i = path.length() - 1; i > 0; i--) {
             if (path.charAt(i) == '\\') {

@@ -32,7 +32,11 @@
         <script src="js/Jquery.js"></script>
         <link rel="stylesheet" href="details.css">
         <link rel="stylesheet" href="css/slick.css">
-
+        <style>
+            .display {
+                height: 40px;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="header.jsp"/>     
@@ -234,6 +238,11 @@
                 <div>
                     <div class="col-lg-12">
                         <h1 class="neondu col-lg-10">Recommend</h1>     
+                        <a href="GameControllerMap?service=displayGaCa&gameID=<%=game.getGid()%>"
+                           style="font-family: serif; font-size: 20px;">
+                            <br><button class="col-lg-2 button-platform display" 
+                                        style="background-color: pink; border-radius: 15px;">Display all</button>
+                        </a>
                     </div>
                     <div class="roll2 col-lg-12">
                         <div class="row slick2">
@@ -246,7 +255,6 @@
                                     <div class="box">
                                         <a href="GameControllerMap?service=getGame&gameID=<%=game1.getGid()%>">
                                             <img src="<%= gList2.get(0).getLink().trim()%>" alt=""></a>
-                                        <p style="color: lightcoral;"><%= game1.getTitle()%></p>
                                     </div>   
                                 </div>
                             </div>

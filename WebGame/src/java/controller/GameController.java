@@ -9,8 +9,6 @@ import entity.Category;
 import entity.Company;
 import entity.Galery;
 import entity.Game;
-import entity.Game_Category;
-import entity.Game_Platform;
 import entity.Library;
 import entity.Platform;
 import entity.User;
@@ -130,6 +128,13 @@ public class GameController extends HttpServlet {
                 list.setgId(gameId);
                 daoLibrary.deleteWishlist(list);
                 request.getRequestDispatcher("GameControllerMap?service=getGame&gameID=" + gameId).forward(request, response);
+            }
+            
+            if (service.equalsIgnoreCase("displayGaCa")) {
+                int gameId = Integer.parseInt(request.getParameter("gameID"));
+                ArrayList<Game> listGaCa = daoGame.getGame_SameCategory(gameId);
+                request.setAttribute("listGame", listGaCa);
+                sendDispatcher(request, response, "allgame.jsp");
             }
         }
 
