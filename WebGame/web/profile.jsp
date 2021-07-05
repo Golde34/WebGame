@@ -153,14 +153,17 @@
                 <div class="row" style="font-size: 150%; padding-bottom: 70px;">
                     <div class="col-xs-12 col-sm-6 col-md-2">
                         <div class="user-avatar avatar_large" style="background-color: #e2c147;width: 190px;height: 190px;">
-                            <object style="border: solid #f0f2f5 white; border-radius: 15px; " class="avatar_lagre" data="images/T.jpg" alt="" width="190" height="190"></object>
+                            <object style="border: solid #f0f2f5 white; border-radius: 15px; " class="avatar_lagre"
+                                    data="upload/<%= x.getProfilePicture()%>" 
+                                    alt="" width="190" height="190"></object>
                         </div>
                         <h2 style="font-family: Serif;">Lv <%= daoUser.getExp(x) / 1000%> </h2>
                         <div class="container-level">
                             <div class="skills" style="width: <%=(daoUser.getExp(x) % 1000)/10%>%; ">
                             </div>
                         </div>
-                        <!--.html {width: 90%; background-color: #04AA6D;}-->
+                            <br>
+                            <a href="UserControllerMap?service=uploadImage"><button><i class="fas fa-camera"></i>Upload image</button></a>
                     </div>    
                     <div class="col-xs-12 col-sm-6 col-md-1"></div>       
                     <div class="col-xs-12 col-sm-6 col-md-9">

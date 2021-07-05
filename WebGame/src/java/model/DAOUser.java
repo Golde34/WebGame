@@ -5,7 +5,6 @@
  */
 package model;
 
-import entity.Library;
 import entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,7 +36,8 @@ public class DAOUser {
             pre.setString(2, password);
             ResultSet rs = pre.executeQuery();
             if (rs.next()) {
-                return new User(rs.getInt("uId"), rs.getString("uName"), rs.getInt("experience"), 
+                return new User(rs.getInt("uId"), rs.getString("uName"), rs.getInt("experience"),
+                        rs.getString("profilePicture"),
                         rs.getString("uMail"),rs.getString("uPhone"), rs.getString("uAddress"), 
                         rs.getDouble("wallet"), rs.getString("system_role"), rs.getString("username") , 
                         rs.getString("pass"), rs.getInt("status"));
@@ -341,9 +341,7 @@ public class DAOUser {
     }
 
     public int getExp(User obj) {
-        
-        int exp=200;
-        
+        int exp=200;      
         String sql = "SELECT COUNT(gId) as count FROM [Library] where uId="+obj.getuId()+" and [status] =1 and type='owned' Group by uId";
         ResultSet rs = dbConn.getData(sql);
         try {
@@ -356,8 +354,7 @@ public class DAOUser {
                     int ex = Integer.parseInt(s);
                     updateExp(obj,ex*exp);
                     return ex*exp;
-                }
-                
+                }    
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
@@ -373,6 +370,18 @@ public class DAOUser {
             pre.setInt(1, exp);
             pre.setInt(2, obj.getuId());
             n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
+    }
+    
+    public int uploadImage(User obj, String uploadImg) {
+        int n = 0;
+        String sql = "UPDATE [User] SET profilePicture = '" + uploadImg + "' WHERE uId = " + obj.getuId();
+        try {
+            Statement state = conn.createStatement();
+            n = state.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
         }
