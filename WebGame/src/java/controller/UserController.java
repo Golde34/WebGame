@@ -145,7 +145,7 @@ public class UserController extends HttpServlet {
                 String oldPassword = request.getParameter("oldPassword");
                 String newPassword = request.getParameter("newPassword");
                 String confirmPass = request.getParameter("confirm-password");
-                
+
                 HttpSession session = request.getSession();
                 User user = (User) session.getAttribute("currUser");
                 String username = user.getUsername();
@@ -212,6 +212,8 @@ public class UserController extends HttpServlet {
                 request.setAttribute("wishlistGame", listWishlist);
                 ArrayList<Order> listOrder = daoOrder.getOrdersByUId(x.getuId());
                 request.setAttribute("listOrder", listOrder);
+                ArrayList<Game> list = daoUser.getRecentGames(x);
+                request.setAttribute("recentgames", list);
                 sendDispatcher(request, response, "profile.jsp");
             }
 
@@ -283,21 +285,21 @@ public class UserController extends HttpServlet {
                 out.print("wrong pass");
                 sendDispatcher1(request, response, "UserControllerMap?service=edit");
             }
-            
+
             if (service.equalsIgnoreCase("topup")) {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
 
                 sendDispatcher(request, response, "topup.jsp");
             }
-            
+
             if (service.equalsIgnoreCase("checkwallet2")) {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
 
                 String phone = request.getParameter("phone");
                 String pass = request.getParameter("pass");
-                double amount = - Double.parseDouble(request.getParameter("amount"));
+                double amount = -Double.parseDouble(request.getParameter("amount"));
 
                 if (phone.trim().length() == 0) {
                     out.println("Phone number can't be emty!");
@@ -311,6 +313,8 @@ public class UserController extends HttpServlet {
                     sendDispatcher(request, response, "UserControllerMap?service=info");
                 }
             }
+
+            
         }
     }
 

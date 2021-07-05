@@ -223,4 +223,24 @@ public class DAOOrder {
         }
         return list;
     }
+    
+    public ArrayList<Order> getTop1Order(){
+        ArrayList<Order> list = new ArrayList<>();
+        String sql = "select top 1 * from [Order] where uid=? and status = 1 order by orderDate desc";
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            while (rs.next()) {
+                Order o = new Order();
+                o.setoId(rs.getInt("oId"));
+                o.setuId(rs.getInt("uId"));
+                o.setOrderDate(rs.getTimestamp("orderDate"));
+                o.setTotal(rs.getDouble("total"));
+                o.setStatus(rs.getInt("status"));
+                list.add(o);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 }
