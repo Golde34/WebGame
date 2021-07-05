@@ -223,6 +223,8 @@ public class UserController extends HttpServlet {
                 request.setAttribute("wishlistGame", listWishlist);
                 ArrayList<Order> listOrder = daoOrder.getOrdersByUId(x.getuId());
                 request.setAttribute("listOrder", listOrder);
+                ArrayList<Game> list = daoUser.getRecentGames(x);
+                request.setAttribute("recentgames", list);
                 sendDispatcher(request, response, "profile.jsp");
             }
 
@@ -301,6 +303,7 @@ public class UserController extends HttpServlet {
                 String phone = request.getParameter("phone");
                 String pass = request.getParameter("pass");
                 double amount = -Double.parseDouble(request.getParameter("amount"));
+
                 if (phone.trim().length() == 0) {
                     out.println("Phone number can't be emty!");
                     sendDispatcher1(request, response, "topup.jsp");

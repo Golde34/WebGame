@@ -5,11 +5,13 @@
  */
 package controller;
 
+import com.sun.faces.util.CollectionsUtils;
 import entity.Category;
 import entity.Company;
 import entity.Galery;
 import entity.Game;
 import entity.Order;
+import entity.OrderDetail;
 import entity.Platform;
 import entity.User;
 import java.io.IOException;
@@ -30,6 +32,7 @@ import model.DAOGalery;
 import model.DAOGame;
 import model.DAOGame_Category;
 import model.DAOOrder;
+import model.DAOOrder_Detail;
 import model.DAOPlatform;
 import model.DAOUser;
 import model.DBConnection;
@@ -58,7 +61,7 @@ public class AdminController extends HttpServlet {
     DAOUser daoUser = new DAOUser(dbCon);
     DAOOrder daoOrder = new DAOOrder(dbCon);
     DAOGalery daoGalery = new DAOGalery(dbCon);
-    
+    DAOOrder_Detail daoDetail = new DAOOrder_Detail(dbCon);
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -514,6 +517,25 @@ public class AdminController extends HttpServlet {
                 // </editor-fold>
                 request.setAttribute("updateGalery", newGal);
                 sendDispatcher(request, response, "admin/adminIndex.jsp");
+            }
+            
+            if (service.equalsIgnoreCase("viewOrder")){
+                int oId = Integer.parseInt(request.getParameter("oId"));
+                Order order = daoOrder.getOrderByOId(oId);
+                if (order.equals(null)) {
+                    request.setAttribute("message", "Order not found");
+                } else {
+                    ArrayList<OrderDetail> lines = daoDetail.getByOrdId(oId);
+                    HashMap<OrderDetail, Game> orderLines = new HashMap<>();
+                    for (OrderDetail line : lines) {
+                        orderLines.put(line, daoGame.getGameById(line.getgId()));
+                    }
+                    request.setAttribute("message", "Order has "+orderLines.size()+" line(s): ");
+                    request.setAttribute("order", order);
+                    request.setAttribute("orderLines", orderLines);
+                    request.setAttribute("user", daoUser.getUserById(order.getuId()));
+                }
+                sendDispatcher(request, response, "admin/adminOrder.jsp");
             }
         }   
     }

@@ -4,6 +4,8 @@
     Author     : Duong
 --%>
 
+<%@page import="model.DAOGalery"%>
+<%@page import="entity.Galery"%>
 <%@page import="model.DBConnection"%>
 <%@page import="model.DAOUser"%>
 <%@page import="java.sql.Date"%>
@@ -131,6 +133,7 @@
                 color: black; height: 1px;
                 border-radius: 15px;
             }
+
         </style>
     </head>
     <body>
@@ -140,9 +143,12 @@
             ArrayList<Game> listGame = (ArrayList<Game>) request.getAttribute("listGame");
             ArrayList<Order> listOrder = (ArrayList<Order>) request.getAttribute("listOrder");
             ArrayList<Game> whislist = (ArrayList<Game>) request.getAttribute("wishlistGame");
+            ArrayList<Game> recentGame = (ArrayList<Game>) request.getAttribute("recentgames");
+
             DBConnection dbCon = new DBConnection();
             DAOUser daoUser = new DAOUser(dbCon);
-            
+            DAOGalery daoGalery = new DAOGalery(dbCon);
+
         %>
         <div class="main">
             <div class="background">
@@ -159,7 +165,7 @@
                         </div>
                         <h2 style="font-family: Serif;">Lv <%= daoUser.getExp(x) / 1000%> </h2>
                         <div class="container-level">
-                            <div class="skills" style="width: <%=(daoUser.getExp(x) % 1000)/10%>%; ">
+                            <div class="skills" style="width: <%=(daoUser.getExp(x) % 1000) / 10%>%; ">
                             </div>
                         </div>
                             <br>
@@ -201,6 +207,18 @@
                                     <p>Mail: <%=x.getuMail()%></p> 
                                     <p>Phone: <%=x.getuPhone()%></p>
                                 </div>
+                                <hr>
+                                <h1>Recent Games</h1>
+                                <%if (recentGame != null) {
+                                        for (Game g : recentGame) {%>
+                                <%  ArrayList<Galery> gList2 = daoGalery.getGaleryByTypeId(g.getGid(), "img-bg");%>
+                                <div class="cc col-md-12 " style="color:black;background: #ded9d9;padding: 15px; border-radius: 15px;margin-top: 15px;">                        
+                                    <a href="GameControllerMap?service=getGame&gameID=<%=g.getGid()%>">
+                                        <div class = "col-sm-12 col-md-4">             
+                                            <img style="height: 115px;width: 220px"src="<%= gList2.get(0).getLink().trim()%>" alt=""></div></a>
+                                    <div class="col-sm-12 col-md-8" ><p ><%= g.getTitle()%></p></div>
+                                </div><%}
+                                    }%>
                             </div>
                             <div class="tab-pane">
                                 <div style="background-color: white; border-radius: 10px; padding: 10px 10px 15px 35px;margin-top: 20px;">

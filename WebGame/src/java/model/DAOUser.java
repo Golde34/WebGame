@@ -5,6 +5,7 @@
  */
 package model;
 
+import entity.Game;
 import entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -376,6 +377,7 @@ public class DAOUser {
         return n;
     }
     
+
     public int uploadImage(User obj, String uploadImg) {
         int n = 0;
         String sql = "UPDATE [User] SET profilePicture = '" + uploadImg + "' WHERE uId = " + obj.getuId();
@@ -387,4 +389,24 @@ public class DAOUser {
         }
         return n;
     }
+
+    public ArrayList<Game> getRecentGames(User user){
+        DAOGame dGame = new DAOGame(dbConn);
+        Game game = null;
+        ArrayList<Game> list = new ArrayList<>();
+        String sql = "select top 3 * from Order_Detail as a inner join [Order] as b on a.oId = b.oId where b.uId = ? order by b.orderDate desc";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, user.getuId());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                game = dGame.getGameById(rs.getInt("gId"));
+                list.add(game);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }    
 }
+
