@@ -84,7 +84,7 @@ public class CartController extends HttpServlet {
                 }
                 ShoppingCart.add(addGame);
                 request.getSession().setAttribute("ShoppingCart", ShoppingCart);
-                sendDispatcher(request, response, "Cart.jsp");
+                sendDispatcher(request, response, "index.jsp");
             }
 
             if (service.equalsIgnoreCase("RemoveFromCart")) {
