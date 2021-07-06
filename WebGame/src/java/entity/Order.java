@@ -15,13 +15,14 @@ public class Order {
     private int oId;
     private int uId;
     private Timestamp orderDate;
+    private String type;
     private double total;
     private int status;
 
     public Order() {
     }
 
-    public Order(int oId, int uId, Timestamp orderDate, double total, int status) {
+    public Order(int oId, int uId, Timestamp orderDate, String type, double total, int status) {
         this.oId = oId;
         this.uId = uId;
         this.orderDate = orderDate;
@@ -29,11 +30,28 @@ public class Order {
         this.status = status;
     }
 
-    public Order(int oId, int uId, Timestamp orderDate, double total) {
+    public Order(int oId, int uId, Timestamp orderDate, String type, double total) {
         this.oId = oId;
         this.uId = uId;
         this.orderDate = orderDate;
         this.total = total;
+    }
+
+    public Order(int oId, int uId, String type, double total) {
+        this.oId = oId;
+        this.uId = uId;
+        this.type = type;
+        this.total = total;
+    }
+    
+    
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getoId() {

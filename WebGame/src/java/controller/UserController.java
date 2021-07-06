@@ -60,7 +60,7 @@ public class UserController extends HttpServlet {
             String service = request.getParameter("service");
 //            out.println(service);
             if (service == null) {
-                service = "";
+                service = "info";
             }
 
 //            if(service.equalsIgnoreCase("HomePage")){
@@ -112,7 +112,7 @@ public class UserController extends HttpServlet {
                     checkUser = false;
                 }
                 String regexStr = "(09|03|07|08|05)+([0-9]{8})";
-                if (!regPhone.matches(regexStr)) {
+                if (!regPhone.matches(regexStr) || regPhone.length() != 10) {
                     mess = "The phone number is invalid";
                     checkUser = false;
                 }
@@ -228,17 +228,30 @@ public class UserController extends HttpServlet {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
 
+                String mess;
                 String phone = request.getParameter("phone");
                 String pass = request.getParameter("pass");
-                double amount = Double.parseDouble(request.getParameter("amount"));
+                double amount = 0;
+                try {
+                    amount = Double.parseDouble(request.getParameter("amount"));
+                } catch (NumberFormatException ex) {
+                    mess = "Your money form is not correct. Please re-enter.";
+                    request.setAttribute("mess", mess);
 
-                if (phone.trim().length() == 0) {
-                    out.println("Phone number can't be emty!");
-                    sendDispatcher1(request, response, "recharge.jsp");
-                } else if (pass.trim().length() == 0) {
-                    out.println("Please re-enter your password");
-                    sendDispatcher1(request, response, "recharge.jsp");
-                } else if (phone.equals(x.getuPhone()) && pass.equals(x.getPass())) {
+                    sendDispatcher(request, response, "recharge.jsp");
+                }
+                if (!phone.equals(x.getuPhone())) {
+                    mess = "Your mail or your phone is not correct. Please re-enter.";
+                    request.setAttribute("mess", mess);
+
+                    sendDispatcher(request, response, "recharge.jsp");
+                } else if (!pass.equals(x.getPass())) {
+                    mess = "Your mail or your phone is not correct. Please re-enter.";
+                    request.setAttribute("mess", mess);
+
+                    sendDispatcher(request, response, "recharge.jsp");
+
+                } else {
                     daoUser.updateWalletUser(x, amount);
                     request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
                     sendDispatcher(request, response, "UserControllerMap?service=info");
@@ -297,24 +310,49 @@ public class UserController extends HttpServlet {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
 
+                String mess;
                 String phone = request.getParameter("phone");
                 String pass = request.getParameter("pass");
-                double amount = -Double.parseDouble(request.getParameter("amount"));
+                String method = request.getParameter("method");
+                String wallet = "wallet";
+                double amount = 0;
+                try {
+                    amount = Double.parseDouble(request.getParameter("amount"));
+                } catch (NumberFormatException ex) {
+                    mess = "Your money form is not correct. Please re-enter.";
+                    request.setAttribute("mess", mess);
 
-                if (phone.trim().length() == 0) {
-                    out.println("Phone number can't be emty!");
-                    sendDispatcher1(request, response, "topup.jsp");
-                } else if (pass.trim().length() == 0) {
-                    out.println("Please re-enter your password");
-                    sendDispatcher1(request, response, "topup.jsp");
-                } else if (phone.equals(x.getuPhone()) && pass.equals(x.getPass())) {
-                    daoUser.updateWalletUser(x, amount);
-                    request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
-                    sendDispatcher(request, response, "UserControllerMap?service=info");
+                    sendDispatcher(request, response, "recharge.jsp");
+                }
+                if (!phone.equals(x.getuPhone())) {
+                    mess = "Your mail or your phone is not correct. Please re-enter.";
+                    request.setAttribute("mess", mess);
+
+                    sendDispatcher(request, response, "recharge.jsp");
+                } else if (!pass.equals(x.getPass())) {
+                    mess = "Your mail or your phone is not correct. Please re-enter.";
+                    request.setAttribute("mess", mess);
+
+                    sendDispatcher(request, response, "recharge.jsp");
+                } else {
+                    if (method.equals(wallet)) {
+                        if (amount > x.getWallet()) {
+                            mess = "Your balance is not enough, please Recharge before Top Up!";
+                            request.setAttribute("mess", mess);
+
+                            sendDispatcher(request, response, "recharge.jsp");
+                        } else {
+                            daoUser.updateWalletUser(x, -amount);
+                            request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
+                            sendDispatcher(request, response, "UserControllerMap?service=info");
+                        }
+                    } else {
+                        
+                        request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
+                        sendDispatcher(request, response, "UserControllerMap?service=info");
+                    }
                 }
             }
-
-            
         }
     }
 

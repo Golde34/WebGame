@@ -106,7 +106,7 @@ public class DAOOrder_Detail {
         }
         return list;
     }
-    
+
     public HashMap<Integer, ArrayList<OrderDetail>> getListOrderDetail() {
         HashMap<Integer, ArrayList<OrderDetail>> list = new HashMap<>();
         DAOOrder daoOd = new DAOOrder(dbConn);

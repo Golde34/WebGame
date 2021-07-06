@@ -27,15 +27,27 @@
         <form action="UserControllerMap" method="POST">
             <input type="hidden" name ="service" value="checkwallet2">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3" id="form">
 
                     <h2 class="text-center">Games Top Up</h2>
 
                     <label class="label control-label">Balance</label>
-                    <div class="input-group">
+                    <h3>
                         <%=x.getWallet()%>
-                    </div>
+                    </h3>
 
+                    <label class="label control-label">Method</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-user"></span></span>
+
+
+                    </div>
+                    <div class="input-item">
+                    <input type="radio" name="method" value="wallet" checked> From Wallet<br>
+                    <input type="radio" name="method" value="other" > Other
+                    </div>
+                    <br>
                     <label class="label control-label">Amount</label>
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -62,13 +74,17 @@
                     </div>
                     <button type="reset" class="btn btn-info">Reset</button>
                     <button type="submit" class="btn btn-success">Top up</button>
-                    <a href="index.jsp" ><button style="float: right" class="btn-danger" >
-                      <i class="fas fa-sign-out-alt"></i></button> </a>
 
                 </div>
 
             </div>
         </form>
+        <div class="row">
+            <div class="col-md-3" id="exit">
+                <button style="float: left" class="btn-danger" onclick='window.history.go(-1);' >
+                    <i class="fas fa-sign-out-alt"></i>Back to Game</button>
+            </div>
+        </div>
 
         <!--JS-->                
         <script src="https://kit.fontawesome.com/9650a62e47.js" crossorigin="anonymous"></script>

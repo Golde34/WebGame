@@ -31,12 +31,13 @@ public class DAOOrder {
 
     public int insertOrder(Order obj) {
         int n = 0;
-        String sql = "Insert into [Order](uId, orderDate, total, status)"
-                + " values (?,GETDATE(),?,1)";
+        String sql = "Insert into [Order] (uId, orderDate, type, total, status)"
+                + " values (?,GETDATE(),?,?,1)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, obj.getuId());
-            pre.setDouble(2, obj.getTotal());
+            pre.setString(2, obj.getType());
+            pre.setDouble(3, obj.getTotal());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOOrder.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,14 +61,15 @@ public class DAOOrder {
 
     public int updateOrder(Order obj) {
         int n = 0;
-        String sql = "update [Order] set uId=?, orderDate=?, total=?, status=? where oId=?";
+        String sql = "update [Order] set uId=?, orderDate=?, type=?, total=?, status=? where oId=?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, obj.getuId());
-            pre.setDouble(2, obj.getTotal());
-            pre.setTimestamp(3, obj.getOrderDate());
-            pre.setInt(4, obj.getStatus());
-            pre.setInt(5, obj.getoId());
+            pre.setTimestamp(2, obj.getOrderDate());
+            pre.setString(3, obj.getType());
+            pre.setDouble(4, obj.getTotal());
+            pre.setInt(5, obj.getStatus());
+            pre.setInt(6, obj.getoId());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOOrder.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,6 +116,7 @@ public class DAOOrder {
                 o.setoId(rs.getInt("oId"));
                 o.setuId(rs.getInt("uId"));
                 o.setOrderDate(rs.getTimestamp("orderDate"));
+                o.setType(rs.getString("type"));
                 o.setTotal(rs.getDouble("total"));
                 o.setStatus(rs.getInt("status"));
                 list.add(o);
@@ -138,6 +141,7 @@ public class DAOOrder {
                 o.setoId(rs.getInt("oId"));
                 o.setuId(rs.getInt("uId"));
                 o.setOrderDate(rs.getTimestamp("orderDate"));
+                o.setType(rs.getString("type"));
                 o.setTotal(rs.getDouble("total"));
                 o.setStatus(rs.getInt("status"));
                 list.add(o);
@@ -157,6 +161,7 @@ public class DAOOrder {
                 o.setoId(rs.getInt("oId"));
                 o.setuId(rs.getInt("uId"));
                 o.setOrderDate(rs.getTimestamp("orderDate"));
+                o.setType(rs.getString("type"));
                 o.setTotal(rs.getDouble("total"));
                 o.setStatus(rs.getInt("status"));
             }
@@ -177,6 +182,7 @@ public class DAOOrder {
                 o.setoId(rs.getInt("oId"));
                 o.setuId(rs.getInt("uId"));
                 o.setOrderDate(rs.getTimestamp("orderDate"));
+                o.setType(rs.getString("type"));
                 o.setTotal(rs.getDouble("total"));
                 o.setStatus(rs.getInt("status"));
                 list.add(o);
@@ -214,6 +220,7 @@ public class DAOOrder {
                 o.setoId(rs.getInt("oId"));
                 o.setuId(rs.getInt("uId"));
                 o.setOrderDate(rs.getTimestamp("orderDate"));
+                o.setType(rs.getString("type"));
                 o.setTotal(rs.getDouble("total"));
                 o.setStatus(rs.getInt("status"));
                 list.add(o);
@@ -234,6 +241,7 @@ public class DAOOrder {
                 o.setoId(rs.getInt("oId"));
                 o.setuId(rs.getInt("uId"));
                 o.setOrderDate(rs.getTimestamp("orderDate"));
+                o.setType(rs.getString("type"));
                 o.setTotal(rs.getDouble("total"));
                 o.setStatus(rs.getInt("status"));
                 list.add(o);

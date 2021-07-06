@@ -110,7 +110,8 @@ public class CartController extends HttpServlet {
                 total = Double.parseDouble(String.format("%.2f", total));
                 double wallet = user.getWallet();
                 if (wallet >= total) {
-                    Order addOrder = new Order(-1, user.getuId(), null, total);
+                   
+                    Order addOrder = new Order(-1, user.getuId(), "buygame", total);
                     daoOrder.insertOrder(addOrder);
                     int oId = daoOrder.getLatestOrderByUseridAndTotal(user.getuId(), total);
                     OrderDetail orderDetail = new OrderDetail();
@@ -145,6 +146,7 @@ public class CartController extends HttpServlet {
             
             if (service.equalsIgnoreCase("AddToLibrary")) {
                 int gameId = Integer.parseInt(request.getParameter("gameId"));
+                
                 Library lib = new Library();
                 lib.setuId(user.getuId());
                 lib.setgId(gameId);

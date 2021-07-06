@@ -125,7 +125,7 @@
                     var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
                     var mobile = $('#mobile').val();
                     if (mobile !== '') {
-                        if (vnf_regex.test(mobile) == false) {
+                        if (vnf_regex.test(mobile) == false || mobile.length != 10) {
                             $('#message1').html('The phone number is not valid.').css('color', 'red');
                         } else {
                             $('#message1').html('The phone number is valid.').css('color', 'green');

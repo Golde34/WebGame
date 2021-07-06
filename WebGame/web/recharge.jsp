@@ -24,56 +24,68 @@
         <link rel="stylesheet" href="css/topup.css">
     </head>
     <body>
+        <%
+            Object mess = request.getAttribute("mess");
+            if (mess == null) {
+                mess = "";
+            }
+        %>
         <form action="UserControllerMap" method="POST">
             <input type="hidden" name ="service" value="checkwallet">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3" id="form">
 
                     <h2 class="text-center">Money Recharge</h2>
 
                     <label class="label control-label">Balance</label>
-                    <div class="input-group">
+                    <h3>
                         <%=x.getWallet()%>
-                    </div>
+                    </h3>
 
                     <label class="label control-label">Amount</label>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-user"></span></span>
-                        <input type="text" class="form-control" name="amount" 
-                               placeholder="Amount" >
+                        <input id="money" type="text" class="form-control" name="amount" 
+                               placeholder="Amount" required>
                     </div>
 
                     <label class="label control-label">Phone number</label>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-envelope"></span></span>
-                        <input type="password" class="form-control" name="phone" 
-                               placeholder="Your Phone" >
+                        <input id="mobile" type="password" class="form-control" name="phone" 
+                               placeholder="Your Phone" required>
                     </div>
-
 
                     <label class="label control-label">Password</label>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-user"></span></span>
                         <input type="password" class="form-control" name="pass" 
-                               placeholder="Your Password" >
+                               placeholder="Your Password" required>
+                    </div>
+
+                    <div>
+                        <label class="text-danger" style="color: red;"><%= mess.toString()%></label>
+                        <br>
                     </div>
                     <button type="reset" class="btn btn-info">Reset</button>
                     <button type="submit" class="btn btn-success">Recharge</button>
-                    <a href="index.jsp" ><button style="float: right" class="btn-danger" >
-                      <i class="fas fa-sign-out-alt"></i></button> </a>
-
                 </div>
-
             </div>
         </form>
+
+        <div class="row">
+            <div class="col-md-3" id="exit">
+                <button style="float: left" class="btn-danger" onclick='window.history.go(-1);' >
+                        <i class="fas fa-sign-out-alt"></i>Back to Profile</button>
+            </div>
+        </div>
 
         <!--JS-->                
         <script src="https://kit.fontawesome.com/9650a62e47.js" crossorigin="anonymous"></script>
         <script src="${contextPath}/js/bootstrap.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
     </body>
 </html>
