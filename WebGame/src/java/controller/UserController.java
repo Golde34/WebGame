@@ -9,12 +9,19 @@ import entity.Game;
 import entity.Order;
 import entity.OrderDetail;
 import entity.User;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +33,10 @@ import model.DAOOrder;
 import model.DAOOrder_Detail;
 import model.DAOUser;
 import model.DBConnection;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -220,7 +231,6 @@ public class UserController extends HttpServlet {
             if (service.equalsIgnoreCase("recharge")) {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
-
                 sendDispatcher(request, response, "recharge.jsp");
             }
 
@@ -228,30 +238,17 @@ public class UserController extends HttpServlet {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
 
-                String mess;
                 String phone = request.getParameter("phone");
                 String pass = request.getParameter("pass");
-                double amount = 0;
-                try {
-                    amount = Double.parseDouble(request.getParameter("amount"));
-                } catch (NumberFormatException ex) {
-                    mess = "Your money form is not correct. Please re-enter.";
-                    request.setAttribute("mess", mess);
+                double amount = Double.parseDouble(request.getParameter("amount"));
+                if (phone.trim().length() == 0) {
+                    out.println("Phone number can't be emty!");
+                    sendDispatcher1(request, response, "recharge.jsp");
+                } else if (pass.trim().length() == 0) {
+                    out.println("Please re-enter your password");
+                    sendDispatcher1(request, response, "recharge.jsp");
+                } else if (phone.equals(x.getuPhone()) && pass.equals(x.getPass())) {
 
-                    sendDispatcher(request, response, "recharge.jsp");
-                }
-                if (!phone.equals(x.getuPhone())) {
-                    mess = "Your mail or your phone is not correct. Please re-enter.";
-                    request.setAttribute("mess", mess);
-
-                    sendDispatcher(request, response, "recharge.jsp");
-                } else if (!pass.equals(x.getPass())) {
-                    mess = "Your mail or your phone is not correct. Please re-enter.";
-                    request.setAttribute("mess", mess);
-
-                    sendDispatcher(request, response, "recharge.jsp");
-
-                } else {
                     daoUser.updateWalletUser(x, amount);
                     request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
                     sendDispatcher(request, response, "UserControllerMap?service=info");
@@ -259,7 +256,6 @@ public class UserController extends HttpServlet {
             }
 
             if (service.equalsIgnoreCase("vieworder")) {
-
                 int oId = Integer.parseInt(request.getParameter("orderId"));
                 Order order = daoOrder.getOrderByOId(oId);
                 ArrayList<OrderDetail> listOD = daoOrDe.getByOrdId(oId);
@@ -276,7 +272,6 @@ public class UserController extends HttpServlet {
             if (service.equalsIgnoreCase("edit")) {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
-
                 sendDispatcher(request, response, "edit.jsp");
             }
 
@@ -288,7 +283,6 @@ public class UserController extends HttpServlet {
                 String phone = request.getParameter("phone");
                 String address = request.getParameter("address");
                 String pass = request.getParameter("pass");
-
                 User u = new User(x.getuId(), name, mail, phone, address);
                 if (pass.equals(x.getPass())) {
                     daoUser.updateinfo(u);
@@ -302,7 +296,6 @@ public class UserController extends HttpServlet {
             if (service.equalsIgnoreCase("topup")) {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
-
                 sendDispatcher(request, response, "topup.jsp");
             }
 
@@ -311,6 +304,7 @@ public class UserController extends HttpServlet {
                 request.setAttribute("currUser", x);
 
                 String mess;
+
                 String phone = request.getParameter("phone");
                 String pass = request.getParameter("pass");
                 String method = request.getParameter("method");
@@ -347,11 +341,59 @@ public class UserController extends HttpServlet {
                             sendDispatcher(request, response, "UserControllerMap?service=info");
                         }
                     } else {
-                        
+
                         request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
                         sendDispatcher(request, response, "UserControllerMap?service=info");
                     }
                 }
+            }
+
+            if (service.equalsIgnoreCase("uploadImage")) {
+                User x = (User) request.getSession().getAttribute("currUser");
+                request.setAttribute("currUser", x);
+                sendDispatcher(request, response, "jsp/uploadImage.jsp");
+            }
+
+            if (service.equalsIgnoreCase("updateImage")) {
+                String filename = null;
+                // Create a factory for disk-based file items
+                try {
+                    DiskFileItemFactory factory = new DiskFileItemFactory();
+                    ServletContext servletContext = this.getServletConfig().getServletContext();
+                    File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+                    factory.setRepository(repository);
+                    ServletFileUpload upload = new ServletFileUpload(factory);
+                    List<FileItem> items = upload.parseRequest(request);
+                    // Process the uploaded items
+                    Iterator<FileItem> iter = items.iterator();
+                    HashMap<String, String> fields = new HashMap<>();
+                    while (iter.hasNext()) {
+                        FileItem item = iter.next();
+                        if (item.isFormField()) {
+                            fields.put(item.getFieldName(), item.getString());
+                            String name = item.getFieldName();
+                            String value = item.getString();
+                            System.out.println(name + " " + value);
+                        } else {
+                            filename = item.getName();
+                            if (filename == null || filename.equals("")) {
+                                break;
+                            } else {
+                                Path path = Paths.get(filename);
+                                String storePath = servletContext.getRealPath("/upload");
+                                File uploadFile = new File(storePath + "/" + path.getFileName());
+                                item.write(uploadFile);
+                            }
+                        }
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                User x = (User) request.getSession().getAttribute("currUser");
+                x.setProfilePicture(filename);
+                daoUser.uploadImage(x, filename);
+                request.getSession().setAttribute("currUser", x);
+                sendDispatcher(request, response, "UserControllerMap?service=info");
             }
         }
     }

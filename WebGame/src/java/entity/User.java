@@ -10,9 +10,11 @@ package entity;
  * @author Duong
  */
 public class User {
+
     private int uId;
     private String uName;
     private int experience;
+    private String profilePicture;
     private String uMail;
     private String uPhone;
     private String uAddress;
@@ -23,6 +25,10 @@ public class User {
     private int status;
 
     public User() {
+    }
+
+    public User(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     public User(String uName, String uMail, String uPhone, String uAddress, String system_role, String username, String pass) {
@@ -42,11 +48,12 @@ public class User {
         this.uPhone = uPhone;
         this.uAddress = uAddress;
     }
-    
-    public User(int uId, String uName, int experience, String uMail, String uPhone, String uAddress, double wallet, String system_role, String username, String pass, int status) {
+
+    public User(int uId, String uName, int experience,String profilePicture, String uMail, String uPhone, String uAddress, double wallet, String system_role, String username, String pass, int status) {
         this.uId = uId;
         this.uName = uName;
         this.experience = experience;
+        this.profilePicture = profilePicture;
         this.uMail = uMail;
         this.uPhone = uPhone;
         this.uAddress = uAddress;
@@ -100,6 +107,14 @@ public class User {
 
     public void setExperience(int experience) {
         this.experience = experience;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     public String getuMail() {
@@ -162,6 +177,5 @@ public class User {
     public String toString() {
         return "User{" + "uId=" + uId + ", uName=" + uName + ", experience=" + experience + ", uMail=" + uMail + ", uPhone=" + uPhone + ", uAddress=" + uAddress + ", wallet=" + wallet + ", system_role=" + system_role + ", pass=" + pass + ", status=" + status + '}';
     }
-    
-    
+
 }

@@ -15,9 +15,11 @@
 <%@page import="entity.Order"%>
 <%@page import="model.DBConnection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <%  String message = (String) request.getAttribute("message");
-    Order order = (Order )request.getAttribute("order");
+    Order order = (Order) request.getAttribute("order");
     HashMap<OrderDetail, Game> orderLines = (HashMap<OrderDetail, Game>) request.getAttribute("orderLines");
     User user = (User) request.getAttribute("user");
     DAOGalery daoGalery = new DAOGalery(new DBConnection());
@@ -26,29 +28,34 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin View-Order</title>
+        <link href="${contextPath}/css/bootstrap.min.css" rel="stylesheet">
+        <script src="${contextPath}/js/bootstrap.min.js"></script>
+        <link href="css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/stylehome.css">
+        <link href="${contextPath}/css/font-awesome.min.css" rel="stylesheet">
+        <script src="js/Jquery.js"></script>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div class="header" style="background: black;">
-            <nav class="navbar navbar-light bg-dark">
-                <div class="container-fluid" style="display: inline-block;">
-                    <a style="background-color: red;padding: 4px 3px 4px 3px;color:white" class="navbar-brand" href="index.jsp">
-                        Home
-                    </a> 
-                </div>  
-                <div class="container-fluid" style="display: inline-block;">
-                    <a style="background-color: red;padding: 4px 3px 4px 3px;color:white" class="navbar-brand" href="AdminControllerMap?service=HomeAdmin">
-                        Admin Page
-                    </a> 
-                </div>  
-            </nav>
-        </div>
+        <div class="header">
+                    <a  href="index.jsp" style="text-align:center; color:white;border-radius: 15px;height: 4em; width: 10em;" class="btn-danger">
+                        <button class="btn btn-danger"><i class="fab fa-phoenix-squadron"></i></button> 
+                    </a>
+                    <a href="AdminControllerMap?service=HomeAdmin" style="text-align:center; color:white;border-radius: 15px;height: 4em; width: 10em;" class="btn-danger">
+                        <button class="btn btn-danger"><i class="fab fa-phoenix-framework"></i></button> 
+                    </a>
+  
+        </div>  
+
+
+
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8" style="color:white; background-color: black;">
                 <h1>Order ID <%=order.getoId()%></h1>
                 <h2>User: <%=user.getUsername()%>; ID: <%=user.getuId()%></h2>
                 <h3><%=message%></h3>
-                <% if(!order.equals(null)) {%>
+                <% if (!order.equals(null)) {%>
                 <h3>Order date: <%=order.getOrderDate()%></h3>
                 <%}%>
                 <hr>
@@ -56,7 +63,7 @@
 
             <div class="col-md-2"></div>
         </div>
-        <% if(!order.equals(null)) {%>
+        <% if (!order.equals(null)) {%>
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8" style="color:white; background-color: black;">
@@ -72,7 +79,7 @@
                         OrderDetail key = en.getKey();
                         Game val = en.getValue();
                         galeryList = daoGalery.getGaleryByTypeId(val.getGid(), "img-bg");
-                     %>
+                %>
                 <div class="col-sm-12 col-md-12" style="background-color: #232930; border: solid #000;text-align: center;">
                     <a href="GameControllerMap?service=getGame&gameID=<%=val.getGid()%>">
                         <div class = "col-sm-12 col-md-4">             
@@ -82,7 +89,7 @@
                     <div class="col-sm-12 col-md-3" id="getde1"><p ><%= val.getTitle()%></p></div>
                     <div class="col-sm-12 col-md-3" id="getde"><p ><%= key.getPrice()%>$</p></div>
                     <div class="col-sm-12 col-md-2" id="getde"><a href="GameControllerMap?service=getGame&gameID=<%=val.getGid()%>">
-                            <button type="button">Details</button></a></div>
+                            <button type="button" class="btn btn-success">Details</button></a></div>
                 </div><%}%>
             </div>
 
@@ -109,24 +116,5 @@
         <script src="https://kit.fontawesome.com/9650a62e47.js" crossorigin="anonymous"></script>
         <script src="js/slick.min.js"></script>
         <script src="js/jquery-2.2.4.min.js"></script>
-        <script src="js/jquery.appear.min.js"></script>
-        <script src="js/jquery.easypiechart.min.js"></script>
-        <script>
-            $(function () {
-                $('.chart').easyPieChart({
-                    easing: 'easeOutElastic',
-                    delay: 3000,
-                    barColor: '#369670',
-                    trackColor: '#fff',
-                    scaleColor: false,
-                    lineWidth: 10,
-                    trackWidth: 21,
-                    size: 110,
-                    lineCap: 'round',
-
-                });
-            });
-
-        </script>
     </body>
 </html>

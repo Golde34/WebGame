@@ -504,9 +504,9 @@ INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,16,'owned',1);	INSERT IN
 INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,19,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,20,'owned',1);	INSERT INTO [Library]([uId],gId,type,[status]) VALUES(6,21,'owned',1);
 -------------------------------------------
 --dbo.[Order]
-INSERT INTO [Order]([uId],total,orderdate,[status]) VALUES (1,99.99,'2020-1-26',1);
-INSERT INTO [Order]([uId],total,orderdate,[status]) VALUES (2,46,'2021-6-12',1);
-INSERT INTO [Order]([uId],total,orderdate,[status]) VALUES (2,78.56,'2021-3-30',1);
+INSERT INTO [Order]([uId],total,orderdate,[type],[status]) VALUES (1,99.99,'2020-1-26','buygame',1);
+INSERT INTO [Order]([uId],total,orderdate,[type],[status]) VALUES (2,46,'2021-6-12','buygame',1);
+INSERT INTO [Order]([uId],total,orderdate,[type],[status]) VALUES (2,78.56,'2021-3-30','buygame',1);
 -------------------------------------------
 --dbo.[Order_Detail]
 INSERT INTO [Order_Detail](oId,gId,price,[status]) VALUES (1,3,20,1);INSERT INTO [Order_Detail](oId,gId,price,[status]) VALUES (1,5,59.99,1);INSERT INTO [Order_Detail](oId,gId,price,[status]) VALUES (1,20,20,1);
