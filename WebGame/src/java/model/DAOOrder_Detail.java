@@ -107,6 +107,24 @@ public class DAOOrder_Detail {
         return list;
     }
 
+    public OrderDetail getTopUp(int oId) {
+        String sql = "SELECT * FROM [Order_Detail] where oId = " + oId ;
+        ResultSet rs = dbConn.getData(sql);
+        try {
+            while (rs.next()) {
+                OrderDetail od = new OrderDetail();
+                od.setoId(rs.getInt("oId"));
+                od.setgId(rs.getInt("gId"));
+                od.setPrice(rs.getDouble("price"));
+                od.setStatus(rs.getInt("status"));
+                return od;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     public HashMap<Integer, ArrayList<OrderDetail>> getListOrderDetail() {
         HashMap<Integer, ArrayList<OrderDetail>> list = new HashMap<>();
         DAOOrder daoOd = new DAOOrder(dbConn);
@@ -115,5 +133,10 @@ public class DAOOrder_Detail {
             list.put(i, getByOrderId(i));
         }
         return list;
+    }
+    public static void main(String[] args) {
+        DAOOrder_Detail dao = new DAOOrder_Detail(new DBConnection());
+        OrderDetail od = new OrderDetail(4, 4, 100, 1);
+        dao.insertOrderDetail(od);
     }
 }

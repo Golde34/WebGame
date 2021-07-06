@@ -168,7 +168,7 @@
                                             if (user != null) {
                                                 if (isOwned) {%>
                                         <a href="#"><button type="button" class="btn btn-success">Owned</button></a>
-                                        <a href="UserControllerMap?service=topup" ><button type="button" class="btn btn-success">Top up</button></a>
+                                        <a href="UserControllerMap?service=topup&gameId=<%=game.getGid()%>" ><button type="button" class="btn btn-success">Top up</button></a>
                                         <%} else {%>
                                         <%if (game.getPrice() == 0) {%>
                                         <a href="CartControllerMap?service=AddToLibrary&gameId=<%=game.getGid()%>"><button type="button" class="btn btn-success">Add to library</button></a>                 
@@ -237,7 +237,7 @@
                 <hr>
                 <div>
                     <div class="col-lg-12">
-                        <h1 class="neondu col-lg-10">Recommend</h1>     
+                        <h1 class="neondu col-lg-10">Recommended</h1>     
                         <a href="GameControllerMap?service=displayGaCa&gameID=<%=game.getGid()%>"
                            style="font-family: serif; font-size: 20px;">
                             <br><button class="col-lg-2 button-platform display" 

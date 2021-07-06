@@ -12,6 +12,11 @@
 <!DOCTYPE html>
 <%
     User x = (User) request.getAttribute("currUser");
+    int gId = (Integer) request.getAttribute("gId");
+    Object mess = request.getAttribute("mess");
+            if (mess == null) {
+                mess = "";
+            }
 %>
 <html>
     <head>
@@ -26,11 +31,12 @@
     <body>
         <form action="UserControllerMap" method="POST">
             <input type="hidden" name ="service" value="checkwallet2">
+            <input type="hidden" name ="gId" value="<%=gId%>">
             <div class="row">
                 <div class="col-md-3" id="form">
 
                     <h2 class="text-center">Games Top Up</h2>
-
+                    
                     <label class="label control-label">Balance</label>
                     <h3>
                         <%=x.getWallet()%>
@@ -53,7 +59,7 @@
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-user"></span></span>
                         <input type="text" class="form-control" name="amount" 
-                               placeholder="Amount of Money" >
+                               placeholder="Amount of Money" required>
                     </div>
 
                     <label class="label control-label">Phone number</label>
@@ -61,7 +67,7 @@
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-envelope"></span></span>
                         <input type="password" class="form-control" name="phone" 
-                               placeholder="Your phone number" >
+                               placeholder="Your phone number" required>
                     </div>
 
 
@@ -70,7 +76,11 @@
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-user"></span></span>
                         <input type="password" class="form-control" name="pass" 
-                               placeholder="Your password" >
+                               placeholder="Your password" required>
+                    </div>
+                    <div>
+                        <label class="text-danger" style="color: red;"><%= mess.toString()%></label>
+                        <br>
                     </div>
                     <button type="reset" class="btn btn-info">Reset</button>
                     <button type="submit" class="btn btn-success">Top up</button>

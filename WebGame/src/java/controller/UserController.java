@@ -69,6 +69,7 @@ public class UserController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String service = request.getParameter("service");
+            String abc = request.getParameter("gId");
 //            out.println(service);
             if (service == null) {
                 service = "info";
@@ -235,20 +236,36 @@ public class UserController extends HttpServlet {
             }
 
             if (service.equalsIgnoreCase("checkwallet")) {
+                
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
 
+                String mess;
                 String phone = request.getParameter("phone");
                 String pass = request.getParameter("pass");
-                double amount = Double.parseDouble(request.getParameter("amount"));
-                if (phone.trim().length() == 0) {
-                    out.println("Phone number can't be emty!");
-                    sendDispatcher1(request, response, "recharge.jsp");
-                } else if (pass.trim().length() == 0) {
-                    out.println("Please re-enter your password");
-                    sendDispatcher1(request, response, "recharge.jsp");
-                } else if (phone.equals(x.getuPhone()) && pass.equals(x.getPass())) {
+                double amount = 0;
+                try {
+                    amount = Double.parseDouble(request.getParameter("amount"));
+                } catch (NumberFormatException ex) {
+                    mess = "Your money form is not correct. Please re-enter.";
+                    request.setAttribute("mess", mess);
 
+                    sendDispatcher(request, response, "recharge.jsp");
+                }
+                if (!phone.equals(x.getuPhone())) {
+                    mess = "Your mail or your phone is not correct. Please re-enter.";
+                    request.setAttribute("mess", mess);
+
+                    sendDispatcher(request, response, "recharge.jsp");
+                } else if (!pass.equals(x.getPass())) {
+                    mess = "Your mail or your phone is not correct. Please re-enter.";
+                    request.setAttribute("mess", mess);
+
+                    sendDispatcher(request, response, "recharge.jsp");
+
+                } else {
+                    Order order = new Order(x.getuId(), "recharge", amount);
+                    daoOrder.insertOrder(order);
                     daoUser.updateWalletUser(x, amount);
                     request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
                     sendDispatcher(request, response, "UserControllerMap?service=info");
@@ -258,15 +275,27 @@ public class UserController extends HttpServlet {
             if (service.equalsIgnoreCase("vieworder")) {
                 int oId = Integer.parseInt(request.getParameter("orderId"));
                 Order order = daoOrder.getOrderByOId(oId);
-                ArrayList<OrderDetail> listOD = daoOrDe.getByOrdId(oId);
-                ArrayList<Game> listG = new ArrayList<>();
-                for (OrderDetail od : listOD) {
-                    Game g = daoGame.getGameById(od.getgId());
-                    listG.add(g);
+
+                if (order.getType().equals("buygame")) {
+                    ArrayList<OrderDetail> listOD = daoOrDe.getByOrdId(oId);
+                    ArrayList<Game> listG = new ArrayList<>();
+                    for (OrderDetail od : listOD) {
+                        Game g = daoGame.getGameById(od.getgId());
+                        listG.add(g);
+                    }
+                    request.setAttribute("order", order);
+                    request.setAttribute("listG", listG);
+                    sendDispatcher(request, response, "order.jsp");
+                } else if (order.getType().equals("recharge")) {
+                    request.setAttribute("order", order);
+                    sendDispatcher(request, response, "order.jsp");
+                } else {
+                    request.setAttribute("order", order);
+                    OrderDetail od = daoOrDe.getTopUp(oId);
+                    request.setAttribute("od", od);
+                    sendDispatcher(request, response, "order.jsp");
                 }
-                request.setAttribute("order", order);
-                request.setAttribute("listG", listG);
-                sendDispatcher(request, response, "order.jsp");
+
             }
 
             if (service.equalsIgnoreCase("edit")) {
@@ -295,6 +324,8 @@ public class UserController extends HttpServlet {
 
             if (service.equalsIgnoreCase("topup")) {
                 User x = (User) request.getSession().getAttribute("currUser");
+                int gId = Integer.parseInt(request.getParameter("gameId"));
+                request.setAttribute("gId", gId);
                 request.setAttribute("currUser", x);
                 sendDispatcher(request, response, "topup.jsp");
             }
@@ -302,9 +333,9 @@ public class UserController extends HttpServlet {
             if (service.equalsIgnoreCase("checkwallet2")) {
                 User x = (User) request.getSession().getAttribute("currUser");
                 request.setAttribute("currUser", x);
+                int gId = Integer.parseInt(abc);
 
                 String mess;
-
                 String phone = request.getParameter("phone");
                 String pass = request.getParameter("pass");
                 String method = request.getParameter("method");
@@ -316,31 +347,42 @@ public class UserController extends HttpServlet {
                     mess = "Your money form is not correct. Please re-enter.";
                     request.setAttribute("mess", mess);
 
-                    sendDispatcher(request, response, "recharge.jsp");
+                    sendDispatcher(request, response, "topup.jsp");
                 }
                 if (!phone.equals(x.getuPhone())) {
                     mess = "Your mail or your phone is not correct. Please re-enter.";
                     request.setAttribute("mess", mess);
 
-                    sendDispatcher(request, response, "recharge.jsp");
+                    sendDispatcher(request, response, "topup.jsp");
                 } else if (!pass.equals(x.getPass())) {
                     mess = "Your mail or your phone is not correct. Please re-enter.";
                     request.setAttribute("mess", mess);
 
-                    sendDispatcher(request, response, "recharge.jsp");
+                    sendDispatcher(request, response, "topup.jsp");
                 } else {
                     if (method.equals(wallet)) {
                         if (amount > x.getWallet()) {
                             mess = "Your balance is not enough, please Recharge before Top Up!";
                             request.setAttribute("mess", mess);
 
-                            sendDispatcher(request, response, "recharge.jsp");
+                            sendDispatcher(request, response, "topup.jsp");
                         } else {
-                            daoUser.updateWalletUser(x, -amount);
+                            Order order = new Order(x.getuId(), "topupwallet", amount);
+                            daoOrder.insertOrder(order);
+                            int oId = daoOrder.getLatestOrderByUseridAndTotal(x.getuId(), amount);
+                            OrderDetail od = new OrderDetail(oId, gId, amount, 1);
+                            daoOrDe.insertOrderDetail(od);
+
+                            daoUser.updateWalletUser(x,-amount);
                             request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
                             sendDispatcher(request, response, "UserControllerMap?service=info");
                         }
                     } else {
+                        Order order = new Order(x.getuId(), "topupother", amount);
+                        daoOrder.insertOrder(order);
+                        int oId = daoOrder.getLatestOrderByUseridAndTotal(x.getuId(), amount);
+                        OrderDetail od = new OrderDetail(oId, gId, amount, 1);
+                        daoOrDe.insertOrderDetail(od);
 
                         request.getSession().setAttribute("currUser", daoUser.getUserById(x.getuId()));
                         sendDispatcher(request, response, "UserControllerMap?service=info");

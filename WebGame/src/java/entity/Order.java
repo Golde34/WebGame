@@ -44,7 +44,11 @@ public class Order {
         this.total = total;
     }
     
-    
+    public Order(int uId, String type, double total) {
+        this.uId = uId;
+        this.type = type;
+        this.total = total;
+    }
 
     public String getType() {
         return type;

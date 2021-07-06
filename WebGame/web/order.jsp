@@ -4,6 +4,8 @@
     Author     : Duong
 --%>
 
+<%@page import="model.DAOGame"%>
+<%@page import="entity.OrderDetail"%>
 <%@page import="java.sql.Date"%>
 <%@page import="model.DBConnection"%>
 <%@page import="entity.Galery"%>
@@ -40,7 +42,7 @@
                 color: black;
                 font-style: oblique;
             }
-            
+
         </style>
     </head>
     <body>
@@ -50,6 +52,7 @@
             Order order = (Order) request.getAttribute("order");
             ArrayList<Game> listG = (ArrayList<Game>) request.getAttribute("listG");
             DAOGalery daoGalery = new DAOGalery(dbCon);
+            DAOGame daoGame = new DAOGame(dbCon);
         %>
         <div class="row">
             <div class="col-md-2"></div>
@@ -63,6 +66,8 @@
             <div class="col-md-2"></div>
         </div>
 
+        <%if (order.getType().equals("buygame")) {%> 
+
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8" style="color:white; background-color: black;">
@@ -74,8 +79,8 @@
                     <div class="col-sm-12 col-md-2"><h4>Details</h4></div>
                 </div>
                 <%
-                    for (Game game : listG) { %>
-                <%  ArrayList<Galery> gList2 = daoGalery.getGaleryByTypeId(game.getGid(), "img-bg");%>
+                    for (Game game : listG) {
+                        ArrayList<Galery> gList2 = daoGalery.getGaleryByTypeId(game.getGid(), "img-bg");%>
                 <div class="col-sm-12 col-md-12" style="background-color: #232930; border: solid #000;text-align: center;">
                     <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
                         <div class = "col-sm-12 col-md-4">             
@@ -90,6 +95,23 @@
 
             <div class="col-md-2"></div>
         </div>        
+        <%} else if (order.getType().equals("recharge")){%>
+        <div>
+            <h2>Recharge Wallet</h2>
+        </div>
+        
+        <%} else{%>
+        <% 
+            OrderDetail od = (OrderDetail) request.getAttribute("od");
+            Game game = daoGame.getGameById(od.getgId());
+        %>
+        <div>
+            <h2>Top Up From <% if(order.getType().equals("topupwallet")) {%> Wallet  <%} else {%> Other<%}%>
+            </h2>
+            <p>Game: <%=game.getTitle()%></p>
+        </div>
+        
+        <%}%>
 
         <div class="row total">
             <div class="col-md-2"></div>
