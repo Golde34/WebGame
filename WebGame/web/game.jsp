@@ -4,6 +4,9 @@
     Author     : dumyd
 --%>
 
+<%@page import="model.DAOComment"%>
+<%@page import="model.DAOUser"%>
+<%@page import="entity.Comment"%>
 <%@page import="entity.Library"%>
 <%@page import="model.DAOLibrary"%>
 <%@page import="entity.User"%>
@@ -36,6 +39,24 @@
             .display {
                 height: 40px;
             }
+
+            .comment_box{
+                border: 1px white solid;
+                border-radius: 20px;
+                margin: 10px;
+                padding: 10px;
+                color: white;
+                font-size: 18px;
+                height: 120px;
+                background-color: white;
+            }
+
+            .comment_content{
+                border: 1px white;
+                border-radius: 5px;
+                background-color: white;
+                color: black;
+            }
         </style>
     </head>
     <body>
@@ -46,6 +67,8 @@
             DBConnection dbCon = new DBConnection();
             DAOGalery daoGalery = new DAOGalery(dbCon);
             DAOLibrary daoLibrary = new DAOLibrary(dbCon);
+            DAOUser daoUser = new DAOUser(dbCon);
+            DAOComment dAOComment = new DAOComment(dbCon);
             ArrayList<Platform> listPl = (ArrayList<Platform>) request.getAttribute("listPl");
             ArrayList<Category> listCa = (ArrayList<Category>) request.getAttribute("listCa");
             ArrayList<Game> userLibrary = (ArrayList<Game>) request.getSession().getAttribute("Library");
@@ -54,6 +77,7 @@
             ArrayList<User> userOwned = daoLibrary.getOwnedByGame(game.getGid());
             ArrayList<User> userWantGame = daoLibrary.getWishlistByGame(game.getGid());
             ArrayList<Game> listGaCa = (ArrayList<Game>) request.getAttribute("listGaCa");
+            ArrayList<Comment> comments = (ArrayList<Comment>) request.getAttribute("comment");
             String alMess = (String) request.getAttribute("alMess");
             boolean isOwned = false;
             boolean isFollowed = false;
@@ -155,7 +179,7 @@
                                     <div class="box">
 
                                         <div class="chart" data-percent="<%= game.getRating()%>" data-bar-color="#23afe3" ><span class="percent" data-after="%"><%= game.getRating()%></p</span></div>
-                                        <div class="comment">Based on 69 members rating</div>
+                                        <div class="comment">Based on <%=comments.size() + 1  %> members rating</div>
                                     </div>
                                 </div>
 
@@ -235,9 +259,58 @@
                     </div>
                 </div>
                 <hr>
+                <!--Comment-->
+                <%  if (user != null) {
+                        if (!dAOComment.checkExistComment(game.getGid(), user.getuId())) {%>
+                <div class="col-md-12" style="background-color: white;height: 200px;border-radius: 20px;overflow: auto auto ">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <form action="GameControllerMap" >
+                            <p style="color: black; font-size: 18px;">Your rating:
+                                <input name="rating" type="number" min="0" max="100">  /100
+                            </p>
+                            <textarea name="content" style="overflow-y:scroll;width: 850px;">Enter your comment</textarea>
+                            <input type="hidden" name ="service" value="comment" >
+                            <input type="hidden" name ="gameID" value="<%=game.getGid() %>" >
+                            <input type="submit" value="Post">
+                        </form>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div> 
+                <%}
+                    }%>            
+                <!--other comment-->
+                <hr>
+                <%if (comments != null && !comments.isEmpty()) { %>
+                <div class="col-md-12" style="background-color: #232930;height: 400px;border-radius: 20px;overflow: auto auto ">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <%  
+                                for (Comment elem : comments) {
+                        %>                   
+                        <div class="comment_box">
+                            <div class="col-md-6"><p class="comment_content">From: <%=daoUser.getUserById(elem.getuId()).getuName()%></p> </div>
+                            <div class="col-md-1"> </div>
+                            <div class="col-md-5"><p class="comment_content">Rating:<%=elem.getRating()%>/100</p> </div>
+                            <div class="col-md-12"> <div style="border: 1px solid #ff005b; border-radius: 5px;padding: 10px;"><p class="comment_content " > <%=elem.getContent()%></p> </div> </div>
+                        </div>
+                        <%
+                                }
+                            }
+                        %>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>                        
+
+                <hr>
                 <div>
+<<<<<<< Updated upstream
                     <div class="col-lg-12">
                         <h1 class="neondu col-lg-10">Recommended</h1>     
+=======
+                    <div class="col-lg-12" >
+                        <h1 class="neondu col-lg-10">Recommend</h1>     
+>>>>>>> Stashed changes
                         <a href="GameControllerMap?service=displayGaCa&gameID=<%=game.getGid()%>"
                            style="font-family: serif; font-size: 20px;">
                             <br><button class="col-lg-2 button-platform display" 

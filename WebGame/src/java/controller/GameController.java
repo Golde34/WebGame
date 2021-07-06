@@ -5,7 +5,7 @@
  */
 package controller;
 
-import entity.Category;
+import entity.*;
 import entity.Company;
 import entity.Galery;
 import entity.Game;
@@ -22,7 +22,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.DAOCategory;
+import model.*;
 import model.DAOCompany;
 import model.DAOGalery;
 import model.DAOGame;
@@ -56,6 +56,7 @@ public class GameController extends HttpServlet {
     DAOCompany daoCom = new DAOCompany(dbCon);
     DAOGalery daoGalery = new DAOGalery(dbCon);
     DAOLibrary daoLibrary = new DAOLibrary(dbCon);
+    DAOComment daoComment = new DAOComment(dbCon);
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -89,6 +90,8 @@ public class GameController extends HttpServlet {
                     request.setAttribute("listGameGalery", listGameGalery);
                     ArrayList<Game> wishlist = daoLibrary.getGameInWishList(user.getuId(), 1);
                     request.getSession().setAttribute("wishlist", wishlist);
+                    ArrayList<Comment> comments = daoComment.getCommentsByGameId(gameID);
+                    request.setAttribute("comment", comments);
                     sendDispatcher(request, response, "game.jsp");
                 } else {
                     int gameID = Integer.parseInt(request.getParameter("gameID"));
@@ -108,6 +111,8 @@ public class GameController extends HttpServlet {
                     request.setAttribute("listGaCo", listGaCo);
                     ArrayList<Galery> listGameGalery = daoGalery.getFullGameGalery(gameID);
                     request.setAttribute("listGameGalery", listGameGalery);
+                    ArrayList<Comment> comments = daoComment.getCommentsByGameId(gameID);
+                    request.setAttribute("comment", comments);
                     sendDispatcher(request, response, "game.jsp");
                 }
             }
@@ -136,8 +141,31 @@ public class GameController extends HttpServlet {
                 request.setAttribute("listGame", listGaCa);
                 sendDispatcher(request, response, "allgame.jsp");
             }
+            
+            if (service.equalsIgnoreCase("comment")) {
+                int gameId = Integer.parseInt(request.getParameter("gameID"));
+                int rating = Integer.parseInt(request.getParameter("rating"));
+                String content = (String ) request.getParameter("content");
+                ArrayList<Comment> comments = daoComment.getCommentsByGameId(gameId);
+                int numOfComment = comments.size() + 2;
+                Game update = daoGame.getGameById(gameId);
+                double newRating = rating/numOfComment+update.getRating()*(numOfComment-1)/numOfComment;
+                int x = (int) Math.round(newRating);
+                System.out.println("x");
+                update.setRating(x);
+                daoGame.updateInfoGame(update);
+                System.out.println("Update game");
+                Comment newCom = new Comment();
+                newCom.setgId(gameId);
+                newCom.setuId(user.getuId());
+                newCom.setRating(rating);
+                newCom.setContent(content);
+                daoComment.insertComment(newCom);
+                System.out.println("add comment");
+                sendDispatcher(request, response, "GameControllerMap?service=getGame&gameID=" + gameId);
+            }
         }
-
+ 
     }
 
     public void sendDispatcher(HttpServletRequest request, HttpServletResponse response, String path) {
