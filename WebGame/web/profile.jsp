@@ -139,7 +139,7 @@
     <body>
         <jsp:include page="header.jsp"/>  
         <%
-            User x = (User) request.getAttribute("currUser");
+            User x = (User) request.getSession().getAttribute("currUser");
             ArrayList<Game> listGame = (ArrayList<Game>) request.getAttribute("listGame");
             ArrayList<Order> listOrder = (ArrayList<Order>) request.getAttribute("listOrder");
             ArrayList<Game> whislist = (ArrayList<Game>) request.getAttribute("wishlistGame");
@@ -250,7 +250,6 @@
                                     <%if (whislist.isEmpty()) {%> <p>No games in wishlist yet </p> 
                                     <%} else {%>
                                     <p>Wish List: </p>
-                                    <p>Games in wishlist: </p>
                                     <%for (Game game : whislist) {%>
                                     <p>+ <a style="background-color: none" href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>"> <%= game.getTitle()%> </a></p>
                                     <%}

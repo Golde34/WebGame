@@ -342,7 +342,7 @@ public class DAOUser {
     }
 
     public int getExp(User obj) {
-        int exp=200;      
+        int exp=169;      
         String sql = "SELECT COUNT(gId) as count FROM [Library] where uId="+obj.getuId()+" and [status] =1 and type='owned' Group by uId";
         ResultSet rs = dbConn.getData(sql);
         try {

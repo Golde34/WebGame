@@ -55,7 +55,7 @@
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-user"></span></span>
                                     <input type="text" class="form-control" name="name" 
-                                           placeholder="Your Name" >
+                                           placeholder="Your Name" required>
                                 </div>
 
                                 <label class="label control-label">E-mail</label>
@@ -63,7 +63,7 @@
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-envelope"></span></span>
                                     <input type="email" class="form-control" name="mail" 
-                                           placeholder="Your E-mail" >
+                                           placeholder="Your E-mail" required>
                                 </div>
 
                                 <label class="label control-label">Phone</label>
@@ -71,7 +71,7 @@
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-phone"></span></span>
                                     <input id="mobile" type="text" class="form-control" name="phone" 
-                                           placeholder="Your Phone" >
+                                           placeholder="Your Phone" required>
                                     <span id='message1'></span>
                                 </div>
 
@@ -80,13 +80,13 @@
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-user"></span></span>
                                     <input type="text" class="form-control" name="address" 
-                                           placeholder="Your address" >
+                                           placeholder="Your address" required>
                                 </div>
 
                                 <label class="label control-label">Password</label>
                                 <div class="input-group">
                                     <input id="password" type="password" class="form-control" name="pass" 
-                                           placeholder="Password">
+                                           placeholder="Password" required>
                                 </div>
                                 <button type="reset" class="btn btn-info">Reset</button>
                                 <button type="submit" class="btn btn-success">Change</button>
