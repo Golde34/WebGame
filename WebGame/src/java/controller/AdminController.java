@@ -226,7 +226,7 @@ public class AdminController extends HttpServlet {
                 String phone = request.getParameter("phone");
                 String address = request.getParameter("address");
                 String pass = request.getParameter("pass");
-                User newUser = new User(0, uname, 0, mail, phone, address, 0, "User", username, pass, 1);
+                User newUser = new User(0, uname, 0, null, mail, phone, address, 0, "User", username, pass, 1);
                 int n = daoUser.addUser(newUser);
                 if (n!=0) request.setAttribute("message", "Insert User Successfully");
                 else request.setAttribute("message", "Insert User Failed");

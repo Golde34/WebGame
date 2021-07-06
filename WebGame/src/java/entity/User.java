@@ -77,20 +77,6 @@ public class User {
         this.pass = pass;
     }
 
-    public User(int uId, String uName, int experience, String uMail, String uPhone, String uAddress, double wallet, String system_role, String username, String pass, int status) {
-        this.uId = uId;
-        this.uName = uName;
-        this.experience = experience;
-        this.uMail = uMail;
-        this.uPhone = uPhone;
-        this.uAddress = uAddress;
-        this.wallet = wallet;
-        this.system_role = system_role;
-        this.username = username;
-        this.pass = pass;
-        this.status = status;
-    }
-
     public String getUsername() {
         return username;
     }

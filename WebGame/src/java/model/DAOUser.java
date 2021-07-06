@@ -51,19 +51,20 @@ public class DAOUser {
     
     public int addUser(User obj) {
         int n = 0;
-        String sql = "INSERT INTO [User](uName, experience, uMail, uPhone, uAddress, wallet, system_role, username, pass, status)"
-                + " values (?,?,?,?,?,?,?,?,?,1)";
+        String sql = "INSERT INTO [User](uName, experience, profilePicture, uMail, uPhone, uAddress, wallet, system_role, username, pass, status)"
+                + " values (?,?,?,?,?,?,?,?,?,?,1)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, obj.getuName());
             pre.setInt(2, obj.getExperience());
-            pre.setString(3, obj.getuMail());
-            pre.setString(4, obj.getuPhone());
-            pre.setString(5, obj.getuAddress());
-            pre.setDouble(6, obj.getWallet());
-            pre.setString(7, obj.getSystem_role());
-            pre.setString(8, obj.getUsername());
-            pre.setString(9, obj.getPass());
+            pre.setString(3, obj.getProfilePicture());
+            pre.setString(4, obj.getuMail());
+            pre.setString(5, obj.getuPhone());
+            pre.setString(6, obj.getuAddress());
+            pre.setDouble(7, obj.getWallet());
+            pre.setString(8, obj.getSystem_role());
+            pre.setString(9, obj.getUsername());
+            pre.setString(10, obj.getPass());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,19 +74,20 @@ public class DAOUser {
     
     public int updateInfoUser(User obj) {
         int n = 0;
-        String sql = "UPDATE [User] SET uName=?, experience=?, uMail=?, uPhone=?, uAddress=?, wallet=?, system_role=?, username=?, pass=? , status=1 where uId=?";
+        String sql = "UPDATE [User] SET uName=?, experience=?, profilePicture=?, uMail=?, uPhone=?, uAddress=?, wallet=?, system_role=?, username=?, pass=? , status=1 where uId=?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, obj.getuName());
             pre.setInt(2, obj.getExperience());
-            pre.setString(3, obj.getuMail());
-            pre.setString(4, obj.getuPhone());
-            pre.setString(5, obj.getuAddress());
-            pre.setDouble(6, obj.getWallet());
-            pre.setString(7, obj.getSystem_role());
-            pre.setString(8, obj.getUsername());
-            pre.setString(9, obj.getPass());
-            pre.setInt(10, obj.getuId());
+            pre.setString(3, obj.getProfilePicture());
+            pre.setString(4, obj.getuMail());
+            pre.setString(5, obj.getuPhone());
+            pre.setString(6, obj.getuAddress());
+            pre.setDouble(7, obj.getWallet());
+            pre.setString(8, obj.getSystem_role());
+            pre.setString(9, obj.getUsername());
+            pre.setString(10, obj.getPass());
+            pre.setInt(11, obj.getuId());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
@@ -196,7 +198,7 @@ public class DAOUser {
         ResultSet rs = dbConn.getData(sql);
         try {
             if (rs.next()) {
-                User user = new User(rs.getInt("uId"), rs.getString("uName"), rs.getInt("experience"), 
+                User user = new User(rs.getInt("uId"), rs.getString("uName"), rs.getInt("experience"), rs.getString("profilePicture"),
                         rs.getString("uMail"),rs.getString("uPhone"), rs.getString("uAddress"), 
                         rs.getDouble("wallet"), rs.getString("system_role"), rs.getString("username") , 
                         rs.getString("pass"), rs.getInt("status"));
@@ -214,6 +216,7 @@ public class DAOUser {
         try {
             if (rs.next()) {
                 User user = new User(rs.getInt("uId"), rs.getString("uName"), rs.getInt("experience"), 
+                        rs.getString("profilePicture"),
                         rs.getString("uMail"),rs.getString("uPhone"), rs.getString("uAddress"), 
                         rs.getDouble("wallet"), rs.getString("system_role"), rs.getString("username") , 
                         rs.getString("pass"), rs.getInt("status"));
@@ -235,6 +238,7 @@ public class DAOUser {
                 c.setuId(rs.getInt("uId"));
                 c.setuName(rs.getString("uName"));
                 c.setExperience(rs.getInt("experience"));
+                c.setProfilePicture(rs.getString("profilePicture"));
                 c.setuMail(rs.getString("uMail"));
                 c.setuPhone(rs.getString("uPhone"));
                 c.setuAddress(rs.getString("uAddress"));
@@ -261,6 +265,7 @@ public class DAOUser {
                 c.setuId(rs.getInt("uId"));
                 c.setuName(rs.getString("uName"));
                 c.setExperience(rs.getInt("experience"));
+                c.setProfilePicture(rs.getString("profilePicture"));
                 c.setuMail(rs.getString("uMail"));
                 c.setuPhone(rs.getString("uPhone"));
                 c.setuAddress(rs.getString("uAddress"));
@@ -297,6 +302,7 @@ public class DAOUser {
                 c.setuId(rs.getInt("uId"));
                 c.setuName(rs.getString("uName"));
                 c.setExperience(rs.getInt("experience"));
+                c.setProfilePicture(rs.getString("profilePicture"));
                 c.setuMail(rs.getString("uMail"));
                 c.setuPhone(rs.getString("uPhone"));
                 c.setuAddress(rs.getString("uAddress"));
