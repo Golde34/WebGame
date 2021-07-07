@@ -228,7 +228,7 @@
                                     <%for (Order o : listOrder) {
                                             Date date = new Date(o.getOrderDate().getTime());
                                     %>
-                                    <p>+ <a href="UserControllerMap?service=vieworder&orderId=<%= o.getoId()%>"><%=date%> </a></p>
+                                    <p>+ <a href="UserControllerMap?service=vieworder&orderId=<%= o.getoId()%>"><%=date%> (<%= o.getType() %>)</a></p>
                                     <%}
                                         }%>
                                 </div>

@@ -42,7 +42,11 @@
                 color: black;
                 font-style: oblique;
             }
-
+            p {
+                color: black;
+                font-size: 20px;
+            }
+            
         </style>
     </head>
     <body>
@@ -54,9 +58,10 @@
             DAOGalery daoGalery = new DAOGalery(dbCon);
             DAOGame daoGame = new DAOGame(dbCon);
         %>
+        <br><br><br><br><br>
         <div class="row">
             <div class="col-md-2"></div>
-            <div class="col-md-8" style="color:white; background-color: black;">
+            <div class="col-md-8" style="color:white; background-color: #3c3f41;">
                 <h1 class="neon1">Order</h1>
                 <%Date date = new Date(order.getOrderDate().getTime());%>
                 <h3>Order date: <%=date%></h3>
@@ -70,7 +75,7 @@
 
         <div class="row">
             <div class="col-md-2"></div>
-            <div class="col-md-8" style="color:white; background-color: black;">
+            <div class="col-md-8" style="color:white; background-color: #3c3f41;">
                 <h1 class="neon2">Details</h1>
                 <div style="text-align: center;" class="head col-md-12">
                     <div class = "col-sm-12 col-md-4"><h4>Game</h4></div>
@@ -81,41 +86,48 @@
                 <%
                     for (Game game : listG) {
                         ArrayList<Galery> gList2 = daoGalery.getGaleryByTypeId(game.getGid(), "img-bg");%>
-                <div class="col-sm-12 col-md-12" style="background-color: #232930; border: solid #000;text-align: center;">
+                <div class="col-sm-12 col-md-12" style="background-color: #ded9d9; border: solid #000;text-align: center;">
                     <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
                         <div class = "col-sm-12 col-md-4">             
                             <img style="height: 115px;width: 220px"src="<%= gList2.get(0).getLink().trim()%>" alt=""></div></a>         
                     <div class="col-sm-12 col-md-3 cc" id="getde1"><p ><%= game.getTitle()%></p></div>
                     <div class="col-sm-12 col-md-3 cg" id="getde"><p ><%= game.getPrice()%>$</p></div>
-                    <div class="col-sm-12 col-md-2 cg" id="getde"><a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
-                            <button type="button" class="btn btn-success">Details</button></a></div>
+                    <div class="col-sm-12 col-md-2 cg" id="getde">
+                        <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
+                            <button type="button" class="btn btn-success">Details</button>
+                        </a>
+                    </div>
 
                 </div><%}%>
             </div>
 
             <div class="col-md-2"></div>
         </div>        
-        <%} else if (order.getType().equals("recharge")){%>
-        <div>
-            <h2>Recharge Wallet</h2>
+        <%} else if (order.getType().equals("recharge")) {%>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" style="color:white; background-color: #3c3f41;">
+                <h2>Recharge Wallet</h2>
+            </div>
+            <div class="col-md-2"></div>
         </div>
-        
-        <%} else{%>
-        <% 
+
+        <%} else {%>
+        <%
             OrderDetail od = (OrderDetail) request.getAttribute("od");
             Game game = daoGame.getGameById(od.getgId());
         %>
         <div>
-            <h2>Top Up From <% if(order.getType().equals("topupwallet")) {%> Wallet  <%} else {%> Other<%}%>
+            <h2>Top Up From <% if (order.getType().equals("topupwallet")) {%> Wallet  <%} else {%> Other<%}%>
             </h2>
             <p>Game: <%=game.getTitle()%></p>
         </div>
-        
+
         <%}%>
 
         <div class="row total">
             <div class="col-md-2"></div>
-            <div class="col-md-8" style="color: white;background-color: black;">
+            <div class="col-md-8" style="color: white;background-color: #3c3f41;">
                 <div style="text-align: center;">
                     <hr>
                     <div class = "col-sm-12 col-md-4"><h4></h4></div>
@@ -127,7 +139,7 @@
 
             <div class="col-md-2"></div>
         </div>
-
+        <br><br><br><br><br><br>
 
 
         <jsp:include page="footer.jsp"/> 
