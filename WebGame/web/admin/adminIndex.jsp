@@ -651,7 +651,7 @@
         </div>
 
         <div class="orders">
-            <h3>Recent orders</h3>
+            <h3>Orders</h3>
             <%for (Order order : orderList) { %>
                 <div class="orderSmol">
                     <p><a href="AdminControllerMap?service=viewOrder&oId=<%=order.getoId()%>">Order Number <%=order.getoId()%></a><br>UID:<%=order.getuId()%>; Total:<%=order.getTotal()%><br>Date:<%=order.getOrderDate()%></p>
