@@ -530,7 +530,7 @@ public class AdminController extends HttpServlet {
                     for (OrderDetail line : lines) {
                         orderLines.put(line, daoGame.getGameById(line.getgId()));
                     }
-                    request.setAttribute("message", "Order has "+orderLines.size()+" line(s): ");
+                    request.setAttribute("message", "Order has "+orderLines.size()+" line(s)");
                     request.setAttribute("order", order);
                     request.setAttribute("orderLines", orderLines);
                     request.setAttribute("user", daoUser.getUserById(order.getuId()));

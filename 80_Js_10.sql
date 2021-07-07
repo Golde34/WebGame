@@ -345,7 +345,7 @@ INSERT INTO Game_Category(caId,gId,[status]) VALUES(5,11,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(5,10,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(5,20,1);
 --Puzzle
-INSERT INTO Game_Category(caId,gId,[status])	VALUES(6,6,1);
+INSERT INTO Game_Category(caId,gId,[status]) VALUES(6,6,1);
 --MOBA
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(7,16,1);
 INSERT INTO Game_Category(caId,gId,[status]) VALUES(7,21,1);

@@ -209,10 +209,10 @@ public class DAOOrder {
         }
         return newestOrderId;
     } 
-    
+    // type = 'buygame'
     public ArrayList<Order> getAllOrderByDate() {
         ArrayList<Order> list = new ArrayList<>();
-        String sql = "select top 5 * from [Order] where status = 1 and type = 'buygame' order by orderDate desc";
+        String sql = "select top 5 * from [Order] where status = 1 order by orderDate desc";
         ResultSet rs = dbConn.getData(sql);
         try {
             while (rs.next()) {
@@ -230,4 +230,5 @@ public class DAOOrder {
         }
         return list;
     }
+    
 }
