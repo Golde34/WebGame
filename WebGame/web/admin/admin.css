@@ -3,16 +3,18 @@ body {font-family: "Lato", sans-serif;}
 
 .forms {
     border: 2px solid #CCC;
-    height: 700px;
+    height: 600px;
     width: 68%;
     float: left;
+    overflow: scroll;
 }
 
 .orders {
     width:28%;
     border: 2px solid #CCC;
-    height: 700px;
+    height: 600px;
     float: right;
+    overflow: scroll;
 }
 /* Style the tab */
 .tab {
