@@ -401,7 +401,7 @@ public class DAOUser {
         DAOGame dGame = new DAOGame(dbConn);
         Game game = null;
         ArrayList<Game> list = new ArrayList<>();
-        String sql = "select top 3 * from Order_Detail as a inner join [Order] as b on a.oId = b.oId where b.uId = ? order by b.orderDate desc";
+        String sql = "select top 3 * from Order_Detail as a inner join [Order] as b on a.oId = b.oId where b.uId = ? order by b.orderDate asc";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, user.getuId());

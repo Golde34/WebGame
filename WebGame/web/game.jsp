@@ -258,32 +258,13 @@
                         </div>
                     </div>
                 </div>
-                <hr>
-                <!--Comment-->
-                <%  if (user != null) {
-                        if (!dAOComment.checkExistComment(game.getGid(), user.getuId())) {%>
-                <div class="col-md-12" style="background-color: white;height: 200px;border-radius: 20px;overflow: auto auto ">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
-                        <form action="GameControllerMap" >
-                            <p style="color: black; font-size: 18px;">Your rating:
-                                <input name="rating" type="number" min="0" max="100">  /100
-                            </p>
-                            <textarea name="content" style="overflow-y:scroll;width: 850px;">Enter your comment</textarea>
-                            <input type="hidden" name ="service" value="comment" >
-                            <input type="hidden" name ="gameID" value="<%=game.getGid() %>" >
-                            <input type="submit" value="Post">
-                        </form>
-                    </div>
-                    <div class="col-md-1"></div>
-                </div> 
-                <%}
-                    }%>            
-                <!--other comment-->
-                <hr>
+                <!--Comments-->
+                <h1 class="neondu col-lg-10">Comment</h1>
                 <%if (comments != null && !comments.isEmpty()) { %>
-                <div class="col-md-12" style="background-color: #232930;height: 400px;border-radius: 20px;overflow: auto auto ">
+                <div class="col-md-12" style="background-color: pink ;height: 400px;border-radius: 20px;overflow: auto auto ">
+                    
                     <div class="col-md-1"></div>
+                    
                     <div class="col-md-10">
                         <%  
                                 for (Comment elem : comments) {
@@ -292,25 +273,48 @@
                             <div class="col-md-6"><p class="comment_content">From: <%=daoUser.getUserById(elem.getuId()).getuName()%></p> </div>
                             <div class="col-md-1"> </div>
                             <div class="col-md-5"><p class="comment_content">Rating:<%=elem.getRating()%>/100</p> </div>
-                            <div class="col-md-12"> <div style="border: 1px solid #ff005b; border-radius: 5px;padding: 10px;"><p class="comment_content " > <%=elem.getContent()%></p> </div> </div>
+                            <div class="col-md-12"> 
+                                <div style="border: 1px solid black; border-radius: 5px;padding: 10px;">
+                                    <p class="comment_content " > <%=elem.getContent()%></p> 
+                                </div> 
+                            </div>
                         </div>
-                        <%
-                                }
-                            }
-                        %>
+                        <% } %>
+                    </div>
+                    
+                    <div class="col-md-1"></div>
+                    
+                </div>     
+                <% } %>
+                <!--Comment-->
+                 
+                <%  if (user != null) {
+                        if (!dAOComment.checkExistComment(game.getGid(), user.getuId())) {%>
+                <div class="col-md-12" style="background-color: #aace60 ;height: 270px;border-radius: 20px;overflow: auto auto ">
+                    
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <form action="GameControllerMap" >
+                            <br>
+                            <p style="color: black; font-size: 18px;">Your rating:
+                                <input name="rating" type="number" min="0" max="100">  /100
+                            </p>
+                            <textarea name="content" style="overflow-y:scroll; width: 850px; height: 150px;
+                                      border-radius: 10px;" placeholder="Enter your comment"></textarea>
+                            <input type="hidden" name ="service" value="comment" >
+                            <input type="hidden" name ="gameID" value="<%=game.getGid() %>" >
+                            <input type="submit" value="Post">
+                            <br>
+                        </form>
                     </div>
                     <div class="col-md-1"></div>
-                </div>                        
-
-                <hr>
+                </div> 
+                <%}
+                    }%>            
+                <!--other comment-->
                 <div>
-<<<<<<< Updated upstream
-                    <div class="col-lg-12">
-                        <h1 class="neondu col-lg-10">Recommended</h1>     
-=======
                     <div class="col-lg-12" >
                         <h1 class="neondu col-lg-10">Recommend</h1>     
->>>>>>> Stashed changes
                         <a href="GameControllerMap?service=displayGaCa&gameID=<%=game.getGid()%>"
                            style="font-family: serif; font-size: 20px;">
                             <br><button class="col-lg-2 button-platform display" 
