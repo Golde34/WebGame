@@ -128,7 +128,7 @@
                         </div>
                         <div id="about_header">
                             <div id="about_greeting">
-                                <div class="steam_logo"><img style="border-radius: 15px; " src="images/80jslogo.png" alt="The logo for Steam"></div>
+                                <div class="steam_logo"><img style="border-radius: 15px; " src="images/80JS.jpg" alt="The logo for Steam"></div>
                                 <div class="about_subtitle">Most game, most fun, most simple.</div>
                             </div>
                         </div>                        
@@ -167,7 +167,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="0.8" style="transform: translate3d(0px, -11px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="0.8" style="transform: translate3d(0px, 20px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=9">
                                             <img src="images/osu_background.jpg" class="visible">
                                         </a>
@@ -217,7 +217,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="1.5" style="transform: translate3d(0px, -20px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="1.5" style="transform: translate3d(0px, 20px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=19">
                                             <img src="images/red-dead-redemption-2_background.jpg" class="visible">
                                         </a>
@@ -249,10 +249,19 @@
 
                                 </div>
                             </div>
+                            <br><br><br><br><br>
                             <div class="cta_content">
+                                
                                 <h2 class="cta_title">80JS</h2>
                                 <div class="cta_text">
-                                    80JS was established at the end of May 2020, including 5 members: Dong Viet, Van Duong, Anh Tuan, Van Chuc, Hoang Duong. Each person has a clear task in the development of the project, from developing the database, building the model, writing the web, testing backend, creating the front-end and collecting the data. Up to now, the web has put on the internet, with more than 50 games and about 20 user data. 80JS promises to develop the most perfect product for users, keeping the motto "Most game, most fun, most simple."			</div>
+                                    80JS was established at the end of May 2020, including 5 members. Each person has a clear task in the development of the project, from developing the database, building the model, writing the web, testing backend, creating the front-end and collecting the data. 80JS promises to develop the most perfect product for users, keeping the motto "Most game, most fun, most simple."			</div>
+                                <br>
+                                <p>CREATORS:</p>
+                                <p>Nguyen Dong Duc Viet - HE150938</p>
+                                <p>Nguyen Hoang Duong - HE150328</p>
+                                <p>Nguyen Van Chuc - HE150618</p>
+                                <p>Pham Anh Tuan - HE150543</p>
+                                <p>Vu Van Duong - HE150773  </p>
                                 <div class="cta_btn">
                                     <a href="index.jsp">Go to Home</a>
                                 </div>                              
@@ -260,7 +269,7 @@
                         </div>                            
                     </div>
                 </div>
-                <br><br><br><br><br>
+                <br><br><br><br><br><br>
             </div> 
         </div>
     </body>
