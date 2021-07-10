@@ -119,7 +119,7 @@
                     <br><br><br><br>
                     <div class="about_area_inner_wrapper">  
                         <div id="about_monitor_video">
-                            
+
                             <video width="100%" height="auto" autoplay="" muted="" loop="" poster="https://cdn.akamai.steamstatic.com/store/about/videos/about_hero_loop_web.png">
                                 <source src="https://cdn.akamai.steamstatic.com/store/about/videos/about_hero_loop_web.webm" type="video/webm">
                                 <source src="https://cdn.akamai.steamstatic.com/store/about/videos/about_hero_loop_web.mp4" type="video/mp4">
@@ -134,9 +134,9 @@
                         </div>                        
                     </div>              
                     <div class="learn_more_btn">
-                        
+
                         <a href="#about_games_cta_area" class="smooth_scroll">
-                            
+
                             Read more			<span class="down_arrow"></span>
                         </a>
                     </div>
@@ -149,19 +149,19 @@
                             <div id="about_games_hero" class="cta_hero">
 
                                 <div class="games_col" id="games_col_left">
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="0.8" style="transform: translate3d(0px, 34px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="0.8" style="transform: translate3d(0px, 54px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=18">
                                             <img src="images/gta5_background.jpg" class="visible">
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="0.8" style="transform: translate3d(0px, 1px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="0.8" style="transform: translate3d(0px, 21px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=15">
                                             <img src="images/minecraft-dungeons_background.jpg" class="visible">
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="0.8" style="transform: translate3d(0px, 22px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="0.8" style="transform: translate3d(0px, 42px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=12">
                                             <img src="images/adofai_background.png" class="visible">
                                         </a>
@@ -173,25 +173,25 @@
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="1.5" style="transform: translate3d(0px, 54px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="1.5" style="transform: translate3d(0px, 74px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=5">
                                             <img src="images/supersmash_background.jpg" class="visible">
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="1.5" style="transform: translate3d(0px, -15px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="1.5" style="transform: translate3d(0px, 15px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=2">
                                             <img src="images/madden_background.jpg" class="visible">
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="3" style="transform: translate3d(0px, 19px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="3" style="transform: translate3d(0px, 39px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=4">
                                             <img src="images/Zelda_background.png" class="visible">
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="3" style="transform: translate3d(0px, 0px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="3" style="transform: translate3d(0px, 20px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=7">
                                             <img src="images/genshin_background.jpg" class="visible">
                                         </a>
@@ -199,49 +199,49 @@
 
                                 </div>
                                 <div class="games_col" id="games_col_right">
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="0.8" style="transform: translate3d(0px, 34px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="0.8" style="transform: translate3d(0px, 54px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=10">
                                             <img src="images/bloons-tdbattle_background.jpg" class="visible">
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="0.8" style="transform: translate3d(0px, 1px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="0.8" style="transform: translate3d(0px, 21px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=13">
                                             <img src="images/rhythm-doctor_background.jpg" class="visible">
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="0.8" style="transform: translate3d(0px, 22px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="0.8" style="transform: translate3d(0px, 42px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=16">
                                             <img src="images/lol_background.jpg" class="visible">
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="1.5" style="transform: translate3d(0px, 20px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="1.5" style="transform: translate3d(0px, 40px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=19">
                                             <img src="images/red-dead-redemption-2_background.jpg" class="visible">
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="1.5" style="transform: translate3d(0px, 54px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="1.5" style="transform: translate3d(0px, 74px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=21">
                                             <img src="images/brawlstars_background.jpg" class="visible">
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="1.5" style="transform: translate3d(0px, -15px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="1.5" style="transform: translate3d(0px, 15px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=20">
                                             <img src="images/clash-of-clans_background.jpg" class="visible">
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="3" style="transform: translate3d(0px, 19px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="3" style="transform: translate3d(0px, 39px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=17">
                                             <img src="images/valorant_background.jpg" class="visible">
                                         </a>
                                     </div>
 
-                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="3" style="transform: translate3d(0px, 0px, 0px);">
+                                    <div class="game_image" data-rellax-percentage="0.5" data-rellax-speed="3" style="transform: translate3d(0px, 20px, 0px);">
                                         <a href="GameControllerMap?service=getGame&gameID=8">
                                             <img src="images/honkai3_background.jpg" class="visible">
                                         </a>
@@ -251,12 +251,10 @@
                             </div>
                             <br><br><br><br><br>
                             <div class="cta_content">
-                                
-                                <h2 class="cta_title">80JS</h2>
-                                <div class="cta_text">
-                                    80JS was established at the end of May 2020, including 5 members. Each person has a clear task in the development of the project, from developing the database, building the model, writing the web, testing backend, creating the front-end and collecting the data. 80JS promises to develop the most perfect product for users, keeping the motto "Most game, most fun, most simple."			</div>
+
+                                <h2 class="cta_title" style="font-size: 30px;">CREATORS:</h2>
                                 <br>
-                                <p>CREATORS:</p>
+                                <p></p>
                                 <p>Nguyen Dong Duc Viet - HE150938</p>
                                 <p>Nguyen Hoang Duong - HE150328</p>
                                 <p>Nguyen Van Chuc - HE150618</p>

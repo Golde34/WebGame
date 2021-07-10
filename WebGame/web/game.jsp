@@ -273,8 +273,11 @@
                     </div>
                 </div>
                 <!--Comments-->
+                
+                <%if (user != null) { %>
                 <h1 class="neondu col-lg-10">Comment</h1>
-                <%if (comments != null && !comments.isEmpty()) { %>
+                 <%   if (comments != null && !comments.isEmpty()) { %>
+                    
                 <div class="col-md-12" style="background-color: pink ;height: 400px;border-radius: 20px;overflow: auto auto ">
 
                     <div class="col-md-1"></div>
@@ -302,7 +305,7 @@
                 <% } %>
                 <!--Comment-->
 
-                <%  if (user != null) {
+                <%  
                         if (!dAOComment.checkExistComment(game.getGid(), user.getuId())) {%>
                 <div class="col-md-12" style="background-color: #aace60 ;height: 270px;border-radius: 20px;overflow: auto auto ">
 
