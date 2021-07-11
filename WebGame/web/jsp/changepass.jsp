@@ -42,20 +42,20 @@
                         <label class="label control-label">Old Password</label>
                         <div class="input-group">
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-user"></span></span>
+                                <span class="glyphicon glyphicon-lock"></span></span>
                             <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
                         </div>
 
                         <label class="label control-label">New Password</label>
                         <div class="input-group">
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-user"></span></span>
+                                <span class="glyphicon glyphicon-lock"></span></span>
                             <input type="password" class="form-control" id="newPassword" name="newPassword" required>                    </div>
 
                         <label class="label control-label">Confirm Password</label>
                         <div class="input-group">
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-user"></span></span>
+                                <span class="glyphicon glyphicon-lock"></span></span>
                             <input id="confirm_password" type="Password" class="form-control" name="confirm-password" 
                                    placeholder="Confirm your password" required>
                             <span id='message'></span>

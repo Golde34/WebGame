@@ -77,7 +77,7 @@
                         <label class="label control-label">Address</label>
                         <div class="input-group">
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-user"></span></span>
+                                <span class="glyphicon glyphicon-dashboard"></span></span>
                             <input type="text" class="form-control" name="address" 
                                    placeholder="Your address" required value="<%=address%>">
                         </div>
@@ -85,7 +85,7 @@
                         <label class="label control-label">Password</label>
                         <div class="input-group">
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-user"></span></span>
+                                <span class="glyphicon glyphicon-lock"></span></span>
                             <input id="password" type="password" class="form-control" name="regPass" 
                                    placeholder="Password" required value="<%=password%>">
                         </div>
@@ -93,7 +93,7 @@
                         <label class="label control-label">Confirm Password</label>
                         <div class="input-group">
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-user"></span></span>
+                                <span class="glyphicon glyphicon-lock"></span></span>
                             <input id="confirm_password" type="Password" class="form-control" name="confirm-password" 
                                    placeholder="Confirm your password" required value="<%=password%>">
                             <span id='message'></span>

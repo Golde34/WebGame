@@ -152,7 +152,7 @@
         %>
         <div class="main">
             <div class="background">
-                <img style="height:300px;width: 1878px;object-fit: cover;"src="images/profileback.jpg">
+                <img style="height:350px;width: 3000px;object-fit: cover;"src="images/profileback.jpg">
             </div>
             <div class="container">
                 <br>
