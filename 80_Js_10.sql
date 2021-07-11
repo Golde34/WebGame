@@ -31,7 +31,7 @@ CREATE TABLE dbo.[Game] (
 	version nvarchar(55),
 	releaseDate date NOT NULL CHECK(releaseDate <= getDate()),
 	rating int CHECK(rating >= 0 AND rating <= 100), --từ 0-100
-	price money,
+	price money CHECK(price>=0),
 	[state] nvarchar(55) NOT NULL,--(coming soon,available,stopped)
 	[status] bit,
 	FOREIGN KEY (coId) REFERENCES dbo.[Company](coId),
@@ -123,7 +123,7 @@ CREATE TABLE dbo.[Comment](
 	gId int not null,
 	[uId] int not null,
 	content nvarchar(1027),
-	rating int not null,
+	rating int not null CHECK(rating >= 0 AND rating <= 100),
 	status bit,
 	FOREIGN KEY ([uId]) REFERENCES dbo.[User]([uId]),
 	FOREIGN KEY ([gId]) REFERENCES dbo.[Game]([gId]),
