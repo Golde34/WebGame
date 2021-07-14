@@ -88,6 +88,8 @@
             ArrayList<User> userOwned = daoLibrary.getOwnedByGame(game.getGid());
             ArrayList<User> userWantGame = daoLibrary.getWishlistByGame(game.getGid());
             ArrayList<Game> listGaCa = (ArrayList<Game>) request.getAttribute("listGaCa");
+            ArrayList<Game> listGaPl = (ArrayList<Game>) request.getAttribute("listGaPl");
+            
             ArrayList<Comment> comments = (ArrayList<Comment>) request.getAttribute("comment");
             String alMess = (String) request.getAttribute("alMess");
             boolean isOwned = false;
@@ -341,7 +343,7 @@
                     <div class="roll2 col-lg-12">
                         <div class="row slick2">
                             <%
-                                for (Game game1 : listGaCa) { %>
+                                for (Game game1 : listGaPl) { %>
                             <%  ArrayList<Galery> gList2 = daoGalery.getGaleryByTypeId(game1.getGid(), "img-po");
                             %>
                             <div class="col-md-12">
