@@ -70,51 +70,32 @@ public class GameController extends HttpServlet {
             }
 
             if (service.equalsIgnoreCase("getGame")) {
+                int gameID = Integer.parseInt(request.getParameter("gameID"));
+                Game game = daoGame.getGameById(gameID);
+                request.setAttribute("game", game);
+                Company com = daoCom.getCompany(game.getCoID());
+                request.setAttribute("com", com);
+                ArrayList<Platform> listPl = daoPlat.getPlatform(gameID);
+                request.setAttribute("listPl", listPl);
+                ArrayList<Category> listCa = daoCate.getCategory(gameID);
+                request.setAttribute("listCa", listCa);
+                ArrayList<Game> listGaCa = daoGame.getGame_SameCategory(gameID);
+                request.setAttribute("listGaCa", listGaCa);
+                ArrayList<Game> listGaPl = daoGame.getGame_SamePlatform(gameID);
+                request.setAttribute("listGaPl", listGaPl);
+                
+                ArrayList<Game> listGaCo = daoGame.getGame_SameCom(gameID);
+                request.setAttribute("listGaCo", listGaCo);
+                ArrayList<Galery> listGameGalery = daoGalery.getFullGameGalery(gameID);
+                request.setAttribute("listGameGalery", listGameGalery);
+                ArrayList<Comment> comments = daoComment.getCommentsByGameId(gameID);
+                request.setAttribute("comment", comments);
+
                 if (user != null) {
-                    int gameID = Integer.parseInt(request.getParameter("gameID"));
-                    Game game = daoGame.getGameById(gameID);
-                    request.setAttribute("game", game);
-                    Company com = daoCom.getCompany(game.getCoID());
-                    request.setAttribute("com", com);
-                    ArrayList<Platform> listPl = daoPlat.getPlatform(gameID);
-                    request.setAttribute("listPl", listPl);
-                    ArrayList<Category> listCa = daoCate.getCategory(gameID);
-                    request.setAttribute("listCa", listCa);
-                    ArrayList<Game> listGaCa = daoGame.getGame_SameCategory(gameID);
-                    request.setAttribute("listGaCa", listGaCa);
-                    ArrayList<Game> listGaPl = daoGame.getGame_SamePlatform(gameID);
-                    request.setAttribute("listGaPl", listGaPl);
-                    ArrayList<Game> listGaCo = daoGame.getGame_SameCom(gameID);
-                    request.setAttribute("listGaCo", listGaCo);
-                    ArrayList<Galery> listGameGalery = daoGalery.getFullGameGalery(gameID);
-                    request.setAttribute("listGameGalery", listGameGalery);
                     ArrayList<Game> wishlist = daoLibrary.getGameInWishList(user.getuId(), 1);
                     request.getSession().setAttribute("wishlist", wishlist);
-                    ArrayList<Comment> comments = daoComment.getCommentsByGameId(gameID);
-                    request.setAttribute("comment", comments);
-                    sendDispatcher(request, response, "game.jsp");
-                } else {
-                    int gameID = Integer.parseInt(request.getParameter("gameID"));
-                    Game game = daoGame.getGameById(gameID);
-                    request.setAttribute("game", game);
-                    Company com = daoCom.getCompany(game.getCoID());
-                    request.setAttribute("com", com);
-                    ArrayList<Platform> listPl = daoPlat.getPlatform(gameID);
-                    request.setAttribute("listPl", listPl);
-                    ArrayList<Category> listCa = daoCate.getCategory(gameID);
-                    request.setAttribute("listCa", listCa);
-                    ArrayList<Game> listGaCa = daoGame.getGame_SameCategory(gameID);
-                    request.setAttribute("listGaCa", listGaCa);
-                    ArrayList<Game> listGaPl = daoGame.getGame_SamePlatform(gameID);
-                    request.setAttribute("listGaPl", listGaPl);
-                    ArrayList<Game> listGaCo = daoGame.getGame_SameCom(gameID);
-                    request.setAttribute("listGaCo", listGaCo);
-                    ArrayList<Galery> listGameGalery = daoGalery.getFullGameGalery(gameID);
-                    request.setAttribute("listGameGalery", listGameGalery);
-                    ArrayList<Comment> comments = daoComment.getCommentsByGameId(gameID);
-                    request.setAttribute("comment", comments);
-                    sendDispatcher(request, response, "game.jsp");
                 }
+                sendDispatcher(request, response, "game.jsp");
             }
 
             if (service.equalsIgnoreCase("addWishlist")) {
@@ -125,7 +106,7 @@ public class GameController extends HttpServlet {
                 daoLibrary.insertWishLish(list);
                 request.getRequestDispatcher("GameControllerMap?service=getGame&gameID=" + gameId).forward(request, response);
             }
-            
+
             if (service.equalsIgnoreCase("deleteWishlist")) {
                 int gameId = Integer.parseInt(request.getParameter("gameID"));
                 Library list = new Library();
@@ -134,45 +115,42 @@ public class GameController extends HttpServlet {
                 daoLibrary.deleteWishlist(list);
                 request.getRequestDispatcher("GameControllerMap?service=getGame&gameID=" + gameId).forward(request, response);
             }
-            
+
             if (service.equalsIgnoreCase("displayGaCa")) {
                 int gameId = Integer.parseInt(request.getParameter("gameID"));
                 ArrayList<Game> listGaCa = daoGame.getGame_SameCategory(gameId);
                 request.setAttribute("listGame", listGaCa);
                 sendDispatcher(request, response, "allgame.jsp");
             }
-            
+   
             if (service.equalsIgnoreCase("displayGaPl")) {
                 int gameId = Integer.parseInt(request.getParameter("gameID"));
                 ArrayList<Game> listGaPl = daoGame.getGame_SamePlatform(gameId);
                 request.setAttribute("listGame", listGaPl);
                 sendDispatcher(request, response, "allgame.jsp");
             }
-            
+
             if (service.equalsIgnoreCase("comment")) {
                 int gameId = Integer.parseInt(request.getParameter("gameID"));
                 int rating = Integer.parseInt(request.getParameter("rating"));
-                String content = (String ) request.getParameter("content");
+                String content = (String) request.getParameter("content");
                 ArrayList<Comment> comments = daoComment.getCommentsByGameId(gameId);
                 int numOfComment = comments.size() + 2;
                 Game update = daoGame.getGameById(gameId);
-                double newRating = rating/numOfComment+update.getRating()*(numOfComment-1)/numOfComment;
+                double newRating = rating / numOfComment + update.getRating() * (numOfComment - 1) / numOfComment;
                 int x = (int) Math.round(newRating);
-                System.out.println("x");
                 update.setRating(x);
                 daoGame.updateInfoGame(update);
-                System.out.println("Update game");
                 Comment newCom = new Comment();
                 newCom.setgId(gameId);
                 newCom.setuId(user.getuId());
                 newCom.setRating(rating);
                 newCom.setContent(content);
                 daoComment.insertComment(newCom);
-                System.out.println("add comment");
                 sendDispatcher(request, response, "GameControllerMap?service=getGame&gameID=" + gameId);
             }
         }
- 
+
     }
 
     public void sendDispatcher(HttpServletRequest request, HttpServletResponse response, String path) {
