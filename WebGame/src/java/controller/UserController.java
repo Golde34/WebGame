@@ -285,6 +285,7 @@ public class UserController extends HttpServlet {
                     }
                     request.setAttribute("order", order);
                     request.setAttribute("listG", listG);
+                    request.setAttribute("listOD", listOD);
                     sendDispatcher(request, response, "order.jsp");
                 } else if (order.getType().equals("recharge")) {
                     request.setAttribute("order", order);
@@ -292,7 +293,9 @@ public class UserController extends HttpServlet {
                 } else {
                     request.setAttribute("order", order);
                     OrderDetail od = daoOrDe.getTopUp(oId);
+                    ArrayList<OrderDetail> listOD = daoOrDe.getByOrdId(oId);
                     request.setAttribute("od", od);
+                    request.setAttribute("listOD", listOD);
                     sendDispatcher(request, response, "order.jsp");
                 }
 

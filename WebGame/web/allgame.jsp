@@ -22,6 +22,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>All Game Page</title>
+        <link rel="shortcut icon" type="image/png" href="images/80jslogo.png">
         <!--Css-->
         <link href="${contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <script src="${contextPath}/js/bootstrap.min.js"></script>

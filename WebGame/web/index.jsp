@@ -13,6 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home Page</title>
+        <link rel="shortcut icon" type="image/png" href="images/80jslogo.png">
         <link href="${contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <script src="${contextPath}/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/stylehome.css">

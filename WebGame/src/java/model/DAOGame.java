@@ -382,7 +382,7 @@ public class DAOGame {
     }
 
     public ArrayList<Game> getGame_SamePlatform(int gId) {
-        sql = "select distinct gid from Game_Platform where plId in (Select plid from Game_Platform where status=1 and gId=" + gId + ")";
+        sql = "select distinct gid from Game_Platform where plId in (Select top 1 plid from Game_Platform where status=1 and gId=" + gId + ")";
         ArrayList<Game> list = new ArrayList<>();
         Game x = null;
 
