@@ -276,7 +276,6 @@
                 </div>
                 <!--Comments-->
 
-                <%if (user != null) { %>
                 <h1 class="neondu col-lg-10">Comment</h1>
                 <%   if (comments != null && !comments.isEmpty()) { %>
 
@@ -307,8 +306,8 @@
                 <% } %>
                 <!--Comment-->
 
-                <%
-                    if (!dAOComment.checkExistComment(game.getGid(), user.getuId())) {%>
+                <%  
+                        if (user!= null && !dAOComment.checkExistComment(game.getGid(), user.getuId())) {%>
                 <div class="col-md-12" style="background-color: #aace60 ;height: 270px;border-radius: 20px;overflow: auto auto ">
 
                     <div class="col-md-1"></div>
@@ -329,7 +328,7 @@
                     <div class="col-md-1"></div>
                 </div> 
                 <%}
-                    }%>            
+                    %>            
                 <!--other comment-->
                 <div>
                     <div class="col-lg-12" >
@@ -423,7 +422,7 @@
                                                     lineWidth: 10,
                                                     trackWidth: 21,
                                                     size: 110,
-                                                    lineCap: 'round',
+                                                    lineCap: 'round'
 
                                                 });
                                             });

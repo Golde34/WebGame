@@ -269,7 +269,7 @@
                                         <%
                                             DBConnection dbCon = new DBConnection();
                                             DAOGalery daoGalery = new DAOGalery(dbCon);
-                                            ArrayList<Galery> gList4 = daoGalery.getTrailer();%>
+                                            ArrayList<Galery> gList4 = daoGalery.getVideo();%>
                                         <iframe width="1120" height="630" src="<%= gList4.get(0).getLink().trim()%>" title="YouTube video player"
                                                 frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>   
                                         </iframe>
