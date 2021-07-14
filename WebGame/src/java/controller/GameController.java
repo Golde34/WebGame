@@ -122,6 +122,13 @@ public class GameController extends HttpServlet {
                 request.setAttribute("listGame", listGaCa);
                 sendDispatcher(request, response, "allgame.jsp");
             }
+   
+            if (service.equalsIgnoreCase("displayGaPl")) {
+                int gameId = Integer.parseInt(request.getParameter("gameID"));
+                ArrayList<Game> listGaPl = daoGame.getGame_SamePlatform(gameId);
+                request.setAttribute("listGame", listGaPl);
+                sendDispatcher(request, response, "allgame.jsp");
+            }
 
             if (service.equalsIgnoreCase("comment")) {
                 int gameId = Integer.parseInt(request.getParameter("gameID"));

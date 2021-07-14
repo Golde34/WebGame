@@ -23,6 +23,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Order Information</title>
+        <link rel="shortcut icon" type="image/png" href="images/80jslogo.png">
         <!--Css-->
         <link href="${contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <script src="${contextPath}/js/bootstrap.min.js"></script>
@@ -55,6 +56,7 @@
             DBConnection dbCon = new DBConnection();
             Order order = (Order) request.getAttribute("order");
             ArrayList<Game> listG = (ArrayList<Game>) request.getAttribute("listG");
+            ArrayList<OrderDetail> listOD = (ArrayList<OrderDetail>)request.getAttribute("listOD");
             DAOGalery daoGalery = new DAOGalery(dbCon);
             DAOGame daoGame = new DAOGame(dbCon);
         %>
@@ -84,16 +86,17 @@
                     <div class="col-sm-12 col-md-2"><h4>Details</h4></div>
                 </div>
                 <%
-                    for (Game game : listG) {
-                        ArrayList<Galery> gList2 = daoGalery.getGaleryByTypeId(game.getGid(), "img-bg");%>
+                    for (OrderDetail game : listOD) {
+                        Game g = daoGame.getGameById(game.getgId());
+                        ArrayList<Galery> gList2 = daoGalery.getGaleryByTypeId(game.getgId(), "img-bg");%>
                 <div class="col-sm-12 col-md-12" style="background-color: #ded9d9; border: solid #000;text-align: center;">
-                    <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
+                    <a href="GameControllerMap?service=getGame&gameID=<%=game.getgId()%>">
                         <div class = "col-sm-12 col-md-4">             
                             <img style="height: 115px;width: 220px"src="<%= gList2.get(0).getLink().trim()%>" alt=""></div></a>         
-                    <div class="col-sm-12 col-md-3 cc" id="getde1"><p ><%= game.getTitle()%></p></div>
+                    <div class="col-sm-12 col-md-3 cc" id="getde1"><p ><%= g.getTitle()%></p></div>
                     <div class="col-sm-12 col-md-3 cg" id="getde"><p ><%= game.getPrice()%>$</p></div>
                     <div class="col-sm-12 col-md-2 cg" id="getde">
-                        <a href="GameControllerMap?service=getGame&gameID=<%=game.getGid()%>">
+                        <a href="GameControllerMap?service=getGame&gameID=<%=game.getgId()%>">
                             <button type="button" class="btn btn-success">Details</button>
                         </a>
                     </div>

@@ -13,6 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>CHANGE PASSWORD</title>
+        <link rel="shortcut icon" type="image/png" href="../images/80jslogo.png">
         <!--CSS-->
         <link href="${contextPath}/css/bootstrap.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="${contextPath}/jsp/login.css"type="text/css">

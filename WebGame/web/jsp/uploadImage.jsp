@@ -14,6 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Upload Image</title>
+        <link rel="shortcut icon" type="image/png" href="../images/80jslogo.png">
         <%--JS,Css--%>
         <link href="${contextPath}/css/upload.css" rel="stylesheet">
         <link rel="stylesheet"
@@ -28,33 +29,33 @@
         <%
             User x = (User) request.getAttribute("currUser");
         %>
-        
+
         <form method="post" action="/WebGame/UserControllerMap?service=updateImage" enctype="multipart/form-data">
             <div class="container">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                <div class="wrapper">
-                    <div class="image">
-                        <img src="" alt="">
-                    </div>
-                    <div class="content">
-                        <div class="icon">
-                            <i class="fas fa-cloud-upload-alt"></i>
+                    <div class="wrapper">
+                        <div class="image">
+                            <img src="" alt="">
                         </div>
-                        <div class="text">
-                            No file chosen, yet!
+                        <div class="content">
+                            <div class="icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="text">
+                                No file chosen, yet!
+                            </div>
+                        </div>
+                        <div id="cancel-btn">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <div class="file-name">
+                            File name here
                         </div>
                     </div>
-                    <div id="cancel-btn">
-                        <i class="fas fa-times"></i>
-                    </div>
-                    <div class="file-name">
-                        File name here
-                    </div>
-                </div>
-                <input id="default-btn" type="file" hidden class="form-control" name="photo" placeholder="Enter photo">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <button type="reset" class="btn btn-primary">Reset</button>
+                    <input id="default-btn" type="file" hidden class="form-control" name="photo" placeholder="Enter photo">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="reset" class="btn btn-primary">Reset</button>
                 </div>
                 <div class="col-md-4"></div>
             </div>
@@ -92,7 +93,7 @@
                 }
             });
         </script>
-        
 
-</body>
+
+    </body>
 </html>

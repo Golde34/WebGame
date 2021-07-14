@@ -28,6 +28,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin View-Order</title>
+        <link rel="shortcut icon" type="image/png" href="../images/80jslogo.png">
         <link href="${contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <script src="${contextPath}/js/bootstrap.min.js"></script>
         <link href="css/font-awesome.css" rel="stylesheet">

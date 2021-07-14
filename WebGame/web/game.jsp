@@ -27,6 +27,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Game Information</title>
+        <link rel="shortcut icon" type="image/png" href="images/80jslogo.png">
         <!--Css-->
         <link href="${contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/stylehome.css">
@@ -89,7 +90,7 @@
             ArrayList<User> userWantGame = daoLibrary.getWishlistByGame(game.getGid());
             ArrayList<Game> listGaCa = (ArrayList<Game>) request.getAttribute("listGaCa");
             ArrayList<Game> listGaPl = (ArrayList<Game>) request.getAttribute("listGaPl");
-            
+
             ArrayList<Comment> comments = (ArrayList<Comment>) request.getAttribute("comment");
             String alMess = (String) request.getAttribute("alMess");
             boolean isOwned = false;
@@ -275,11 +276,11 @@
                     </div>
                 </div>
                 <!--Comments-->
-                
+
                 <%if (user != null) { %>
                 <h1 class="neondu col-lg-10">Comment</h1>
-                 <%   if (comments != null && !comments.isEmpty()) { %>
-                    
+                <%   if (comments != null && !comments.isEmpty()) { %>
+
                 <div class="col-md-12" style="background-color: pink ;height: 400px;border-radius: 20px;overflow: auto auto ">
 
                     <div class="col-md-1"></div>
@@ -307,8 +308,8 @@
                 <% } %>
                 <!--Comment-->
 
-                <%  
-                        if (!dAOComment.checkExistComment(game.getGid(), user.getuId())) {%>
+                <%
+                    if (!dAOComment.checkExistComment(game.getGid(), user.getuId())) {%>
                 <div class="col-md-12" style="background-color: #aace60 ;height: 270px;border-radius: 20px;overflow: auto auto ">
 
                     <div class="col-md-1"></div>
@@ -361,6 +362,39 @@
                         <i class="fas fa-arrow-circle-left"></i>
                     </div>
                     <div class="arrow-next2">
+                        <i class="fas fa-arrow-circle-right"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="col-lg-12" >
+                        <h1 class="neondu col-lg-10">Same Platform</h1>     
+                        <a href="GameControllerMap?service=displayGaPl&gameID=<%=game.getGid()%>"
+                           style="font-family: serif; font-size: 20px;">
+                            <br><button class="col-lg-2 button-platform display" 
+                                        style="background-color: pink; border-radius: 15px;">Display all</button>
+                        </a>
+                    </div>
+                    <div class="roll col-lg-12">
+                        <div class="row slick">
+                            <%
+                                for (Game game1 : listGaCa) { %>
+                            <%  ArrayList<Galery> gList2 = daoGalery.getGaleryByTypeId(game1.getGid(), "img-po");
+                            %>
+                            <div class="col-md-12">
+                                <div class="slick-item">
+                                    <div class="box">
+                                        <a href="GameControllerMap?service=getGame&gameID=<%=game1.getGid()%>">
+                                            <img src="<%= gList2.get(0).getLink().trim()%>" alt=""></a>
+                                    </div>   
+                                </div>
+                            </div>
+                            <%}%>
+                        </div>
+                    </div>
+                    <div class="arrow-prev">
+                        <i class="fas fa-arrow-circle-left"></i>
+                    </div>
+                    <div class="arrow-next">
                         <i class="fas fa-arrow-circle-right"></i>
                     </div>
                 </div>
@@ -428,12 +462,12 @@
             }
             .arrow-prev{
                 position: absolute;
-                top: 130%;
+                top: 238%;
                 left: 14%;
             }
             .arrow-next{
                 position: absolute;
-                top: 130%;
+                top: 238%;
                 left: 83%;
             }
             .arrow-prev i{
@@ -461,12 +495,12 @@
 
             .arrow-prev2{
                 position: absolute;
-                top: 195%;
+                top: 185%;
                 left: 14%;
             }
             .arrow-next2{
                 position: absolute;
-                top: 195%;
+                top: 185%;
                 left: 83%;
             }
             .arrow-prev2 i{
